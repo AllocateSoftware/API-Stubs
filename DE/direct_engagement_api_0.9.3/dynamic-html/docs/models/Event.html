@@ -1,0 +1,42 @@
+
+<h2>Event</h2>
+<ul class="parameter">
+  <li class="param-required-false">eventType : String
+    <br/>Type of change that is done to the entity
+      <dl class="param-enum">
+        <dt>Enum:
+            <dd>CREATE</dd>
+            <dd>DELETE</dd>
+            <dd>UPDATE</dd>
+        </dt>
+      </dl>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">entityType : String
+    <br/>Entity that is changed.
+      <dl class="param-enum">
+        <dt>Enum:
+            <dd>duty</dd>
+            <dd>timesheet</dd>
+            <dd>booking</dd>
+            <dd>grade</dd>
+            <dd>agency</dd>
+            <dd>reason_for_vacancy</dd>
+            <dd>contract_status</dd>
+            <dd>staff_group</dd>
+            <dd>unit</dd>
+        </dt>
+      </dl>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">entityId : String
+    <br/>Trust identifier of the changed entity
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">timeStamp : Date
+    <br/>Timestamp of the event
+  </li>
+</ul>

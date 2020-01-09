@@ -1,0 +1,390 @@
+<!doctype html>
+<html>
+  <head>
+    <title>VMS Provisioning API</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>VMS Provisioning API</h1>
+    <div class="app-desc"><h2>Description</h2>
+<p>API to be impemented by 247Time (and, potentially, partners) to enable provisioning of accounts and the org structure</p>
+</div>
+    <div class="app-desc">More information: <a href="http://www.allocatesoftware.com/">http://www.allocatesoftware.com/</a></div>
+    <div class="app-desc">Contact Info: <a href="support@allocatesoftware.com">support@allocatesoftware.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/vms/provisioning/v1</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Provisioning">Provisioning</a></h4>
+  <ul>
+  <li><a href="#provisionStructure"><code><span class="http-method">put</span> /provision/customer/{id}</code></a></li>
+  <li><a href="#provisionUser"><code><span class="http-method">put</span> /provision/user/{id}</code></a></li>
+  </ul>
+
+  <h1><a name="Provisioning">Provisioning</a></h1>
+  <div class="method"><a name="provisionStructure"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /provision/customer/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">provisionStructure</span>)</div>
+    <div class="method-notes">Provision the supplied structure.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the customer to provision default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">StructureProvision <a href="#StructureProvision">StructureProvision</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    Provisioning successful
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Invalid input parameter
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="provisionUser"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /provision/user/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">provisionUser</span>)</div>
+    <div class="method-notes">Provision the supplied user.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the user to provision default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">UserProvision <a href="#UserProvision">UserProvision</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">204</h4>
+    User accepted and provisioned.
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Invalid input parameter
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#CostCentre"><code>CostCentre</code> - </a></li>
+    <li><a href="#Grade"><code>Grade</code> - </a></li>
+    <li><a href="#StaffGroup"><code>StaffGroup</code> - </a></li>
+    <li><a href="#StructureProvision"><code>StructureProvision</code> - </a></li>
+    <li><a href="#Unit"><code>Unit</code> - </a></li>
+    <li><a href="#User"><code>User</code> - </a></li>
+    <li><a href="#UserProvision"><code>UserProvision</code> - </a></li>
+    <li><a href="#UserProvisionItem"><code>UserProvisionItem</code> - </a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="CostCentre"><code>CostCentre</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Grade"><code>Grade</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="StaffGroup"><code>StaffGroup</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">grades (optional)</div><div class="param-desc"><span class="param-type"><a href="#Grade">array[Grade]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="StructureProvision"><code>StructureProvision</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">customerCode (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ID of the Customer (Trust) </div>
+<div class="param">units (optional)</div><div class="param-desc"><span class="param-type"><a href="#Unit">array[Unit]</a></span> List of units present within the customer's system </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Unit"><code>Unit</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">costCentre (optional)</div><div class="param-desc"><span class="param-type"><a href="#CostCentre">CostCentre</a></span>  </div>
+<div class="param">staffGroups (optional)</div><div class="param-desc"><span class="param-type"><a href="#StaffGroup">array[StaffGroup]</a></span>  </div>
+<div class="param">children (optional)</div><div class="param-desc"><span class="param-type"><a href="#Unit">array[Unit]</a></span> Children of this unit. This may be an arbitarily deep tree structure. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="User"><code>User</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">uri (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Identifier of the user within the HealthSuite ecosystem </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name for the user </div>
+<div class="param">roles (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> Optional list of textual roles that the user has in relation to the unit </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="UserProvision"><code>UserProvision</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">user (optional)</div><div class="param-desc"><span class="param-type"><a href="#User">User</a></span>  </div>
+<div class="param">access (optional)</div><div class="param-desc"><span class="param-type"><a href="#UserProvisionItem">array[UserProvisionItem]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="UserProvisionItem"><code>UserProvisionItem</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">unitId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Identifier of the unit within the HealthSuite ecosystem </div>
+<div class="param">roles (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> Optional list of textual roles that the user has in relation to the unit </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>

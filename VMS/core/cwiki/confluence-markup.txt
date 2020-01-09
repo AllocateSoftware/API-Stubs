@@ -1,0 +1,726 @@
+h1. VMS API
+
+## Description  API to be impemented by VMS systems for integration into HealthSuite business processes 
+
+*Version:* 1.0.0
+
+----
+
+{expand:Table of Contents - Click to expand}
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+{expand}
+
+h2. Endpoints
+
+
+h3. getCostings
+{panel:title=getCostings|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Returns a list of agencies and their costs for the supplied duty.
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/agencies/costings{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/vms/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |duty |Duty to be costed |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | AgencyCostings |
+    	|| Response Model | [AgencyCostings Model|#AgencyCostingsModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AgencyCostings"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Invalid input parameter |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Invalid input parameter"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. sendDutyToAgencies
+{panel:title=sendDutyToAgencies|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Forward a request for a duty to be filled by agency. Dependent upon the rules specified within the VMS, this will cascade to the appropriate agencies.
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/agencies{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/vms/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}text/plain{noformat} |
+----
+h4. Parameters
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |dutyRequest |Duty to be sent to agency |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty accepted by VMS. |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty accepted by VMS.",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string",
+        "description" : "ID of the booking request within the VMS.",
+        "example" : "BOOKINGREQUEST_ID_123"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Invalid input parameter |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Invalid input parameter"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. sendDutyToAgency
+{panel:title=sendDutyToAgency|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Immediately forward a request for a duty to be filled by a specific agency. If the request also specifies a worker Identity, this will be a direct booking.
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/agencies/{agencyId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/vms/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}text/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |agencyId |ID of the agency to send the request to. |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |dutyRequest |Duty to be sent to agency |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty accepted by VMS. |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty accepted by VMS.",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string",
+        "description" : "ID of the booking request within the VMS.",
+        "example" : "BOOKINGREQUEST_ID_123"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Invalid input parameter |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Invalid input parameter"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. offerWorker
+{panel:title=offerWorker|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Offer a worker for a booking
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/bookingRequests/{bookingRequestId}/offers{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/vms/api/v1{noformat} |
+    
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |bookingRequestId |ID of the booking request to offer a worker for. |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |personIdentifier |Worker to be offered |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Successfully offered worker |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Successfully offered worker"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | No such booking request exists |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "No such booking request exists"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. acceptAgencyOffer
+{panel:title=acceptAgencyOffer|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Accept an agency offer for a worker.
+
+	|| HttpMethod | {status:colour=Yellow|title=put|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/bookingRequests/{bookingRequestId}/offers/{offerId}/accept{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/vms/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}text/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |bookingRequestId |ID of the booking request to accept. |(/) |null |  |
+
+        |offerId |ID of the offer to accept. Depending on the VMS, this may be a unique ID, an index to locate an agency, or the agency ID itself. |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Booking request confirmed by VMS. |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Booking request confirmed by VMS.",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string",
+        "description" : "ID of the booking within the VMS.",
+        "example" : "BOOKING_ID_123"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | No such booking request exists |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "No such booking request exists"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. cancelBooking
+{panel:title=cancelBooking|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Cancel a duty booking previously accepted. This does not cancel any outstanding booking requests or duty cascades.
+
+	|| HttpMethod | {status:colour=Yellow|title=delete|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/bookings/{bookingId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/vms/api/v1{noformat} |
+    
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |bookingId |ID of the booking to cancel. |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Successfully deleted booking |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Successfully deleted booking"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | No such booking exists |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "No such booking exists"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. cancelBookingRequest
+{panel:title=cancelBookingRequest|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Cancel a previously requested booking. If the booking request has resulted in actual bookings, these will also be cancelled.
+
+	|| HttpMethod | {status:colour=Yellow|title=delete|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/bookingRequests/{bookingRequestId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/vms/api/v1{noformat} |
+    
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |bookingRequestId |ID of the booking request to cancel. |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Successfully deleted booking request |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Successfully deleted booking request"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | No such booking request exists |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "No such booking request exists"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getBooking
+{panel:title=getBooking|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Query a duty booking by id
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/bookings/{bookingId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/vms/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |bookingId |ID of the duty booking |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Request OK |
+    	|| Response Type | DutyRequest |
+    	|| Response Model | [DutyRequest Model|#DutyRequestModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Request OK",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/DutyRequest"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Invalid input parameter |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Invalid input parameter"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | No such booking exists |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "No such booking exists"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getWorker
+{panel:title=getWorker|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Get the details of a person (worker) from the VMS
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/workers/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/vms/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the worker within the VMS. |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Request OK |
+    	|| Response Type | Person |
+    	|| Response Model | [Person Model|#PersonModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Request OK",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Person"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Invalid input parameter |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Invalid input parameter"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+{anchor:models}
+h2. Models
+
+        {anchor:AgencyModelAnchor}
+        h3. Agency
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |ID of the agency |
+ |name |(x) |{noformat:nopanel=true}String{noformat} |Name of the agency |
+ |contactTelephone |(x) |{noformat:nopanel=true}String{noformat} |Telephone number for agency |
+ |contactEmail |(x) |{noformat:nopanel=true}String{noformat} |Email address for agency |
+        {anchor:AgencyCostingModelAnchor}
+        h3. AgencyCosting
+        ||Field Name||Required||Type||Description||
+         |agencyId |(x) |{noformat:nopanel=true}String{noformat} | |
+ |agencyName |(x) |{noformat:nopanel=true}String{noformat} | |
+ |cost |(x) |{noformat:nopanel=true}BigDecimal{noformat} | |
+        {anchor:AgencyCostingsModelAnchor}
+        h3. AgencyCostings
+        ||Field Name||Required||Type||Description||
+         |dutyId |(x) |{noformat:nopanel=true}String{noformat} |The ID of the incoming duty. |
+ |results |(x) |{noformat:nopanel=true}array[AgencyCosting]{noformat} | |
+        {anchor:BookingCancelledEventModelAnchor}
+        h3. BookingCancelledEvent
+        ||Field Name||Required||Type||Description||
+         |bookingRequestId |(/) |{noformat:nopanel=true}String{noformat} | |
+ |bookingId |(/) |{noformat:nopanel=true}String{noformat} | |
+ |agencyId |(/) |{noformat:nopanel=true}String{noformat} | |
+ |cost |(x) |{noformat:nopanel=true}BigDecimal{noformat} | |
+        {anchor:BookingConfirmedEventModelAnchor}
+        h3. BookingConfirmedEvent
+        ||Field Name||Required||Type||Description||
+         |bookingRequestId |(/) |{noformat:nopanel=true}String{noformat} | |
+ |bookingId |(/) |{noformat:nopanel=true}String{noformat} | |
+ |agencyId |(/) |{noformat:nopanel=true}String{noformat} | |
+ |cost |(x) |{noformat:nopanel=true}BigDecimal{noformat} | |
+        {anchor:DutyModelAnchor}
+        h3. Duty
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |ID of the duty (from the source system) |
+ |when |(x) |{noformat:nopanel=true}DutyTiming{noformat} | |
+ |where |(x) |{noformat:nopanel=true}DutyLocation{noformat} | |
+ |requirements |(x) |{noformat:nopanel=true}DutyRequirements{noformat} | |
+ |clientDeptId |(x) |{noformat:nopanel=true}String{noformat} |BankStaff ward trust identifier |
+ |subDiscipline |(x) |{noformat:nopanel=true}String{noformat} |Staff group trust identifier |
+ |grade |(x) |{noformat:nopanel=true}String{noformat} |Grade trust identifier of the request |
+ |fallbackGrade |(x) |{noformat:nopanel=true}String{noformat} | |
+ |vacancyReason |(x) |{noformat:nopanel=true}String{noformat} | |
+ |poNumber |(x) |{noformat:nopanel=true}Integer{noformat} |Need to understand if needed from Trust/Agency |
+ |uniqueNumber |(x) |{noformat:nopanel=true}Integer{noformat} |BRN / Unique number |
+ |agency |(x) |{noformat:nopanel=true}String{noformat} |Supplying agency for the duty |
+        {anchor:DutyLocationModelAnchor}
+        h3. DutyLocation
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} | |
+ |name |(/) |{noformat:nopanel=true}String{noformat} | |
+ |parentLocation |(x) |{noformat:nopanel=true}DutyLocation{noformat} | |
+        {anchor:DutyRequestModelAnchor}
+        h3. DutyRequest
+        ||Field Name||Required||Type||Description||
+         |workerId |(x) |{noformat:nopanel=true}String{noformat} |Where the caller wishes to direct-book a particular worker into the duty, their identifier is specified here. |
+ |duty |(/) |{noformat:nopanel=true}Duty{noformat} | |
+        {anchor:DutyRequirementsModelAnchor}
+        h3. DutyRequirements
+        ||Field Name||Required||Type||Description||
+         |skill |(x) |{noformat:nopanel=true}String{noformat} |Text description |
+ |specialty |(x) |{noformat:nopanel=true}String{noformat} |Text description |
+ |fallbackSkill |(x) |{noformat:nopanel=true}String{noformat} |Text description |
+ |fallbackSpeciality |(x) |{noformat:nopanel=true}String{noformat} |Text description |
+        {anchor:DutyTimingModelAnchor}
+        h3. DutyTiming
+        ||Field Name||Required||Type||Description||
+         |date |(/) |{noformat:nopanel=true}date{noformat} |Date of the duty (yyyy-mm-dd) |
+ |startTime |(/) |{noformat:nopanel=true}String{noformat} |Start time of the shift |
+ |endTime |(/) |{noformat:nopanel=true}String{noformat} |End time of the shift |
+ |breakDuration |(x) |{noformat:nopanel=true}Integer{noformat} |Duration of break in minutes |
+        {anchor:LinkModelAnchor}
+        h3. Link
+        ||Field Name||Required||Type||Description||
+         |rel |(x) |{noformat:nopanel=true}String{noformat} |identifier for the type of link |
+ |href |(x) |{noformat:nopanel=true}String{noformat} |URL to resolve this link |
+        {anchor:PersonModelAnchor}
+        h3. Person
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |identifier of the person (worker) within the VMS |
+ |universalId |(x) |{noformat:nopanel=true}String{noformat} |Global identifer, such as National Insurance number (where known), or other identifier or composite identifier that may be used for matching purposes. |
+ |firstName |(x) |{noformat:nopanel=true}String{noformat} | |
+ |surname |(x) |{noformat:nopanel=true}String{noformat} | |
+ |email |(x) |{noformat:nopanel=true}String{noformat} | |
+ |telephoneNumber |(x) |{noformat:nopanel=true}String{noformat} | |
+ |links |(x) |{noformat:nopanel=true}array[Link]{noformat} |Array of HATEOAS-style references that may be followed by the client. This may include a &#39;worker.profile&#39; URL, which will return an HTML page representing the worker profile within the VMS. |
+        {anchor:PersonIdentifierModelAnchor}
+        h3. PersonIdentifier
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |identifier of the person (worker) within the VMS |
+ |universalId |(x) |{noformat:nopanel=true}String{noformat} |Global identifer, such as National Insurance number (where known), or other identifier or composite identifier that may be used for matching purposes. |
+        {anchor:WorkerOfferModelAnchor}
+        h3. WorkerOffer
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |Unique identifier for this offer. |
+ |bookingRequestId |(x) |{noformat:nopanel=true}String{noformat} |The underlying booking request for this offer. |
+ |worker |(/) |{noformat:nopanel=true}Person{noformat} | |
+ |agency |(/) |{noformat:nopanel=true}Agency{noformat} | |
+ |qualificationStatus |(/) |{noformat:nopanel=true}String{noformat} |Qualification Status:  * &#x60;qualified&#x60; - Worker has passed all trust-defined checks, and may be considered valid to book.  * &#x60;unqualified&#x60; - Worker has not passed some, or all of the trust-defined checks. These should be performed before progressing to booking the worker.  |
+        {anchor:WorkerOfferedEventModelAnchor}
+        h3. WorkerOfferedEvent
+        ||Field Name||Required||Type||Description||
+         |objectType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |bookingRequestId |(x) |{noformat:nopanel=true}String{noformat} |The ID of the booking request |
+ |agency |(x) |{noformat:nopanel=true}Agency{noformat} | |

@@ -1,0 +1,1918 @@
+h1. DE Provider Direct Engagement API
+
+description
+
+*Version:* 1.0
+
+----
+
+{expand:Table of Contents - Click to expand}
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+{expand}
+
+h2. Endpoints
+
+
+h3. cancelDuty
+{panel:title=cancelDuty|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Cancel a duty
+    *Description:* Service that cancels certain duty.
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/duty/{dutyId}/cancel{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}text/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+        |dutyId |ID of the duty associated with the DE contract |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust/Duty not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust/Duty not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. fillDuty
+{panel:title=fillDuty|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Creates booking for duty
+    *Description:* Service that will create new booking on HR side with data sent by DE Provider.
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/duty/{dutyId}/booking{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+        |dutyId |ID of the duty associated with the DE contract |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |bookingInfo | |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | BookingResponse |
+    	|| Response Model | [BookingResponse Model|#BookingResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/BookingResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust/Duty not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust/Duty not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getDutyDetails
+{panel:title=getDutyDetails|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Returns details about a duties.
+    *Description:* Returns details about a duties.
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/duty/{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |IDs of the duties to return |(/) |null |  |
+|page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | Duty |
+    	|| Response Model | [Duty Model|#DutyModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Duty"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getSingleDutyDetails
+{panel:title=getSingleDutyDetails|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Returns details about a duties.
+    *Description:* Returns details about a duties.
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/duty/{dutyId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+        |dutyId |ID of a duty to return |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | Duty |
+    	|| Response Model | [Duty Model|#DutyModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Duty"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. updateContractStatus
+{panel:title=updateContractStatus|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Updates DE Contract status
+    *Description:* Service that will be used by DE Provider to update the contract status, after DE contract is created/approved.
+
+	|| HttpMethod | {status:colour=Yellow|title=put|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/duty/{dutyId}/contract/{contractId}/status/{statusId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}text/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+        |dutyId |ID of the duty associated with the DE contract |(/) |null |  |
+
+        |contractId |ID of the contract from DE Provider&#39;s system |(/) |null |  |
+
+        |statusId | |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust/Duty not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust/Duty not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. updateTimesheets
+{panel:title=updateTimesheets|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Updates timesheet for duty
+    *Description:* Service that will be used by DE Provider to update the timesheets, after approving the payment on their side.
+
+	|| HttpMethod | {status:colour=Yellow|title=put|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/duty/{dutyId}/timesheet{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}text/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+        |dutyId |ID of the duty associated with the DE contract |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |inlineObject | |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust/Duty not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust/Duty not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getEvents
+{panel:title=getEvents|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get all events older than input timestamp
+    *Description:* Returns an array of events
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/event{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |dateTimeFrom |Timestamp |(/) |null |  |
+|page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | Duty |
+    	|| Response Model | [Duty Model|#DutyModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Duty"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getAgenciesByIds
+{panel:title=getAgenciesByIds|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get agencies
+    *Description:* Returns an array of agencies
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/referenceData/agency/{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |Array of reference data IDs to return |(/) |null |  |
+|page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | array[ReferenceDataResponse] |
+    	|| Response Model | [array[ReferenceDataResponse] Model|#array[ReferenceDataResponse]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/ReferenceDataResponse"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getAllAgencies
+{panel:title=getAllAgencies|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get all agencies
+    *Description:* Returns an array of agencies
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/referenceData/agency{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | array[ReferenceDataResponse] |
+    	|| Response Model | [array[ReferenceDataResponse] Model|#array[ReferenceDataResponse]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/ReferenceDataResponse"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getAllContractStatuses
+{panel:title=getAllContractStatuses|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get all contract statuses
+    *Description:* Returns an array of contract statuses.
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/referenceData/contractStatus{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | array[ReferenceDataResponse] |
+    	|| Response Model | [array[ReferenceDataResponse] Model|#array[ReferenceDataResponse]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/ReferenceDataResponse"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getAllGrades
+{panel:title=getAllGrades|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get all grades
+    *Description:* Returns an array of grades
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/referenceData/grade{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | array[ReferenceDataResponse] |
+    	|| Response Model | [array[ReferenceDataResponse] Model|#array[ReferenceDataResponse]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/ReferenceDataResponse"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getAllReasonsForVacancy
+{panel:title=getAllReasonsForVacancy|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get all reasons for vacancy
+    *Description:* Returns an array of reasons for vacancy
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/referenceData/reasonForVacancy{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | array[ReferenceDataResponse] |
+    	|| Response Model | [array[ReferenceDataResponse] Model|#array[ReferenceDataResponse]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/ReferenceDataResponse"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getAllStaffGroups
+{panel:title=getAllStaffGroups|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get all staff groups
+    *Description:* Returns an array of staff groups
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/referenceData/staffGroup{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | array[ReferenceDataResponse] |
+    	|| Response Model | [array[ReferenceDataResponse] Model|#array[ReferenceDataResponse]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/ReferenceDataResponse"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getAllUnits
+{panel:title=getAllUnits|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get all units
+    *Description:* Returns an array of units
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/referenceData/unit{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | array[UnitReferenceDataResponse] |
+    	|| Response Model | [array[UnitReferenceDataResponse] Model|#array[UnitReferenceDataResponse]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/UnitReferenceDataResponse"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getContractStatusesByIds
+{panel:title=getContractStatusesByIds|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get contract statuses
+    *Description:* Returns an array of contract statuses
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/referenceData/contractStatus/{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |Array of reference data IDs to return |(/) |null |  |
+|page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | array[ReferenceDataResponse] |
+    	|| Response Model | [array[ReferenceDataResponse] Model|#array[ReferenceDataResponse]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/ReferenceDataResponse"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getGradesByIds
+{panel:title=getGradesByIds|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get grades
+    *Description:* Returns an array of grades
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/referenceData/grade/{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |Array of reference data IDs to return |(/) |null |  |
+|page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | array[ReferenceDataResponse] |
+    	|| Response Model | [array[ReferenceDataResponse] Model|#array[ReferenceDataResponse]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/ReferenceDataResponse"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getReasonsForVacancyByIds
+{panel:title=getReasonsForVacancyByIds|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get reasons for vacancy
+    *Description:* Returns an array of reasons for vacancy
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/referenceData/reasonForVacancy/{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |Array of reference data IDs to return |(/) |null |  |
+|page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | array[ReferenceDataResponse] |
+    	|| Response Model | [array[ReferenceDataResponse] Model|#array[ReferenceDataResponse]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/ReferenceDataResponse"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getStaffGroupsByIds
+{panel:title=getStaffGroupsByIds|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get staff groups
+    *Description:* Returns an array of staff groups
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/referenceData/staffGroup/{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |Array of reference data IDs to return |(/) |null |  |
+|page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | array[ReferenceDataResponse] |
+    	|| Response Model | [array[ReferenceDataResponse] Model|#array[ReferenceDataResponse]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/ReferenceDataResponse"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getUnitsByIds
+{panel:title=getUnitsByIds|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    *Summary:* Get units
+    *Description:* Returns an array of units
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/{version}/trustcode/{trustCode}/referenceData/unit/{noformat} |
+    || Base Path | {noformat:nopanel=true}http://localhost{noformat} |
+    || Produces | {noformat:nopanel=true}application/jsontext/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |version |API version |(/) |null |  |
+
+        |trustCode |Trust code from BankStaff |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |Array of reference data IDs to return |(/) |null |  |
+|page |Result page |(x) |null |  |
+|pageSize |Count of records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | OK |
+    	|| Response Type | array[UnitReferenceDataResponse] |
+    	|| Response Model | [array[UnitReferenceDataResponse] Model|#array[UnitReferenceDataResponse]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "OK",
+  "headers" : {
+    "X-Pagination" : {
+      "style" : "simple",
+      "explode" : false,
+      "schema" : {
+        "$ref" : "#/components/schemas/XPaginationHeader"
+      }
+    }
+  },
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/UnitReferenceDataResponse"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Bad request errors |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Bad request errors",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+{anchor:models}
+h2. Models
+
+        {anchor:ApiResponseModelAnchor}
+        h3. ApiResponse
+        ||Field Name||Required||Type||Description||
+         |code |(x) |{noformat:nopanel=true}Integer{noformat} | |
+ |type |(x) |{noformat:nopanel=true}String{noformat} | |
+ |message |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:BookingInfoModelAnchor}
+        h3. BookingInfo
+        ||Field Name||Required||Type||Description||
+         |contractId |(x) |{noformat:nopanel=true}String{noformat} |Id of the contract in DE Provider system |
+ |agency |(x) |{noformat:nopanel=true}Integer{noformat} |Id of the booked agency |
+ |person |(x) |{noformat:nopanel=true}Person{noformat} | |
+ |grade |(x) |{noformat:nopanel=true}String{noformat} |Booking grade trust identifier. |
+ |rates |(x) |{noformat:nopanel=true}array[Rates]{noformat} |Trust Pay Agency &amp; Trust Pays DE provider - split rate between pay to worker and pay to agency |
+        {anchor:BookingResponseModelAnchor}
+        h3. BookingResponse
+        ||Field Name||Required||Type||Description||
+         |dutyId |(x) |{noformat:nopanel=true}String{noformat} |Trust identifier of the booked duty |
+ |bookingId |(x) |{noformat:nopanel=true}String{noformat} |Trust identifier of the booking in BankStaff |
+ |allocatePersonId |(x) |{noformat:nopanel=true}String{noformat} |Trust identifier of the booked person in BankStaff |
+ |masterDutyId |(x) |{noformat:nopanel=true}String{noformat} |Trust identifier of the master duty if the duty is part of the consolidated duty |
+ |slaveDutyId |(x) |{noformat:nopanel=true}String{noformat} |Trust identifier of the slave duty if the duty is part of the consolidated duty |
+        {anchor:ContractStatusModelAnchor}
+        h3. ContractStatus
+        ||Field Name||Required||Type||Description||
+                {anchor:DutyModelAnchor}
+        h3. Duty
+        ||Field Name||Required||Type||Description||
+         |dutyId |(x) |{noformat:nopanel=true}String{noformat} |Trust identifier of the duty |
+ |slaveDutyId |(x) |{noformat:nopanel=true}String{noformat} |Identifier of the slave duty if duty is part of consolidated duties |
+ |blockId |(x) |{noformat:nopanel=true}String{noformat} |Identifier of block duties if duty is part of the block |
+ |clientDeptId |(x) |{noformat:nopanel=true}String{noformat} |BankStaff ward trust identifier |
+ |subDiscipline |(x) |{noformat:nopanel=true}String{noformat} |Staff group trust identifier |
+ |requestGender |(x) |{noformat:nopanel=true}RequestGender{noformat} | |
+ |grade |(x) |{noformat:nopanel=true}String{noformat} |Grade trust identifier of the request |
+ |fallbackGrade |(x) |{noformat:nopanel=true}String{noformat} | |
+ |vacancyReason |(x) |{noformat:nopanel=true}String{noformat} | |
+ |date |(x) |{noformat:nopanel=true}date{noformat} |Date of the duty |
+ |startTime |(x) |{noformat:nopanel=true}String{noformat} |Start time of the shift |
+ |endTime |(x) |{noformat:nopanel=true}String{noformat} |End time of the shift |
+ |breakDuration |(x) |{noformat:nopanel=true}Integer{noformat} |Duration of break in minutes |
+ |poNumber |(x) |{noformat:nopanel=true}Integer{noformat} |Need to understand if needed from Trust/Agency |
+ |uniqueNumber |(x) |{noformat:nopanel=true}Integer{noformat} |BRN / Unique number |
+ |agency |(x) |{noformat:nopanel=true}String{noformat} |Supplying agency trust identifier |
+ |skill |(x) |{noformat:nopanel=true}String{noformat} |Stored as free text in DE Provider |
+ |specialty |(x) |{noformat:nopanel=true}String{noformat} |Stored as free text in DE Provider |
+ |fallbackSkill |(x) |{noformat:nopanel=true}String{noformat} |Stored as free text in DE Provider |
+ |fallbackSpeciality |(x) |{noformat:nopanel=true}String{noformat} |Stored as free text in DE Provider |
+ |status |(x) |{noformat:nopanel=true}String{noformat} |Will need to understand if duty is no longer required and cancel on DE Provider |
+ |rates |(x) |{noformat:nopanel=true}array[Rates]{noformat} |Trust Pay Agency &amp; Trust Pays DE provider - split rate between pay to worker and pay to agency |
+ |timeIntervalRates |(x) |{noformat:nopanel=true}array[TimeIntervalRates]{noformat} |Array of rates and intervals for which the rate is applied |
+ |person |(x) |{noformat:nopanel=true}Person{noformat} | |
+        {anchor:EventModelAnchor}
+        h3. Event
+        ||Field Name||Required||Type||Description||
+         |eventType |(x) |{noformat:nopanel=true}String{noformat} |Type of change that is done to the entity |
+ |entityType |(x) |{noformat:nopanel=true}String{noformat} |Entity that is changed. |
+ |entityId |(x) |{noformat:nopanel=true}String{noformat} |Trust identifier of the changed entity |
+ |timeStamp |(x) |{noformat:nopanel=true}Date{noformat} |Timestamp of the event |
+        {anchor:InlineObjectModelAnchor}
+        h3. InlineObject
+        ||Field Name||Required||Type||Description||
+         |startTime |(x) |{noformat:nopanel=true}String{noformat} | |
+ |endTime |(x) |{noformat:nopanel=true}String{noformat} | |
+ |break |(x) |{noformat:nopanel=true}Integer{noformat} |Break Duration |
+ |status |(x) |{noformat:nopanel=true}String{noformat} |Status of the timesheet |
+ |rates |(x) |{noformat:nopanel=true}array[Rates]{noformat} |Trust Pay Agency &amp; Trust Pays DE provider - split rate between pay to worker and pay to agency |
+        {anchor:PersonModelAnchor}
+        h3. Person
+        ||Field Name||Required||Type||Description||
+         |firstName |(x) |{noformat:nopanel=true}String{noformat} | |
+ |surname |(x) |{noformat:nopanel=true}String{noformat} | |
+ |dateOfBirth |(x) |{noformat:nopanel=true}date{noformat} |Date of birth |
+ |personGender |(x) |{noformat:nopanel=true}PersonGender{noformat} | |
+ |matchId |(x) |{noformat:nopanel=true}String{noformat} |NINumber.e-mail  |
+ |allocatePersonId |(x) |{noformat:nopanel=true}String{noformat} |Business Key |
+ |email |(x) |{noformat:nopanel=true}String{noformat} | |
+ |telephoneNumber |(x) |{noformat:nopanel=true}String{noformat} | |
+ |extSystemId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:PersonGenderModelAnchor}
+        h3. PersonGender
+        ||Field Name||Required||Type||Description||
+                {anchor:RatesModelAnchor}
+        h3. Rates
+        ||Field Name||Required||Type||Description||
+         |reference |(x) |{noformat:nopanel=true}String{noformat} | |
+ |rate |(x) |{noformat:nopanel=true}BigDecimal{noformat} | |
+        {anchor:ReferenceDataResponseModelAnchor}
+        h3. ReferenceDataResponse
+        ||Field Name||Required||Type||Description||
+         |refId |(x) |{noformat:nopanel=true}String{noformat} |Reference data trust identifier from BankStaff |
+ |description |(x) |{noformat:nopanel=true}String{noformat} |Reference data description from BankStaff |
+        {anchor:RequestGenderModelAnchor}
+        h3. RequestGender
+        ||Field Name||Required||Type||Description||
+                {anchor:TimeIntervalRatesModelAnchor}
+        h3. TimeIntervalRates
+        ||Field Name||Required||Type||Description||
+         |startTime |(x) |{noformat:nopanel=true}Date{noformat} | |
+ |endTime |(x) |{noformat:nopanel=true}Date{noformat} | |
+ |rates |(x) |{noformat:nopanel=true}array[Rates]{noformat} |Trust Pay Agency &amp; Trust Pays DE provider - split rate between pay to worker and pay to agency |
+        {anchor:UnitReferenceDataResponseModelAnchor}
+        h3. UnitReferenceDataResponse
+        ||Field Name||Required||Type||Description||
+         |refId |(x) |{noformat:nopanel=true}String{noformat} |Reference data trust identifier from BankStaff |
+ |description |(x) |{noformat:nopanel=true}String{noformat} |Reference data description from BankStaff |
+ |unitSite |(x) |{noformat:nopanel=true}String{noformat} |Location of the unit from BankStaff |
+        {anchor:XPaginationHeaderModelAnchor}
+        h3. XPaginationHeader
+        ||Field Name||Required||Type||Description||
+         |currentPage |(x) |{noformat:nopanel=true}Integer{noformat} |Current page of the response |
+ |pageSize |(x) |{noformat:nopanel=true}Integer{noformat} |Number of rows per page |
+ |totalCount |(x) |{noformat:nopanel=true}Integer{noformat} |Total number of rows in the response |
+ |totalPages |(x) |{noformat:nopanel=true}Integer{noformat} |Total number of pages of the response |
+ |previousPageInputParameters |(x) |{noformat:nopanel=true}String{noformat} |Input parameter values for getting the previous page of the response |
+ |nextPageInputParameters |(x) |{noformat:nopanel=true}String{noformat} |Input parameter values for calling the next page of the response |

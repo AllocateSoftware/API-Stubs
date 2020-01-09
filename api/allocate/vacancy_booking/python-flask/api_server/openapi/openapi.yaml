@@ -1,0 +1,581 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: support@allocatesoftware.com
+    name: API support
+    url: http://www.allocatesoftware.com/
+  description: |2
+
+        ## Duty Booking API and events and Events
+  title: Vacancy Booking API and Events
+  version: 1.0.0
+  x-logo:
+    url: http://www.allocatesoftware.com/wp-content/uploads/sites/31/2017/08/Allocate_logo_digital_Horizontal_RGB_retina.png
+    backgroundColor: '#FFFFc0'
+    altText: Allocate Software
+servers:
+- url: http://healthsuite.allocatesoftware.com/api/v1
+security:
+- jwt: []
+tags:
+- name: Duty Booking
+paths:
+  /proposals/{id}:
+    delete:
+      description: Cancel the proposal (and the booking, if it has been accepted)
+      operationId: cancel_proposal
+      parameters:
+      - description: The ID of the proposal
+        example: 2CBC7FF9-38FB-4F0A-835A-324D9CF4800C
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        404:
+          description: The proposal was not found
+        200:
+          description: Cancelled successfully
+        202:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncResponse'
+          description: The request was accepted and will be processed asynchronously
+      tags:
+      - Proposal
+      x-openapi-router-controller: api_server.controllers.proposal_controller
+    get:
+      operationId: get_proposal
+      parameters:
+      - description: The ID of the proposal
+        example: 2CBC7FF9-38FB-4F0A-835A-324D9CF4800C
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        404:
+          description: The proposal was not found
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProposalDetails'
+          description: Proposal successfully found
+      tags:
+      - Proposal
+      x-openapi-router-controller: api_server.controllers.proposal_controller
+    put:
+      operationId: update_proposal
+      parameters:
+      - description: The ID of the proposal
+        example: 2CBC7FF9-38FB-4F0A-835A-324D9CF4800C
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProposalDetails'
+        description: Details of the proposal for filling the duty (worker)
+        required: true
+      responses:
+        404:
+          description: The proposal was not found
+        200:
+          description: The Proposal successfully updated
+      tags:
+      - Proposal
+      x-openapi-router-controller: api_server.controllers.proposal_controller
+  /proposals/{id}/accept:
+    post:
+      description: Accept the proposal (possibly on behalf of the trust). Note that
+        it is not neccessary to call this API in the case of direct-book scenarios
+        as it will be assumed as a part of the workflow.
+      operationId: accept_proposal
+      parameters:
+      - description: The ID of the proposal
+        example: 2CBC7FF9-38FB-4F0A-835A-324D9CF4800C
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        404:
+          description: The proposal was not found
+        200:
+          description: Proposal successfully accepted
+      tags:
+      - Proposal
+      x-openapi-router-controller: api_server.controllers.proposal_controller
+  /vacancies:
+    post:
+      description: Create a new vacancy
+      operationId: create_vacancy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Vacancy'
+        description: Details of the vacancy
+        required: true
+      responses:
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Forbidden - you do not have the necessary permissions to undertake
+            this action
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateVacancyResponse'
+          description: Vacancy created successfully
+      tags:
+      - Vacancy
+      x-openapi-router-controller: api_server.controllers.vacancy_controller
+  /vacancies/{vacancyId}/proposals:
+    post:
+      description: Offer a worker for filling a duty
+      operationId: create_proposal
+      parameters:
+      - description: The ID of the vacancy
+        example: 33C33192-7B8D-4EE0-AD41-47AACF240A29
+        explode: false
+        in: path
+        name: vacancyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProposalDetails'
+        description: Details of the proposal for filling the vacancy (worker, costs,
+          etc)
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateProposalResponse'
+          description: Proposal created successfully
+        202:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncResponse'
+          description: The proposal has been accepted and a response will be returned
+            asyncronously.
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: One or more errors have occurred when attempting to process
+            the provided data
+      tags:
+      - Vacancy
+      x-openapi-router-controller: api_server.controllers.vacancy_controller
+  /vacancies/{vacancyId}/timesheet:
+    post:
+      description: Send timesheet information for a completed activity
+      operationId: submit_timesheet
+      parameters:
+      - description: The ID of the vacancy
+        example: 33C33192-7B8D-4EE0-AD41-47AACF240A29
+        explode: false
+        in: path
+        name: vacancyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          application/json:
+            schema:
+              properties:
+                proposalId:
+                  description: The ID of the orignal proposal (booking)
+                  example: 950FE6D1-D658-4B11-BCB0-CD68756BF047
+                  type: string
+                times:
+                  $ref: '#/components/schemas/TimeSpan'
+                break:
+                  description: Break time in minutes
+                  example: 60
+                  format: int32
+                  type: integer
+              type: object
+        description: Details of the worked time
+        required: true
+      responses:
+        200:
+          description: Timesheet successfully submitted
+      tags:
+      - Vacancy
+      x-openapi-router-controller: api_server.controllers.vacancy_controller
+components:
+  requestBodies:
+    inline_object:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object'
+      required: true
+  schemas:
+    AsyncResponse:
+      description: "Where an API may respond with an asynchronous 'Accepted' (HTTP\
+        \ 202) response, it will return an AsyncResponse object. The eventual\n  \
+        \              response will be returned by way of an async event, containing\
+        \ the corresponding correlation ID header returned below.\n              \
+        \  \n                The location of the correlation ID will depend upon the\
+        \ eventing transport in use - though typically it will be included as a message\
+        \ header (rather than a payload).\n            "
+      properties:
+        id:
+          description: Correlation Identifier
+          example: 8FE4E2F3-7351-4385-B0C6-1154A440F956
+          type: string
+      required:
+      - id
+      type: object
+    DateSpan:
+      example:
+        from: 2000-01-23T04:56:07.000+00:00
+        to: 2000-01-23T04:56:07.000+00:00
+      properties:
+        from:
+          description: When the span starts
+          format: date-time
+          type: string
+        to:
+          description: When the span ends
+          format: date-time
+          type: string
+      required:
+      - from
+      type: object
+    TimeSpan:
+      description: Represents a span of time, implicitly covering a maximum of 24hrs
+      properties:
+        from:
+          description: Time from, 24hr format
+          example: 01:00
+          pattern: ^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$
+          type: string
+        to:
+          description: Time from, 24hr format
+          example: 08:30
+          pattern: ^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$
+          type: string
+      required:
+      - from
+      type: object
+    ErrorResponse:
+      description: An Error has occurred in processing your request
+      properties:
+        id:
+          description: Optional identifier for this reponse (for matching with logging)
+          type: string
+        code:
+          description: Optional error code identifying this particular error
+          type: string
+        description:
+          description: Optional error code identifying this particular error
+          type: string
+        items:
+          description: List of child errors
+          items:
+            $ref: '#/components/schemas/ErrorResponse'
+          type: array
+      required:
+      - description
+      type: object
+    Identifier:
+      description: Flexible identifier
+      properties:
+        namespace:
+          description: Namespace for this identifier.
+          example: NI
+          type: string
+        id:
+          example: QQ123456C
+          type: string
+      required:
+      - id
+      - namespace
+      type: object
+    ProposalDetails:
+      example:
+        cost: 0.8008281904610115
+        engagementRoute: substantive
+        personId: personId
+        agencyId: agencyId
+        cancellationCosts:
+        - amount: 6.027456183070403
+          afterDate: 2000-01-23T04:56:07.000+00:00
+        - amount: 6.027456183070403
+          afterDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        personId:
+          description: Allocate PersonID for the person being proposed
+          type: string
+        engagementRoute:
+          description: The engagement route for this worker
+          enum:
+          - substantive
+          - bank
+          - agency
+          - other
+          type: string
+        agencyId:
+          description: The Allocate Agency ID for the agency, if this worker is being
+            provided through an agency engagement
+          type: string
+        cost:
+          type: number
+        cancellationCosts:
+          items:
+            $ref: '#/components/schemas/CancellationCost'
+          type: array
+      required:
+      - engagementRoute
+      - personId
+      type: object
+    CancellationCost:
+      example:
+        amount: 6.027456183070403
+        afterDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        afterDate:
+          description: The date/time after which this cost becomes valid
+          format: date-time
+          type: string
+        amount:
+          description: The cost of cancellation
+          type: number
+      required:
+      - afterDate
+      - amount
+      type: object
+    Vacancy:
+      example:
+        reason: reason
+        personRequirements:
+          gender: gender
+          grade: grade
+          gradeType: gradeType
+          gradeTypeCategory: gradeTypeCategory
+        where:
+          trustId: trustId
+          location:
+            name: name
+            id: id
+        id: D6540039-97B6-4D38-9837-29AA1C02302F
+        when:
+          planned:
+            from: 2000-01-23T04:56:07.000+00:00
+            to: 2000-01-23T04:56:07.000+00:00
+      properties:
+        id:
+          description: Identifier for this vacancy
+          example: D6540039-97B6-4D38-9837-29AA1C02302F
+          type: string
+        when:
+          $ref: '#/components/schemas/Vacancy_when'
+        where:
+          $ref: '#/components/schemas/Vacancy_where'
+        reason:
+          description: Reason for the request
+          type: string
+        personRequirements:
+          $ref: '#/components/schemas/Vacancy_personRequirements'
+      required:
+      - id
+      type: object
+    VacancyPublishedEvent:
+      description: A vacancy has become available for filling
+      properties:
+        id:
+          description: ID of the vacancy
+          type: string
+        vacancy:
+          $ref: '#/components/schemas/Vacancy'
+      required:
+      - id
+      - vacancy
+      type: object
+    VacancyUpdatedEvent:
+      description: A vacancy has been updated
+      properties:
+        id:
+          description: ID of the vacancy
+          type: string
+        vacancy:
+          description: Details of the vacancy
+          type: string
+      required:
+      - id
+      - vacancy
+      type: object
+    VacancyWithdrawnEvent:
+      description: A vacancy has been withdrawn
+      properties:
+        id:
+          description: ID of the vacancy
+          type: string
+      required:
+      - id
+      type: object
+    BookingEvent:
+      description: A proposal to fill a vacancy has been accepted (booked)
+      properties:
+        proposalId:
+          description: The ID of the proposal
+          type: string
+        vacancyId:
+          description: The ID of the vacancy
+          type: string
+      required:
+      - proposalId
+      - vacancyId
+      type: object
+    BookingCancelledEvent:
+      description: A booking has been cancelled
+      properties:
+        proposalId:
+          description: The ID of the proposal
+          type: string
+        vacancyId:
+          description: The ID of the vacancy
+          type: string
+      required:
+      - proposalId
+      - vacancyId
+      type: object
+    CreateProposalResponse:
+      example:
+        proposalId: 3B78B5C3-07B3-4DC6-8A2A-7D85153869FC
+      properties:
+        proposalId:
+          description: The ID of the proposal created
+          example: 3B78B5C3-07B3-4DC6-8A2A-7D85153869FC
+          type: string
+      required:
+      - proposalId
+      type: object
+    CreateVacancyResponse:
+      example:
+        vacancyId: 3B78B5C3-07B3-4DC6-8A2A-7D85153869FC
+      properties:
+        vacancyId:
+          description: The ID of the vacancy created
+          example: 3B78B5C3-07B3-4DC6-8A2A-7D85153869FC
+          type: string
+      required:
+      - vacancyId
+      type: object
+    inline_object:
+      properties:
+        proposalId:
+          description: The ID of the orignal proposal (booking)
+          example: 950FE6D1-D658-4B11-BCB0-CD68756BF047
+          type: string
+        times:
+          $ref: '#/components/schemas/TimeSpan'
+        break:
+          description: Break time in minutes
+          example: 60
+          format: int32
+          type: integer
+      type: object
+    Vacancy_when:
+      description: The time and duration of this vacancy
+      example:
+        planned:
+          from: 2000-01-23T04:56:07.000+00:00
+          to: 2000-01-23T04:56:07.000+00:00
+      properties:
+        planned:
+          $ref: '#/components/schemas/DateSpan'
+    Vacancy_where_location:
+      example:
+        name: name
+        id: id
+      properties:
+        id:
+          description: The ID of the location (within the trust)
+          type: string
+        name:
+          description: The name of the location
+          type: string
+      required:
+      - id
+    Vacancy_where:
+      example:
+        trustId: trustId
+        location:
+          name: name
+          id: id
+      properties:
+        trustId:
+          type: string
+        location:
+          $ref: '#/components/schemas/Vacancy_where_location'
+    Vacancy_personRequirements:
+      example:
+        gender: gender
+        grade: grade
+        gradeType: gradeType
+        gradeTypeCategory: gradeTypeCategory
+      properties:
+        grade:
+          type: string
+        gradeType:
+          type: string
+        gradeTypeCategory:
+          type: string
+        gender:
+          type: string
+  securitySchemes:
+    jwt:
+      bearerFormat: JWT
+      description: JSON Web Token previously obtained from the Allocate authentication
+        server
+      scheme: bearer
+      type: http
+      x-bearerInfoFunc: api_server.controllers.security_controller_.info_from_jwt
+    APIAuthorizer:
+      in: header
+      name: AuthorizationToken
+      type: apiKey
+      x-amazon-apigateway-authtype: custom
+      x-amazon-apigateway-authorizer:
+        authorizerUri: arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/arn:aws:lambda:eu-west-2:529795807852:function:lambda_interop_auth/invocations
+        authorizerCredentials: arn:aws:iam::529795807852:role/iam_for_lambda
+        authorizerResultTtlInSeconds: 300
+        type: token
+      x-apikeyInfoFunc: api_server.controllers.security_controller_.info_from_APIAuthorizer

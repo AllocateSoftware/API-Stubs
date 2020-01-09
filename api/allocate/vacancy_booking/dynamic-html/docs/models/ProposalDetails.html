@@ -1,0 +1,35 @@
+
+<h2>ProposalDetails</h2>
+<ul class="parameter">
+  <li class="param-required-true">personId : String
+    <br/>Allocate PersonID for the person being proposed
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-true">engagementRoute : String
+    <br/>The engagement route for this worker
+      <dl class="param-enum">
+        <dt>Enum:
+            <dd>substantive</dd>
+            <dd>bank</dd>
+            <dd>agency</dd>
+            <dd>other</dd>
+        </dt>
+      </dl>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">agencyId : String
+    <br/>The Allocate Agency ID for the agency, if this worker is being provided through an agency engagement
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">cost : BigDecimal
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">cancellationCosts : List
+    <br/>
+  </li>
+</ul>

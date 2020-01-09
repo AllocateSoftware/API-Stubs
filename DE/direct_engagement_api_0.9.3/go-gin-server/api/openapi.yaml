@@ -1,0 +1,1809 @@
+openapi: 3.0.0
+info:
+  description: description
+  title: DE Provider Direct Engagement API
+  version: "1.0"
+servers:
+- url: /
+security:
+- basicAuth: []
+tags:
+- description: All changes made on Allocate side will be recorded as events, available
+    for DE Provider
+  name: event
+- description: Operations with duties
+  name: duty
+- description: Operations for synchronizing reference data
+  name: referenceData
+paths:
+  /{version}/trustcode/{trustCode}/event:
+    get:
+      description: Returns an array of events
+      operationId: getEvents
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Timestamp
+        explode: true
+        in: query
+        name: dateTimeFrom
+        required: true
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Duty'
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get all events older than input timestamp
+      tags:
+      - event
+  /{version}/trustcode/{trustCode}/duty/:
+    get:
+      description: Returns details about a duties.
+      operationId: getDutyDetails
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: IDs of the duties to return
+        explode: true
+        in: query
+        name: id
+        required: true
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Duty'
+          description: OK
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Returns details about a duties.
+      tags:
+      - duty
+  /{version}/trustcode/{trustCode}/duty/{dutyId}:
+    get:
+      description: Returns details about a duties.
+      operationId: getSingleDutyDetails
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of a duty to return
+        explode: false
+        in: path
+        name: dutyId
+        required: true
+        schema:
+          type: integer
+        style: simple
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Duty'
+          description: OK
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Returns details about a duties.
+      tags:
+      - duty
+  /{version}/trustcode/{trustCode}/duty/{dutyId}/booking:
+    post:
+      description: Service that will create new booking on HR side with data sent
+        by DE Provider.
+      operationId: fillDuty
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of the duty associated with the DE contract
+        explode: false
+        in: path
+        name: dutyId
+        required: true
+        schema:
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingInfo'
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingResponse'
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust/Duty not found
+      summary: Creates booking for duty
+      tags:
+      - duty
+  /{version}/trustcode/{trustCode}/duty/{dutyId}/cancel:
+    post:
+      description: Service that cancels certain duty.
+      operationId: cancelDuty
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of the duty associated with the DE contract
+        explode: false
+        in: path
+        name: dutyId
+        required: true
+        schema:
+          type: integer
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust/Duty not found
+      summary: Cancel a duty
+      tags:
+      - duty
+  /{version}/trustcode/{trustCode}/duty/{dutyId}/contract/{contractId}/status/{statusId}:
+    put:
+      description: Service that will be used by DE Provider to update the contract
+        status, after DE contract is created/approved.
+      operationId: updateContractStatus
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of the duty associated with the DE contract
+        explode: false
+        in: path
+        name: dutyId
+        required: true
+        schema:
+          type: integer
+        style: simple
+      - description: ID of the contract from DE Provider's system
+        example: 77135e23-af51-4714-b854-d8df9e64aa63
+        explode: false
+        in: path
+        name: contractId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: statusId
+        required: true
+        schema:
+          $ref: '#/components/schemas/ContractStatus'
+        style: simple
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust/Duty not found
+      summary: Updates DE Contract status
+      tags:
+      - duty
+  /{version}/trustcode/{trustCode}/duty/{dutyId}/timesheet:
+    put:
+      description: Service that will be used by DE Provider to update the timesheets,
+        after approving the payment on their side.
+      operationId: updateTimesheets
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of the duty associated with the DE contract
+        explode: false
+        in: path
+        name: dutyId
+        required: true
+        schema:
+          type: integer
+        style: simple
+      requestBody:
+        $ref: '#/components/requestBodies/inline_object'
+        content:
+          application/json:
+            schema:
+              properties:
+                startTime:
+                  example: 07:30
+                  format: time
+                  type: string
+                endTime:
+                  example: 16:00
+                  format: time
+                  type: string
+                break:
+                  description: Break Duration
+                  example: 60
+                  type: integer
+                status:
+                  description: Status of the timesheet
+                  example: approved
+                  type: string
+                rates:
+                  description: Trust Pay Agency & Trust Pays DE provider - split rate
+                    between pay to worker and pay to agency
+                  items:
+                    $ref: '#/components/schemas/Rates'
+                  type: array
+              type: object
+        required: true
+      responses:
+        200:
+          description: OK
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust/Duty not found
+      summary: Updates timesheet for duty
+      tags:
+      - duty
+  /{version}/trustcode/{trustCode}/referenceData/agency/:
+    get:
+      description: Returns an array of agencies
+      operationId: getAgenciesByIds
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Array of reference data IDs to return
+        explode: true
+        in: query
+        name: id
+        required: true
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReferenceDataResponse'
+                type: array
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get agencies
+      tags:
+      - referenceData
+  /{version}/trustcode/{trustCode}/referenceData/agency:
+    get:
+      description: Returns an array of agencies
+      operationId: getAllAgencies
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReferenceDataResponse'
+                type: array
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get all agencies
+      tags:
+      - referenceData
+  /{version}/trustcode/{trustCode}/referenceData/grade/:
+    get:
+      description: Returns an array of grades
+      operationId: getGradesByIds
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Array of reference data IDs to return
+        explode: true
+        in: query
+        name: id
+        required: true
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReferenceDataResponse'
+                type: array
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get grades
+      tags:
+      - referenceData
+  /{version}/trustcode/{trustCode}/referenceData/grade:
+    get:
+      description: Returns an array of grades
+      operationId: getAllGrades
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReferenceDataResponse'
+                type: array
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get all grades
+      tags:
+      - referenceData
+  /{version}/trustcode/{trustCode}/referenceData/reasonForVacancy/:
+    get:
+      description: Returns an array of reasons for vacancy
+      operationId: getReasonsForVacancyByIds
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Array of reference data IDs to return
+        explode: true
+        in: query
+        name: id
+        required: true
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReferenceDataResponse'
+                type: array
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get reasons for vacancy
+      tags:
+      - referenceData
+  /{version}/trustcode/{trustCode}/referenceData/reasonForVacancy:
+    get:
+      description: Returns an array of reasons for vacancy
+      operationId: getAllReasonsForVacancy
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReferenceDataResponse'
+                type: array
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get all reasons for vacancy
+      tags:
+      - referenceData
+  /{version}/trustcode/{trustCode}/referenceData/contractStatus/:
+    get:
+      description: Returns an array of contract statuses
+      operationId: getContractStatusesByIds
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Array of reference data IDs to return
+        explode: true
+        in: query
+        name: id
+        required: true
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReferenceDataResponse'
+                type: array
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get contract statuses
+      tags:
+      - referenceData
+  /{version}/trustcode/{trustCode}/referenceData/contractStatus:
+    get:
+      description: Returns an array of contract statuses.
+      operationId: getAllContractStatuses
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReferenceDataResponse'
+                type: array
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get all contract statuses
+      tags:
+      - referenceData
+  /{version}/trustcode/{trustCode}/referenceData/staffGroup/:
+    get:
+      description: Returns an array of staff groups
+      operationId: getStaffGroupsByIds
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Array of reference data IDs to return
+        explode: true
+        in: query
+        name: id
+        required: true
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReferenceDataResponse'
+                type: array
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get staff groups
+      tags:
+      - referenceData
+  /{version}/trustcode/{trustCode}/referenceData/staffGroup:
+    get:
+      description: Returns an array of staff groups
+      operationId: getAllStaffGroups
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/ReferenceDataResponse'
+                type: array
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get all staff groups
+      tags:
+      - referenceData
+  /{version}/trustcode/{trustCode}/referenceData/unit/:
+    get:
+      description: Returns an array of units
+      operationId: getUnitsByIds
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Array of reference data IDs to return
+        explode: true
+        in: query
+        name: id
+        required: true
+        schema:
+          items:
+            type: integer
+          type: array
+        style: form
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UnitReferenceDataResponse'
+                type: array
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get units
+      tags:
+      - referenceData
+  /{version}/trustcode/{trustCode}/referenceData/unit:
+    get:
+      description: Returns an array of units
+      operationId: getAllUnits
+      parameters:
+      - description: API version
+        explode: false
+        in: path
+        name: version
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Trust code from BankStaff
+        explode: false
+        in: path
+        name: trustCode
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Result page
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Count of records per page
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UnitReferenceDataResponse'
+                type: array
+          description: OK
+          headers:
+            X-Pagination:
+              explode: false
+              schema:
+                $ref: '#/components/schemas/XPaginationHeader'
+              style: simple
+        400:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Bad request errors
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      summary: Get all units
+      tags:
+      - referenceData
+components:
+  requestBodies:
+    inline_object:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/inline_object'
+      required: true
+  schemas:
+    Event:
+      properties:
+        eventType:
+          description: Type of change that is done to the entity
+          enum:
+          - CREATE
+          - DELETE
+          - UPDATE
+          type: string
+        entityType:
+          description: Entity that is changed.
+          enum:
+          - duty
+          - timesheet
+          - booking
+          - grade
+          - agency
+          - reason_for_vacancy
+          - contract_status
+          - staff_group
+          - unit
+          example: duty
+          type: string
+        entityId:
+          description: Trust identifier of the changed entity
+          example: TrustA.11109
+          format: trustCode.entityId
+          type: string
+        timeStamp:
+          description: Timestamp of the event
+          format: date-time
+          type: string
+      type: object
+      xml:
+        name: Event
+    Duty:
+      example:
+        date: 2000-01-23
+        specialty: Speciality
+        timeIntervalRates:
+        - rates:
+          - reference: basic_commission
+            rate: 50.00
+          - reference: basic_commission
+            rate: 50.00
+          startTime: 2000-01-23T04:56:07.000+00:00
+          endTime: 2000-01-23T04:56:07.000+00:00
+        - rates:
+          - reference: basic_commission
+            rate: 50.00
+          - reference: basic_commission
+            rate: 50.00
+          startTime: 2000-01-23T04:56:07.000+00:00
+          endTime: 2000-01-23T04:56:07.000+00:00
+        clientDeptId: TrustA.667899
+        agency: TrustA.2209
+        requestGender: male
+        rates:
+        - reference: basic_commission
+          rate: 50.00
+        - reference: basic_commission
+          rate: 50.00
+        fallbackGrade: TrustA.9989
+        fallbackSkill: Fallback skill
+        vacancyReason: TrustA.12
+        blockId: TrustA.77569
+        fallbackSpeciality: Fallback speciality
+        subDiscipline: TrustA.1323
+        person:
+          allocatePersonId: TrustA.1123
+          firstName: Doe
+          telephoneNumber: +223504938839
+          surname: John
+          extSystemId: 123e4567-e89b-12d3-a456-426655440000
+          personGender: male
+          dateOfBirth: 2000-01-23
+          matchId: E124RT562.john.doe@mail.com
+          email: john.doe@mail.com
+        grade: TrustA.77889
+        skill: Skill
+        breakDuration: 30
+        dutyId: TrustA.11667
+        startTime: 22:00
+        endTime: 01:25
+        uniqueNumber: 112233
+        poNumber: 0
+        slaveDutyId: TrustA.77569
+        status: active
+      properties:
+        dutyId:
+          description: Trust identifier of the duty
+          example: TrustA.11667
+          format: trustCode.dutyId
+          type: string
+        slaveDutyId:
+          description: Identifier of the slave duty if duty is part of consolidated
+            duties
+          example: TrustA.77569
+          format: trustCode.slaveDutyId
+          type: string
+        blockId:
+          description: Identifier of block duties if duty is part of the block
+          example: TrustA.77569
+          format: trustCode.blockId
+          type: string
+        clientDeptId:
+          description: BankStaff ward trust identifier
+          example: TrustA.667899
+          format: trustCode.wardId
+          type: string
+        subDiscipline:
+          description: Staff group trust identifier
+          example: TrustA.1323
+          format: trustCode.staffGroupId
+          type: string
+        requestGender:
+          $ref: '#/components/schemas/RequestGender'
+        grade:
+          description: Grade trust identifier of the request
+          example: TrustA.77889
+          format: trustCode.gradeId
+          type: string
+        fallbackGrade:
+          example: TrustA.9989
+          format: trustCode.gradeId
+          type: string
+        vacancyReason:
+          example: TrustA.12
+          format: trustCode.vacancyReasonId
+          type: string
+        date:
+          description: Date of the duty
+          format: date
+          type: string
+        startTime:
+          description: Start time of the shift
+          example: 22:00
+          type: string
+        endTime:
+          description: End time of the shift
+          example: 01:25
+          type: string
+        breakDuration:
+          description: Duration of break in minutes
+          example: 30
+          type: integer
+        poNumber:
+          description: Need to understand if needed from Trust/Agency
+          type: integer
+        uniqueNumber:
+          description: BRN / Unique number
+          example: 112233
+          type: integer
+        agency:
+          description: Supplying agency trust identifier
+          example: TrustA.2209
+          type: string
+        skill:
+          description: Stored as free text in DE Provider
+          example: Skill
+          type: string
+        specialty:
+          description: Stored as free text in DE Provider
+          example: Speciality
+          type: string
+        fallbackSkill:
+          description: Stored as free text in DE Provider
+          example: Fallback skill
+          type: string
+        fallbackSpeciality:
+          description: Stored as free text in DE Provider
+          example: Fallback speciality
+          type: string
+        status:
+          description: Will need to understand if duty is no longer required and cancel
+            on DE Provider
+          enum:
+          - active
+          - cancelled
+          example: active
+          type: string
+        rates:
+          description: Trust Pay Agency & Trust Pays DE provider - split rate between
+            pay to worker and pay to agency
+          items:
+            $ref: '#/components/schemas/Rates'
+          type: array
+        timeIntervalRates:
+          description: Array of rates and intervals for which the rate is applied
+          items:
+            $ref: '#/components/schemas/TimeIntervalRates'
+          type: array
+        person:
+          $ref: '#/components/schemas/Person'
+      type: object
+    Rates:
+      example:
+        reference: basic_commission
+        rate: 50.00
+      properties:
+        reference:
+          enum:
+          - basic_worker_pay
+          - basic_commission
+          - basic_ni
+          - enhanced_worker_pay
+          - enhanced_commission
+          - enhanced_ni
+          - fixed_worker_pay
+          - fixed_commission
+          - fixed_ni
+          - enhanced_night_worker_pay
+          - enhanced_night_commission
+          - enhanced_night_ni
+          - enhanced_saturday_worker_pay
+          - enhanced_saturday_commission
+          - enhanced_saturday_ni
+          - enhanced_sunday_worker_pay
+          - enhanced_sunday_commission
+          - enhanced_sunday_ni
+          - enhanced_holiday_worker_pay
+          - enhanced_holiday_commission
+          - enhanced_holiday_ni
+          example: basic_commission
+          type: string
+        rate:
+          example: 50.00
+          type: number
+      type: object
+    TimeIntervalRates:
+      example:
+        rates:
+        - reference: basic_commission
+          rate: 50.00
+        - reference: basic_commission
+          rate: 50.00
+        startTime: 2000-01-23T04:56:07.000+00:00
+        endTime: 2000-01-23T04:56:07.000+00:00
+      properties:
+        startTime:
+          format: date-time
+          type: string
+        endTime:
+          format: date-time
+          type: string
+        rates:
+          description: Trust Pay Agency & Trust Pays DE provider - split rate between
+            pay to worker and pay to agency
+          items:
+            $ref: '#/components/schemas/Rates'
+          type: array
+      type: object
+    Person:
+      example:
+        allocatePersonId: TrustA.1123
+        firstName: Doe
+        telephoneNumber: +223504938839
+        surname: John
+        extSystemId: 123e4567-e89b-12d3-a456-426655440000
+        personGender: male
+        dateOfBirth: 2000-01-23
+        matchId: E124RT562.john.doe@mail.com
+        email: john.doe@mail.com
+      properties:
+        firstName:
+          example: Doe
+          type: string
+        surname:
+          example: John
+          type: string
+        dateOfBirth:
+          description: Date of birth
+          format: date
+          type: string
+        personGender:
+          $ref: '#/components/schemas/PersonGender'
+        matchId:
+          description: 'NINumber.e-mail '
+          example: E124RT562.john.doe@mail.com
+          type: string
+        allocatePersonId:
+          description: Business Key
+          example: TrustA.1123
+          format: trustcode.id
+          type: string
+        email:
+          example: john.doe@mail.com
+          type: string
+        telephoneNumber:
+          example: +223504938839
+          type: string
+        extSystemId:
+          example: 123e4567-e89b-12d3-a456-426655440000
+          format: guid
+          type: string
+      type: object
+    BookingInfo:
+      example:
+        agency: 1135
+        person:
+          allocatePersonId: TrustA.1123
+          firstName: Doe
+          telephoneNumber: +223504938839
+          surname: John
+          extSystemId: 123e4567-e89b-12d3-a456-426655440000
+          personGender: male
+          dateOfBirth: 2000-01-23
+          matchId: E124RT562.john.doe@mail.com
+          email: john.doe@mail.com
+        grade: TrustA.234
+        rates:
+        - reference: basic_commission
+          rate: 50.00
+        - reference: basic_commission
+          rate: 50.00
+        contractId: 123e4567-e89b-12d3-a456-426655440000
+      properties:
+        contractId:
+          description: Id of the contract in DE Provider system
+          example: 123e4567-e89b-12d3-a456-426655440000
+          format: guid
+          type: string
+        agency:
+          description: Id of the booked agency
+          example: 1135
+          type: integer
+        person:
+          $ref: '#/components/schemas/Person'
+        grade:
+          description: Booking grade trust identifier.
+          example: TrustA.234
+          type: string
+        rates:
+          description: Trust Pay Agency & Trust Pays DE provider - split rate between
+            pay to worker and pay to agency
+          items:
+            $ref: '#/components/schemas/Rates'
+          type: array
+      type: object
+    BookingResponse:
+      example:
+        allocatePersonId: TrustA.1126
+        dutyId: TrustA.11667
+        masterDutyId: TrustA.11668
+        bookingId: TrustA.33532
+        slaveDutyId: TrustA.11667
+      properties:
+        dutyId:
+          description: Trust identifier of the booked duty
+          example: TrustA.11667
+          format: trustCode.dutyId
+          type: string
+        bookingId:
+          description: Trust identifier of the booking in BankStaff
+          example: TrustA.33532
+          format: trustCode.bookingId
+          type: string
+        allocatePersonId:
+          description: Trust identifier of the booked person in BankStaff
+          example: TrustA.1126
+          format: trustCode.allocatePersonId
+          type: string
+        masterDutyId:
+          description: Trust identifier of the master duty if the duty is part of
+            the consolidated duty
+          example: TrustA.11668
+          format: trustCode.masterDutyId
+          type: string
+        slaveDutyId:
+          description: Trust identifier of the slave duty if the duty is part of the
+            consolidated duty
+          example: TrustA.11667
+          format: trustCode.slaveDutyId
+          type: string
+      type: object
+    ReferenceDataResponse:
+      example:
+        description: Description
+        refId: TrustA.12
+      properties:
+        refId:
+          description: Reference data trust identifier from BankStaff
+          example: TrustA.12
+          format: trustCode.refId
+          type: string
+        description:
+          description: Reference data description from BankStaff
+          example: Description
+          type: string
+      type: object
+    UnitReferenceDataResponse:
+      example:
+        unitSite: Unit site
+        description: Description
+        refId: TrustA.12
+      properties:
+        refId:
+          description: Reference data trust identifier from BankStaff
+          example: TrustA.12
+          format: trustCode.refId
+          type: string
+        description:
+          description: Reference data description from BankStaff
+          example: Description
+          type: string
+        unitSite:
+          description: Location of the unit from BankStaff
+          example: Unit site
+          type: string
+      type: object
+    XPaginationHeader:
+      properties:
+        currentPage:
+          description: Current page of the response
+          example: 1
+          type: integer
+        pageSize:
+          description: Number of rows per page
+          example: 1
+          type: integer
+        totalCount:
+          description: Total number of rows in the response
+          example: 1
+          type: integer
+        totalPages:
+          description: Total number of pages of the response
+          example: 1
+          type: integer
+        previousPageInputParameters:
+          description: Input parameter values for getting the previous page of the
+            response
+          type: string
+        nextPageInputParameters:
+          description: Input parameter values for calling the next page of the response
+          type: string
+      type: object
+    ApiResponse:
+      properties:
+        code:
+          format: int32
+          type: integer
+        type:
+          type: string
+        message:
+          type: string
+      type: object
+    ContractStatus:
+      enum:
+      - not_initiated
+      - in_progress
+      - pending
+      - active
+      - nonactive
+      type: string
+    PersonGender:
+      description: Person gender, potenially could be a broader set
+      enum:
+      - male
+      - female
+      example: male
+      type: string
+    RequestGender:
+      description: Requested gender for the duty
+      enum:
+      - male
+      - female
+      example: male
+      type: string
+    inline_object:
+      properties:
+        startTime:
+          example: 07:30
+          format: time
+          type: string
+        endTime:
+          example: 16:00
+          format: time
+          type: string
+        break:
+          description: Break Duration
+          example: 60
+          type: integer
+        status:
+          description: Status of the timesheet
+          example: approved
+          type: string
+        rates:
+          description: Trust Pay Agency & Trust Pays DE provider - split rate between
+            pay to worker and pay to agency
+          items:
+            $ref: '#/components/schemas/Rates'
+          type: array
+      type: object

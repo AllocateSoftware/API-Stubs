@@ -1,0 +1,925 @@
+<!doctype html>
+<html>
+  <head>
+    <title>VMS API</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>VMS API</h1>
+    <div class="app-desc"><h2>Description</h2>
+<p>API to be impemented by VMS systems for integration into HealthSuite business processes</p>
+</div>
+    <div class="app-desc">More information: <a href="http://www.allocatesoftware.com/">http://www.allocatesoftware.com/</a></div>
+    <div class="app-desc">Contact Info: <a href="support@allocatesoftware.com">support@allocatesoftware.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/vms/api/v1</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+    <ol>
+      <li>HTTP Basic Authentication</li>
+    </ol>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Agencies">Agencies</a></h4>
+  <ul>
+  <li><a href="#getCostings"><code><span class="http-method">post</span> /agencies/costings</code></a></li>
+  <li><a href="#sendDutyToAgencies"><code><span class="http-method">post</span> /agencies</code></a></li>
+  <li><a href="#sendDutyToAgency"><code><span class="http-method">post</span> /agencies/{agencyId}</code></a></li>
+  </ul>
+  <h4><a href="#Agency">Agency</a></h4>
+  <ul>
+  <li><a href="#offerWorker"><code><span class="http-method">post</span> /bookingRequests/{bookingRequestId}/offers</code></a></li>
+  </ul>
+  <h4><a href="#Bookings">Bookings</a></h4>
+  <ul>
+  <li><a href="#acceptAgencyOffer"><code><span class="http-method">put</span> /bookingRequests/{bookingRequestId}/offers/{offerId}/accept</code></a></li>
+  <li><a href="#cancelBooking"><code><span class="http-method">delete</span> /bookings/{bookingId}</code></a></li>
+  <li><a href="#cancelBookingRequest"><code><span class="http-method">delete</span> /bookingRequests/{bookingRequestId}</code></a></li>
+  <li><a href="#getBooking"><code><span class="http-method">get</span> /bookings/{bookingId}</code></a></li>
+  </ul>
+  <h4><a href="#Workers">Workers</a></h4>
+  <ul>
+  <li><a href="#getWorker"><code><span class="http-method">get</span> /workers/{id}</code></a></li>
+  </ul>
+
+  <h1><a name="Agencies">Agencies</a></h1>
+  <div class="method"><a name="getCostings"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /agencies/costings</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getCostings</span>)</div>
+    <div class="method-notes">Returns a list of agencies and their costs for the supplied duty.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Duty <a href="#Duty">Duty</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#AgencyCostings">AgencyCostings</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "dutyId" : "dutyId",
+  "results" : [ {
+    "cost" : 125,
+    "agencyId" : "agencyId",
+    "agencyName" : "agencyName"
+  }, {
+    "cost" : 125,
+    "agencyId" : "agencyId",
+    "agencyName" : "agencyName"
+  } ]
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#AgencyCostings">AgencyCostings</a>
+    <h4 class="field-label">400</h4>
+    Invalid input parameter
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="sendDutyToAgencies"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /agencies</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">sendDutyToAgencies</span>)</div>
+    <div class="method-notes">Forward a request for a duty to be filled by agency. Dependent upon the rules specified within the VMS, this will cascade to the appropriate agencies.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">DutyRequest <a href="#DutyRequest">DutyRequest</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Duty accepted by VMS.
+        <a href="#String">String</a>
+    <h4 class="field-label">400</h4>
+    Invalid input parameter
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="sendDutyToAgency"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /agencies/{agencyId}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">sendDutyToAgency</span>)</div>
+    <div class="method-notes">Immediately forward a request for a duty to be filled by a specific agency. If the request also specifies a worker Identity, this will be a direct booking.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">agencyId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the agency to send the request to. default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">DutyRequest <a href="#DutyRequest">DutyRequest</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Duty accepted by VMS.
+        <a href="#String">String</a>
+    <h4 class="field-label">400</h4>
+    Invalid input parameter
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Agency">Agency</a></h1>
+  <div class="method"><a name="offerWorker"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /bookingRequests/{bookingRequestId}/offers</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">offerWorker</span>)</div>
+    <div class="method-notes">Offer a worker for a booking</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">bookingRequestId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the booking request to offer a worker for. default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">PersonIdentifier <a href="#PersonIdentifier">PersonIdentifier</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successfully offered worker
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    No such booking request exists
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Bookings">Bookings</a></h1>
+  <div class="method"><a name="acceptAgencyOffer"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /bookingRequests/{bookingRequestId}/offers/{offerId}/accept</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">acceptAgencyOffer</span>)</div>
+    <div class="method-notes">Accept an agency offer for a worker.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">bookingRequestId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the booking request to accept. default: null </div><div class="param">offerId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the offer to accept. Depending on the VMS, this may be a unique ID, an index to locate an agency, or the agency ID itself. default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: </div>
+    <pre class="example"><code></code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Booking request confirmed by VMS.
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    No such booking request exists
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="cancelBooking"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /bookings/{bookingId}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">cancelBooking</span>)</div>
+    <div class="method-notes">Cancel a duty booking previously accepted. This does not cancel any outstanding booking requests or duty cascades.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">bookingId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the booking to cancel. default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successfully deleted booking
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    No such booking exists
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="cancelBookingRequest"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /bookingRequests/{bookingRequestId}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">cancelBookingRequest</span>)</div>
+    <div class="method-notes">Cancel a previously requested booking. If the booking request has resulted in actual bookings, these will also be cancelled.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">bookingRequestId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the booking request to cancel. default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successfully deleted booking request
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    No such booking request exists
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getBooking"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /bookings/{bookingId}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getBooking</span>)</div>
+    <div class="method-notes">Query a duty booking by id</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">bookingId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the duty booking default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#DutyRequest">DutyRequest</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "workerId" : "workerId",
+  "duty" : {
+    "requirements" : {
+      "specialty" : "Speciality",
+      "fallbackSpeciality" : "Fallback speciality",
+      "skill" : "Skill",
+      "fallbackSkill" : "Fallback skill"
+    },
+    "clientDeptId" : "TrustA.667899",
+    "agency" : "Liberty Resourcing Admin",
+    "subDiscipline" : "TrustA.1323",
+    "grade" : "TrustA.77889",
+    "fallbackGrade" : "TrustA.9989",
+    "where" : {
+      "name" : "name",
+      "id" : "id"
+    },
+    "id" : "ABD.1210",
+    "uniqueNumber" : 112233,
+    "when" : {
+      "date" : "2018-07-29T00:00:00.000+0000",
+      "breakDuration" : 30,
+      "startTime" : "12:40",
+      "endTime" : "01:25"
+    },
+    "vacancyReason" : "TrustA.12",
+    "poNumber" : 0
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Request OK
+        <a href="#DutyRequest">DutyRequest</a>
+    <h4 class="field-label">400</h4>
+    Invalid input parameter
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    No such booking exists
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Workers">Workers</a></h1>
+  <div class="method"><a name="getWorker"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /workers/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getWorker</span>)</div>
+    <div class="method-notes">Get the details of a person (worker) from the VMS</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the worker within the VMS. default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Person">Person</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "firstName" : "Doe",
+  "telephoneNumber" : "+223504938839",
+  "universalId" : "QQ123456C",
+  "surname" : "John",
+  "links" : [ {
+    "rel" : "rel",
+    "href" : "http://example.com/aeiou"
+  }, {
+    "rel" : "rel",
+    "href" : "http://example.com/aeiou"
+  } ],
+  "id" : "123e4567-e89b-12d3-a456-426655440000",
+  "email" : "john.doe@mail.com"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Request OK
+        <a href="#Person">Person</a>
+    <h4 class="field-label">400</h4>
+    Invalid input parameter
+        <a href="#"></a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#Agency"><code>Agency</code> - </a></li>
+    <li><a href="#AgencyCosting"><code>AgencyCosting</code> - </a></li>
+    <li><a href="#AgencyCostings"><code>AgencyCostings</code> - </a></li>
+    <li><a href="#BookingCancelledEvent"><code>BookingCancelledEvent</code> - </a></li>
+    <li><a href="#BookingConfirmedEvent"><code>BookingConfirmedEvent</code> - </a></li>
+    <li><a href="#Duty"><code>Duty</code> - </a></li>
+    <li><a href="#DutyLocation"><code>DutyLocation</code> - </a></li>
+    <li><a href="#DutyRequest"><code>DutyRequest</code> - </a></li>
+    <li><a href="#DutyRequirements"><code>DutyRequirements</code> - </a></li>
+    <li><a href="#DutyTiming"><code>DutyTiming</code> - </a></li>
+    <li><a href="#Link"><code>Link</code> - </a></li>
+    <li><a href="#Person"><code>Person</code> - </a></li>
+    <li><a href="#PersonIdentifier"><code>PersonIdentifier</code> - </a></li>
+    <li><a href="#WorkerOffer"><code>WorkerOffer</code> - </a></li>
+    <li><a href="#WorkerOfferedEvent"><code>WorkerOfferedEvent</code> - </a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="Agency"><code>Agency</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ID of the agency </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name of the agency </div>
+<div class="param">contactTelephone (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Telephone number for agency </div>
+<div class="param">contactEmail (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Email address for agency </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="AgencyCosting"><code>AgencyCosting</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">agencyId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">agencyName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">cost (optional)</div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="AgencyCostings"><code>AgencyCostings</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">dutyId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ID of the incoming duty. </div>
+<div class="param">results (optional)</div><div class="param-desc"><span class="param-type"><a href="#AgencyCosting">array[AgencyCosting]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="BookingCancelledEvent"><code>BookingCancelledEvent</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">bookingRequestId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">bookingId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">agencyId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">cost (optional)</div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="BookingConfirmedEvent"><code>BookingConfirmedEvent</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">bookingRequestId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">bookingId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">agencyId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">cost (optional)</div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Duty"><code>Duty</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ID of the duty (from the source system) format: CustomerCode.DutyIdentifier</div>
+<div class="param">when (optional)</div><div class="param-desc"><span class="param-type"><a href="#DutyTiming">DutyTiming</a></span>  </div>
+<div class="param">where (optional)</div><div class="param-desc"><span class="param-type"><a href="#DutyLocation">DutyLocation</a></span>  </div>
+<div class="param">requirements (optional)</div><div class="param-desc"><span class="param-type"><a href="#DutyRequirements">DutyRequirements</a></span>  </div>
+<div class="param">clientDeptId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> BankStaff ward trust identifier format: trustCode.wardId</div>
+<div class="param">subDiscipline (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Staff group trust identifier format: trustCode.staffGroupId</div>
+<div class="param">grade (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Grade trust identifier of the request format: trustCode.gradeId</div>
+<div class="param">fallbackGrade (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: trustCode.gradeId</div>
+<div class="param">vacancyReason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: trustCode.vacancyReasonId</div>
+<div class="param">poNumber (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Need to understand if needed from Trust/Agency </div>
+<div class="param">uniqueNumber (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> BRN / Unique number </div>
+<div class="param">agency (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Supplying agency for the duty </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DutyLocation"><code>DutyLocation</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">parentLocation (optional)</div><div class="param-desc"><span class="param-type"><a href="#DutyLocation">DutyLocation</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DutyRequest"><code>DutyRequest</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">workerId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Where the caller wishes to direct-book a particular worker into the duty, their identifier is specified here. </div>
+<div class="param">duty </div><div class="param-desc"><span class="param-type"><a href="#Duty">Duty</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DutyRequirements"><code>DutyRequirements</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">skill (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Text description </div>
+<div class="param">specialty (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Text description </div>
+<div class="param">fallbackSkill (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Text description </div>
+<div class="param">fallbackSpeciality (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Text description </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DutyTiming"><code>DutyTiming</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">date </div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span> Date of the duty (yyyy-mm-dd) format: date</div>
+<div class="param">startTime </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Start time of the shift </div>
+<div class="param">endTime </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> End time of the shift </div>
+<div class="param">breakDuration (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Duration of break in minutes </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Link"><code>Link</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">rel (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> identifier for the type of link </div>
+<div class="param">href (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> URL to resolve this link format: url</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Person"><code>Person</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>Details of a Person in the VMS, typically a Worker.</div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> identifier of the person (worker) within the VMS </div>
+<div class="param">universalId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Global identifer, such as National Insurance number (where known), or other identifier or composite identifier that may be used for matching purposes. </div>
+<div class="param">firstName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">surname (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">email (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">telephoneNumber (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">links (optional)</div><div class="param-desc"><span class="param-type"><a href="#Link">array[Link]</a></span> Array of HATEOAS-style references that may be followed by the client. This may include a 'worker.profile' URL, which will return an HTML page representing the worker profile within the VMS. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PersonIdentifier"><code>PersonIdentifier</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>ID to specify a worker. Either an ID (relative to the receiving system) or universalId (such as National Insurance Number) may be used.</div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> identifier of the person (worker) within the VMS </div>
+<div class="param">universalId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Global identifer, such as National Insurance number (where known), or other identifier or composite identifier that may be used for matching purposes. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkerOffer"><code>WorkerOffer</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Unique identifier for this offer. </div>
+<div class="param">bookingRequestId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The underlying booking request for this offer. </div>
+<div class="param">worker </div><div class="param-desc"><span class="param-type"><a href="#Person">Person</a></span>  </div>
+<div class="param">agency </div><div class="param-desc"><span class="param-type"><a href="#Agency">Agency</a></span>  </div>
+<div class="param">qualificationStatus </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> <p>Qualification Status:</p>
+<ul>
+<li><code>qualified</code> - Worker has passed all trust-defined checks, and may be considered valid to book.</li>
+<li><code>unqualified</code> - Worker has not passed some, or all of the trust-defined checks. These should be performed before progressing to booking the worker.</li>
+</ul>
+ format: enum</div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">qualified</div><div class="param-enum">unqualified</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkerOfferedEvent"><code>WorkerOfferedEvent</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">objectType </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">bookingRequestId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ID of the booking request </div>
+<div class="param">agency (optional)</div><div class="param-desc"><span class="param-type"><a href="#Agency">Agency</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>

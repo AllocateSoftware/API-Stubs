@@ -1,0 +1,299 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: support@allocatesoftware.com
+    name: API support
+    url: http://www.allocatesoftware.com/
+  description: |
+    ## Description
+     API to be impemented by 247Time (and, potentially, partners) to enable provisioning of accounts and the org structure
+  title: VMS Provisioning API
+  version: 1.0.0
+  x-logo:
+    url: http://www.allocatesoftware.com/wp-content/uploads/sites/31/2017/08/Allocate_logo_digital_Horizontal_RGB_retina.png
+    backgroundColor: '#FFFFc0'
+    altText: Allocate Software
+servers:
+- url: http://healthsuite.allocatesoftware.com/vms/provisioning/v1
+tags:
+- description: Calls to do with provisioning
+  name: provisioning
+paths:
+  /provision/customer/{id}:
+    put:
+      description: Provision the supplied structure.
+      operationId: provision_structure
+      parameters:
+      - description: ID of the customer to provision
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StructureProvision'
+        description: Structure of the Customer (trust). This call should be considered
+          a 'set' - elements omitted that were present in previous provisionings should
+          be removed.
+        required: true
+      responses:
+        204:
+          description: Provisioning successful
+        400:
+          description: Invalid input parameter
+        401:
+          description: Unauthorized
+      tags:
+      - provisioning
+      x-openapi-router-controller: api_server.controllers.provisioning_controller
+  /provision/user/{id}:
+    put:
+      description: Provision the supplied user.
+      operationId: provision_user
+      parameters:
+      - description: ID of the user to provision
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProvision'
+        description: Structure of the User
+        required: true
+      responses:
+        204:
+          description: User accepted and provisioned.
+        400:
+          description: Invalid input parameter
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      tags:
+      - provisioning
+      x-openapi-router-controller: api_server.controllers.provisioning_controller
+components:
+  schemas:
+    UserProvision:
+      example:
+        access:
+        - roles:
+          - roles
+          - roles
+          unitId: NCUH.1121
+        - roles:
+          - roles
+          - roles
+          unitId: NCUH.1121
+        user:
+          roles:
+          - roles
+          - roles
+          name: name
+          uri: user@email.com
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        access:
+          items:
+            $ref: '#/components/schemas/UserProvisionItem'
+          type: array
+      type: object
+    User:
+      example:
+        roles:
+        - roles
+        - roles
+        name: name
+        uri: user@email.com
+      properties:
+        uri:
+          description: Identifier of the user within the HealthSuite ecosystem
+          example: user@email.com
+          type: string
+        name:
+          description: Name for the user
+          type: string
+        roles:
+          description: Optional list of textual roles that the user has in relation
+            to the unit
+          items:
+            type: string
+          type: array
+      type: object
+    UserProvisionItem:
+      example:
+        roles:
+        - roles
+        - roles
+        unitId: NCUH.1121
+      properties:
+        unitId:
+          description: Identifier of the unit within the HealthSuite ecosystem
+          example: NCUH.1121
+          type: string
+        roles:
+          description: Optional list of textual roles that the user has in relation
+            to the unit
+          items:
+            type: string
+          type: array
+      type: object
+    StructureProvision:
+      example:
+        customerCode: NCUH
+        units:
+        - staffGroups:
+          - name: Medics
+            id: "1121"
+            grades:
+            - name: Band 5 RN
+              id: "1121"
+            - name: Band 5 RN
+              id: "1121"
+          - name: Medics
+            id: "1121"
+            grades:
+            - name: Band 5 RN
+              id: "1121"
+            - name: Band 5 RN
+              id: "1121"
+          children:
+          - null
+          - null
+          name: Opal Ward
+          id: "12345"
+          costCentre:
+            code: CC100
+        - staffGroups:
+          - name: Medics
+            id: "1121"
+            grades:
+            - name: Band 5 RN
+              id: "1121"
+            - name: Band 5 RN
+              id: "1121"
+          - name: Medics
+            id: "1121"
+            grades:
+            - name: Band 5 RN
+              id: "1121"
+            - name: Band 5 RN
+              id: "1121"
+          children:
+          - null
+          - null
+          name: Opal Ward
+          id: "12345"
+          costCentre:
+            code: CC100
+      properties:
+        customerCode:
+          description: ID of the Customer (Trust)
+          example: NCUH
+          type: string
+        units:
+          description: List of units present within the customer's system
+          items:
+            $ref: '#/components/schemas/Unit'
+          type: array
+      type: object
+    Unit:
+      example:
+        staffGroups:
+        - name: Medics
+          id: "1121"
+          grades:
+          - name: Band 5 RN
+            id: "1121"
+          - name: Band 5 RN
+            id: "1121"
+        - name: Medics
+          id: "1121"
+          grades:
+          - name: Band 5 RN
+            id: "1121"
+          - name: Band 5 RN
+            id: "1121"
+        children:
+        - null
+        - null
+        name: Opal Ward
+        id: "12345"
+        costCentre:
+          code: CC100
+      properties:
+        id:
+          example: "12345"
+          type: string
+        name:
+          example: Opal Ward
+          type: string
+        costCentre:
+          $ref: '#/components/schemas/CostCentre'
+        staffGroups:
+          items:
+            $ref: '#/components/schemas/StaffGroup'
+          type: array
+        children:
+          description: Children of this unit. This may be an arbitarily deep tree
+            structure.
+          items:
+            $ref: '#/components/schemas/Unit'
+          type: array
+      required:
+      - id
+      - name
+      type: object
+    CostCentre:
+      example:
+        code: CC100
+      properties:
+        code:
+          example: CC100
+          type: string
+      type: object
+    StaffGroup:
+      example:
+        name: Medics
+        id: "1121"
+        grades:
+        - name: Band 5 RN
+          id: "1121"
+        - name: Band 5 RN
+          id: "1121"
+      properties:
+        id:
+          example: "1121"
+          type: string
+        name:
+          example: Medics
+          type: string
+        grades:
+          items:
+            $ref: '#/components/schemas/Grade'
+          type: array
+      type: object
+    Grade:
+      example:
+        name: Band 5 RN
+        id: "1121"
+      properties:
+        id:
+          example: "1121"
+          type: string
+        name:
+          example: Band 5 RN
+          type: string
+      type: object

@@ -1,0 +1,306 @@
+h1. Duty Booking API and Events
+
+## Duty Booking API and events and Events 
+
+*Version:* 1.0.0
+
+----
+
+{expand:Table of Contents - Click to expand}
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+{expand}
+
+h2. Endpoints
+
+
+h3. cancelProposal
+{panel:title=cancelProposal|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Cancel the proposal (and the booking, if it has been accepted)
+
+	|| HttpMethod | {status:colour=Yellow|title=delete|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/proposals/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/booking/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the proposal |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Cancelled successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Cancelled successfully"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | The proposal was not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The proposal was not found"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The request was accepted and will be processed asynchronously |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The request was accepted and will be processed asynchronously",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. createProposal
+{panel:title=createProposal|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Offer a worker for filling a duty
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vacancy/{vacancyId}/proposals{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/booking/v1{noformat} |
+    || Produces | {noformat:nopanel=true}text/plainapplication/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |vacancyId |The ID of the vacancy |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |proposalDetails |Details of the proposal for filling the duty (worker) |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Proposal created successfully |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Proposal created successfully",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string",
+        "description" : "ID of the proposal"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The proposal has been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The proposal has been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. updateProposal
+{panel:title=updateProposal|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* *No Description*
+
+	|| HttpMethod | {status:colour=Yellow|title=put|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/proposals/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/booking/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the proposal |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |proposalDetails |Details of the proposal for filling the duty (worker) |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty costing successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty costing successfully"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | The proposal was not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The proposal was not found"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The request was accepted and will be processed asynchronously |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The request was accepted and will be processed asynchronously",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+{anchor:models}
+h2. Models
+
+        {anchor:AsyncResponseModelAnchor}
+        h3. AsyncResponse
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |Correlation Identifier |
+        {anchor:BookingCancelledEventModelAnchor}
+        h3. BookingCancelledEvent
+        ||Field Name||Required||Type||Description||
+         |proposalId |(/) |{noformat:nopanel=true}String{noformat} |The ID of the booking |
+ |vacancyId |(x) |{noformat:nopanel=true}String{noformat} |The ID of the vacancy |
+        {anchor:BookingEventModelAnchor}
+        h3. BookingEvent
+        ||Field Name||Required||Type||Description||
+         |proposalId |(/) |{noformat:nopanel=true}String{noformat} |The ID of the proposal |
+ |vacancyId |(x) |{noformat:nopanel=true}String{noformat} |The ID of the vacancy |
+        {anchor:CancellationCostModelAnchor}
+        h3. CancellationCost
+        ||Field Name||Required||Type||Description||
+         |afterDate |(/) |{noformat:nopanel=true}Date{noformat} |The date/time after which this cost becomes valid |
+ |amount |(/) |{noformat:nopanel=true}BigDecimal{noformat} |The cost of cancellation |
+        {anchor:DateSpanModelAnchor}
+        h3. DateSpan
+        ||Field Name||Required||Type||Description||
+         |start |(x) |{noformat:nopanel=true}Date{noformat} |Start date-time |
+ |end |(x) |{noformat:nopanel=true}Date{noformat} |End date-time |
+        {anchor:DutyModelAnchor}
+        h3. Duty
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |Identifier for this duty |
+ |when |(x) |{noformat:nopanel=true}Duty_when{noformat} | |
+ |where |(x) |{noformat:nopanel=true}Duty_where{noformat} | |
+ |reason |(x) |{noformat:nopanel=true}String{noformat} |reason for requestBody |
+ |requirements |(x) |{noformat:nopanel=true}Duty_requirements{noformat} | |
+        {anchor:DutyDetailsModelAnchor}
+        h3. DutyDetails
+        ||Field Name||Required||Type||Description||
+         |when |(x) |{noformat:nopanel=true}DutyDetails_when{noformat} | |
+ |where |(x) |{noformat:nopanel=true}DutyDetails_where{noformat} | |
+ |requirements |(x) |{noformat:nopanel=true}Object{noformat} | |
+        {anchor:DutyDetailsWhenModelAnchor}
+        h3. DutyDetailsWhen
+        ||Field Name||Required||Type||Description||
+         |from |(x) |{noformat:nopanel=true}Date{noformat} | |
+ |to |(x) |{noformat:nopanel=true}Date{noformat} | |
+        {anchor:DutyDetailsWhereModelAnchor}
+        h3. DutyDetailsWhere
+        ||Field Name||Required||Type||Description||
+         |locationId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyRequirementsModelAnchor}
+        h3. DutyRequirements
+        ||Field Name||Required||Type||Description||
+         |gradeRequirement |(x) |{noformat:nopanel=true}Duty_requirements_gradeRequirement{noformat} | |
+ |gender |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyRequirementsGradeRequirementModelAnchor}
+        h3. DutyRequirementsGradeRequirement
+        ||Field Name||Required||Type||Description||
+         |grade |(x) |{noformat:nopanel=true}String{noformat} | |
+ |gradeType |(x) |{noformat:nopanel=true}String{noformat} | |
+ |gradeTypeCategory |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyTimesModelAnchor}
+        h3. DutyTimes
+        ||Field Name||Required||Type||Description||
+         |period |(x) |{noformat:nopanel=true}DutyTimes{noformat} | |
+ |restTime |(x) |{noformat:nopanel=true}Integer{noformat} |Number of minutes of rest date-time |
+        {anchor:DutyWhenModelAnchor}
+        h3. DutyWhen
+        ||Field Name||Required||Type||Description||
+         |planned |(x) |{noformat:nopanel=true}DutyTimes{noformat} | |
+ |actual |(x) |{noformat:nopanel=true}DutyTimes{noformat} | |
+ |shiftType |(x) |{noformat:nopanel=true}String{noformat} |Night, Day, etc |
+        {anchor:DutyWhereModelAnchor}
+        h3. DutyWhere
+        ||Field Name||Required||Type||Description||
+         |trustId |(x) |{noformat:nopanel=true}String{noformat} |name of the trust |
+ |unitCode |(x) |{noformat:nopanel=true}String{noformat} |Code for the unit within the trust |
+        {anchor:ProposalDetailsModelAnchor}
+        h3. ProposalDetails
+        ||Field Name||Required||Type||Description||
+         |personId |(/) |{noformat:nopanel=true}String{noformat} |The ASWid of the worker being offered for this duty |
+ |engagementRoute |(/) |{noformat:nopanel=true}String{noformat} |The engagement route for this worker |
+ |agencyId |(x) |{noformat:nopanel=true}Object{noformat} |The ASWid of the agency, if this worker is being provided through an agency engagement |
+ |cost |(/) |{noformat:nopanel=true}BigDecimal{noformat} |Cost for this worker |
+ |cancellationCosts |(/) |{noformat:nopanel=true}array[CancellationCost]{noformat} | |
+ |options |(x) |{noformat:nopanel=true}array[array[String]]{noformat} |Any options being passed for this worker |
+        {anchor:VacancyPublishedEventModelAnchor}
+        h3. VacancyPublishedEvent
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |ID of the vacancy |
+ |duty |(/) |{noformat:nopanel=true}Duty{noformat} | |
+        {anchor:VacancyUpdatedEventModelAnchor}
+        h3. VacancyUpdatedEvent
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |ID of the vacancy |
+ |duty |(/) |{noformat:nopanel=true}Duty{noformat} | |
+        {anchor:VacancyWithdrawnEventModelAnchor}
+        h3. VacancyWithdrawnEvent
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |ID of the vacancy |

@@ -1,0 +1,128 @@
+
+<h2>Duty</h2>
+<ul class="parameter">
+  <li class="param-required-false">dutyId : String
+    <br/>Trust identifier of the duty
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">slaveDutyId : String
+    <br/>Identifier of the slave duty if duty is part of consolidated duties
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">blockId : String
+    <br/>Identifier of block duties if duty is part of the block
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">clientDeptId : String
+    <br/>BankStaff ward trust identifier
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">subDiscipline : String
+    <br/>Staff group trust identifier
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">requestGender : RequestGender
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">grade : String
+    <br/>Grade trust identifier of the request
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">fallbackGrade : String
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">vacancyReason : String
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">date : date
+    <br/>Date of the duty
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">startTime : String
+    <br/>Start time of the shift
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">endTime : String
+    <br/>End time of the shift
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">breakDuration : Integer
+    <br/>Duration of break in minutes
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">poNumber : Integer
+    <br/>Need to understand if needed from Trust/Agency
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">uniqueNumber : Integer
+    <br/>BRN / Unique number
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">agency : String
+    <br/>Supplying agency trust identifier
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">skill : String
+    <br/>Stored as free text in DE Provider
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">specialty : String
+    <br/>Stored as free text in DE Provider
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">fallbackSkill : String
+    <br/>Stored as free text in DE Provider
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">fallbackSpeciality : String
+    <br/>Stored as free text in DE Provider
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">status : String
+    <br/>Will need to understand if duty is no longer required and cancel on DE Provider
+      <dl class="param-enum">
+        <dt>Enum:
+            <dd>active</dd>
+            <dd>cancelled</dd>
+        </dt>
+      </dl>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">rates : List
+    <br/>Trust Pay Agency &amp; Trust Pays DE provider - split rate between pay to worker and pay to agency
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">timeIntervalRates : List
+    <br/>Array of rates and intervals for which the rate is applied
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">person : Person
+    <br/>
+  </li>
+</ul>

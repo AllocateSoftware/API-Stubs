@@ -1,0 +1,807 @@
+{
+  "openapi" : "3.0.2",
+  "info" : {
+    "contact" : {
+      "email" : "support@allocatesoftware.com",
+      "name" : "API support",
+      "url" : "http://www.allocatesoftware.com/"
+    },
+    "description" : "\n    ## API for accessing reference data and mapping information\n",
+    "title" : "Reference data and Mappings API",
+    "version" : "1.0.0",
+    "x-logo" : {
+      "url" : "http://www.allocatesoftware.com/wp-content/uploads/sites/31/2017/08/Allocate_logo_digital_Horizontal_RGB_retina.png",
+      "backgroundColor" : "#FFFFc0",
+      "altText" : "Allocate Software"
+    }
+  },
+  "servers" : [ {
+    "url" : "http://healthsuite.allocatesoftware.com/api/v1"
+  } ],
+  "security" : [ {
+    "jwt" : [ ]
+  } ],
+  "tags" : [ {
+    "name" : "Reference Data"
+  }, {
+    "name" : "Mappings"
+  } ],
+  "paths" : {
+    "/mappingSets" : {
+      "get" : {
+        "description" : "Return a list of mapping sets that you may utilise",
+        "operationId" : "getMappingSets",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/MappingSet"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "Returning a list of mapping sets"
+          }
+        },
+        "tags" : [ "Mappings" ]
+      }
+    },
+    "/mappingSets/{setId}" : {
+      "get" : {
+        "description" : "Get a mapping set by ID",
+        "operationId" : "getMappingSetById",
+        "parameters" : [ {
+          "description" : "The ID of the vocabulary type",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "setId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/MappingSet"
+                }
+              }
+            },
+            "description" : "Returning a list of mapping sets"
+          }
+        },
+        "tags" : [ "Mappings" ]
+      }
+    },
+    "/mappingSets/{setId}/mappings" : {
+      "get" : {
+        "description" : "Return the elements of a mapping set",
+        "operationId" : "getMappings",
+        "parameters" : [ {
+          "description" : "The ID of the mapping set",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "setId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        }, {
+          "description" : "Search for a mapping where the from code matches the provided string",
+          "example" : "Band 4",
+          "explode" : true,
+          "in" : "query",
+          "name" : "fromCode",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Mapping"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "Returning a list of mapping set entries"
+          }
+        },
+        "tags" : [ "Mappings" ]
+      },
+      "post" : {
+        "description" : "Create a new entry in a mapping set",
+        "operationId" : "createMapping",
+        "parameters" : [ {
+          "description" : "The ID of the mapping set",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "setId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Mapping"
+              }
+            }
+          },
+          "description" : "Details of the mapping",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "description" : "ID of the new entry",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Successfully created"
+          }
+        },
+        "tags" : [ "Mappings" ]
+      }
+    },
+    "/mappingSets/{id}/mappings/{mappingId}" : {
+      "delete" : {
+        "description" : "Delete a vocabulary entry",
+        "operationId" : "deleteMapping",
+        "parameters" : [ {
+          "description" : "The ID of the vocabulary",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        }, {
+          "description" : "The ID of the mapping",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "mappingId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Updated successfully"
+          }
+        },
+        "tags" : [ "Mappings" ]
+      },
+      "get" : {
+        "description" : "Return the mapping",
+        "operationId" : "getMapping",
+        "parameters" : [ {
+          "description" : "The ID of the mapping set",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        }, {
+          "description" : "The ID of the mapping set element",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "mappingId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Mapping"
+                }
+              }
+            },
+            "description" : "Returning a list of vocabularies"
+          }
+        },
+        "tags" : [ "Mappings" ]
+      },
+      "put" : {
+        "description" : "Update a mapping",
+        "operationId" : "putMapping",
+        "parameters" : [ {
+          "description" : "The ID of the vocabulary",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        }, {
+          "description" : "The ID of the vocabulary element",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "mappingId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Mapping"
+              }
+            }
+          },
+          "description" : "Details of the mapping",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Updated successfully"
+          }
+        },
+        "tags" : [ "Mappings" ]
+      }
+    },
+    "/vocabularyTypes" : {
+      "get" : {
+        "description" : "Return a list of vocabularies types that you may query",
+        "operationId" : "getVocabularyTypes",
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/VocabularyType"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "Returning a list of vocabulary types"
+          }
+        },
+        "tags" : [ "Reference Data" ]
+      }
+    },
+    "/vocabularyTypes/{id}" : {
+      "get" : {
+        "description" : "Return a vocabulary type",
+        "operationId" : "getVocabularyTypeById",
+        "parameters" : [ {
+          "description" : "The ID of the vocabulary type",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/VocabularyType"
+                }
+              }
+            },
+            "description" : "Returning a vocabulary type"
+          }
+        },
+        "tags" : [ "Reference Data" ]
+      }
+    },
+    "/vocabularies" : {
+      "get" : {
+        "description" : "Return a list of vocabularies types that you may query",
+        "operationId" : "getVocabularies",
+        "parameters" : [ {
+          "description" : "Limit to vocabulary types",
+          "example" : "4A4C8447-F66E-464F-BBB1-2DEE4971CF28",
+          "explode" : true,
+          "in" : "query",
+          "name" : "vocabularyTypeId",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        }, {
+          "description" : "Return page of results",
+          "explode" : true,
+          "in" : "query",
+          "name" : "page",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        }, {
+          "description" : "Records per page",
+          "explode" : true,
+          "in" : "query",
+          "name" : "pageSize",
+          "required" : false,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "form"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/Vocabulary"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "Returning a list of vocabularies"
+          }
+        },
+        "tags" : [ "Reference Data" ]
+      }
+    },
+    "/vocabularies/{id}" : {
+      "get" : {
+        "description" : "Return a list of vocabularies that you may query",
+        "operationId" : "getVocabulary",
+        "parameters" : [ {
+          "description" : "The ID of the vocabulary",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Vocabulary"
+                }
+              }
+            },
+            "description" : "Returning a vocabulary"
+          }
+        },
+        "tags" : [ "Reference Data" ]
+      }
+    },
+    "/vocabularies/{id}/entries" : {
+      "get" : {
+        "description" : "Return the elements of a vocabulary",
+        "operationId" : "getVocabularyEntries",
+        "parameters" : [ {
+          "description" : "The ID of the vocabulary",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "items" : {
+                    "$ref" : "#/components/schemas/VocabularyEntry"
+                  },
+                  "type" : "array"
+                }
+              }
+            },
+            "description" : "Returning a list of vocabularies"
+          }
+        },
+        "tags" : [ "Reference Data" ]
+      },
+      "post" : {
+        "description" : "Create a new entry in a vocabulary",
+        "operationId" : "createVocabularyEntry",
+        "parameters" : [ {
+          "description" : "The ID of the vocabulary",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/VocabularyEntry"
+              }
+            }
+          },
+          "description" : "Details of the vocabulary entry",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "description" : "ID of the new entry",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Returning a list of vocabularies"
+          }
+        },
+        "tags" : [ "Reference Data" ]
+      }
+    },
+    "/vocabularies/{id}/entries/{elementId}" : {
+      "delete" : {
+        "description" : "Delete a vocabulary entry",
+        "operationId" : "deleteVocabularyEntry",
+        "parameters" : [ {
+          "description" : "The ID of the vocabulary",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        }, {
+          "description" : "The ID of the vocabulary element",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "elementId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Updated successfully"
+          }
+        },
+        "tags" : [ "Reference Data" ]
+      },
+      "get" : {
+        "description" : "Return the elements of a vocabulary",
+        "operationId" : "getVocabularyElement",
+        "parameters" : [ {
+          "description" : "The ID of the vocabulary",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        }, {
+          "description" : "The ID of the vocabulary element",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "elementId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/VocabularyEntry"
+                }
+              }
+            },
+            "description" : "Returning a list of vocabularies"
+          }
+        },
+        "tags" : [ "Reference Data" ]
+      },
+      "put" : {
+        "description" : "Create a new entry in a vocabulary",
+        "operationId" : "putVocabularyEntry",
+        "parameters" : [ {
+          "description" : "The ID of the vocabulary",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        }, {
+          "description" : "The ID of the vocabulary element",
+          "example" : "EB7659C5-6AD3-4C1F-8F3F-A5DB1A5E1440",
+          "explode" : false,
+          "in" : "path",
+          "name" : "elementId",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/VocabularyEntry"
+              }
+            }
+          },
+          "description" : "Details of the vocabulary entry",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Updated successfully"
+          }
+        },
+        "tags" : [ "Reference Data" ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "XPaginationHeader" : {
+        "properties" : {
+          "currentPage" : {
+            "format" : "int32",
+            "type" : "integer"
+          },
+          "pageSize" : {
+            "format" : "int32",
+            "type" : "integer"
+          }
+        },
+        "required" : [ "currentPage", "pageSize" ],
+        "type" : "object"
+      },
+      "VocabularyVariant" : {
+        "properties" : {
+          "name" : {
+            "description" : "Name of the variant. Usually would not contain spaces (as this will be used in URLs).",
+            "example" : "AHFT",
+            "type" : "string"
+          },
+          "description" : {
+            "description" : "Description of the vocabulary",
+            "example" : "Anytown Hospital NHS Foundation Trust",
+            "type" : "string"
+          }
+        },
+        "required" : [ "name" ],
+        "type" : "object"
+      },
+      "Vocabulary" : {
+        "example" : {
+          "code" : "NCUH",
+          "description" : "List of grades",
+          "typeId" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+          "id" : "DA32F546-E049-49DE-BDDD-EA466597E27E"
+        },
+        "properties" : {
+          "id" : {
+            "description" : "ID of this vocabulary",
+            "example" : "DA32F546-E049-49DE-BDDD-EA466597E27E",
+            "type" : "string"
+          },
+          "typeId" : {
+            "description" : "ID of the type of vocabulary that this is an example of",
+            "example" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+            "type" : "string"
+          },
+          "code" : {
+            "description" : "Code for this vocabulary. Unique within the type of vocabulary",
+            "example" : "NCUH",
+            "type" : "string"
+          },
+          "description" : {
+            "description" : "Optional description of the vocabulary",
+            "example" : "List of grades",
+            "type" : "string"
+          }
+        },
+        "required" : [ "code", "id", "typeId" ],
+        "type" : "object"
+      },
+      "VocabularyType" : {
+        "example" : {
+          "name" : "grades",
+          "description" : "List of grades",
+          "id" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+          "tags" : {
+            "key" : "tags"
+          }
+        },
+        "properties" : {
+          "id" : {
+            "description" : "ID of this vocabulary type",
+            "example" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+            "type" : "string"
+          },
+          "name" : {
+            "description" : "Name of the vocabulary. Usually would not contain spaces (as this will be used in URLs).",
+            "example" : "grades",
+            "type" : "string"
+          },
+          "description" : {
+            "description" : "Description of the vocabulary",
+            "example" : "List of grades",
+            "type" : "string"
+          },
+          "tags" : {
+            "additionalProperties" : {
+              "type" : "string"
+            },
+            "description" : "Optional array of tags which may be applied",
+            "type" : "object"
+          }
+        },
+        "required" : [ "description", "id", "name" ],
+        "type" : "object"
+      },
+      "VocabularyEntry" : {
+        "example" : {
+          "code" : "ABCD",
+          "title" : "ABCD"
+        },
+        "properties" : {
+          "code" : {
+            "description" : "Code for the element. Should be unique within the vocabulary",
+            "example" : "ABCD",
+            "type" : "string"
+          },
+          "title" : {
+            "description" : "Title for the element",
+            "example" : "ABCD",
+            "type" : "string"
+          }
+        },
+        "required" : [ "code" ],
+        "type" : "object"
+      },
+      "MappingSet" : {
+        "example" : {
+          "id" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+          "vocabularyType" : {
+            "name" : "grades",
+            "description" : "List of grades",
+            "id" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+            "tags" : {
+              "key" : "tags"
+            }
+          }
+        },
+        "properties" : {
+          "id" : {
+            "description" : "ID of this mapping set",
+            "example" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+            "type" : "string"
+          },
+          "vocabularyType" : {
+            "$ref" : "#/components/schemas/VocabularyType"
+          }
+        },
+        "required" : [ "id", "vocabularyType" ],
+        "type" : "object"
+      },
+      "Mapping" : {
+        "example" : {
+          "mappingSetId" : "mappingSetId",
+          "from" : {
+            "code" : "ABCD",
+            "title" : "ABCD"
+          },
+          "id" : "id",
+          "to" : {
+            "code" : "ABCD",
+            "title" : "ABCD"
+          }
+        },
+        "properties" : {
+          "id" : {
+            "description" : "Id of this mapping",
+            "type" : "string"
+          },
+          "mappingSetId" : {
+            "type" : "string"
+          },
+          "from" : {
+            "$ref" : "#/components/schemas/VocabularyEntry"
+          },
+          "to" : {
+            "$ref" : "#/components/schemas/VocabularyEntry"
+          }
+        },
+        "required" : [ "from", "mappingSetId", "to" ],
+        "type" : "object"
+      }
+    },
+    "securitySchemes" : {
+      "jwt" : {
+        "bearerFormat" : "JWT",
+        "description" : "JSON Web Token previously obtained from the Allocate authentication server",
+        "scheme" : "bearer",
+        "type" : "http"
+      }
+    }
+  }
+}

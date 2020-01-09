@@ -1,0 +1,862 @@
+h1. Duties and Events
+
+## Duties and Events 
+
+*Version:* 1.0.0
+
+----
+
+{expand:Table of Contents - Click to expand}
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+{expand}
+
+h2. Endpoints
+
+
+h3. sendDutyCosting
+{panel:title=sendDutyCosting|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* *No Description*
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/duties/{id}/costing{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/duty/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the duty |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |dutyCostDetails |Costing Information |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty costing successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty costing successfully"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The duty costing has been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The duty costing has been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. cancelDuty
+{panel:title=cancelDuty|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Cancel a duty. Also cancels any bookings (if present).
+
+	|| HttpMethod | {status:colour=Yellow|title=delete|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/duties/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/duty/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the duty |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty cancelled |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty cancelled"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The cancellation has been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The cancellation has been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. cancelDutyBooking
+{panel:title=cancelDutyBooking|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Cancel a duty booking.
+
+	|| HttpMethod | {status:colour=Yellow|title=delete|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/duties/{id}/booking{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/duty/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the duty |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty booking cancelled |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty booking cancelled"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The duty cancellation been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The duty cancellation been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Duty or Customer not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty or Customer not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. createDuty
+{panel:title=createDuty|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Create a new Duty
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/duties{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/duty/v1{noformat} |
+    || Produces | {noformat:nopanel=true}text/plainapplication/json{noformat} |
+----
+h4. Parameters
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |dutyDetails |Duty to be sent to agency |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty created successfully |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty created successfully",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string",
+        "description" : "ID of the newly created duty"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The duty has been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The duty has been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. sendDutyForFulfillment
+{panel:title=sendDutyForFulfillment|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Send a duty for fulfillment by contingent workforce (Bank, Cloudstaff, Agency)
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/duties/{id}/sendTo/{destination}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/duty/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the duty |(/) |null |  |
+
+        |destination |Desination to send the duty |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty sent successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty sent successfully"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | Request been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Request been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. sendDutyCosting
+{panel:title=sendDutyCosting|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* *No Description*
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/duties/{id}/costing{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/duty/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the duty |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |dutyCostDetails |Costing Information |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty costing successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty costing successfully"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The duty costing has been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The duty costing has been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. cancelDuty
+{panel:title=cancelDuty|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Cancel a duty. Also cancels any bookings (if present).
+
+	|| HttpMethod | {status:colour=Yellow|title=delete|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/duties/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/duty/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the duty |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty cancelled |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty cancelled"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The cancellation has been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The cancellation has been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. cancelDutyBooking
+{panel:title=cancelDutyBooking|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Cancel a duty booking.
+
+	|| HttpMethod | {status:colour=Yellow|title=delete|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/duties/{id}/booking{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/duty/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the duty |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty booking cancelled |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty booking cancelled"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The duty cancellation been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The duty cancellation been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Duty or Customer not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty or Customer not found"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. createDuty
+{panel:title=createDuty|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Create a new Duty
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/duties{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/duty/v1{noformat} |
+    || Produces | {noformat:nopanel=true}text/plainapplication/json{noformat} |
+----
+h4. Parameters
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |dutyDetails |Duty to be sent to agency |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty created successfully |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty created successfully",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string",
+        "description" : "ID of the newly created duty"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The duty has been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The duty has been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. sendDutyCosting
+{panel:title=sendDutyCosting|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* *No Description*
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/duties/{id}/costing{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/duty/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the duty |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |dutyCostDetails |Costing Information |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty costing successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty costing successfully"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The duty costing has been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The duty costing has been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. sendDutyForFulfillment
+{panel:title=sendDutyForFulfillment|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Send a duty for fulfillment by contingent workforce (Bank, Cloudstaff, Agency)
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/duties/{id}/sendTo/{destination}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/duty/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the duty |(/) |null |  |
+
+        |destination |Desination to send the duty |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Duty sent successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Duty sent successfully"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | Request been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Request been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+{anchor:models}
+h2. Models
+
+        {anchor:AsyncResponseModelAnchor}
+        h3. AsyncResponse
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |Correlation Identifier |
+        {anchor:DateSpanModelAnchor}
+        h3. DateSpan
+        ||Field Name||Required||Type||Description||
+         |start |(x) |{noformat:nopanel=true}Date{noformat} |Start date-time |
+ |end |(x) |{noformat:nopanel=true}Date{noformat} |End date-time |
+        {anchor:DutyModelAnchor}
+        h3. Duty
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |Identifier for this duty |
+ |when |(x) |{noformat:nopanel=true}Duty_when{noformat} | |
+ |where |(x) |{noformat:nopanel=true}Duty_where{noformat} | |
+ |reason |(x) |{noformat:nopanel=true}String{noformat} |reason for requestBody |
+ |requirements |(x) |{noformat:nopanel=true}Duty_requirements{noformat} | |
+        {anchor:DutyApprovedEventModelAnchor}
+        h3. DutyApprovedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyAssignedEventModelAnchor}
+        h3. DutyAssignedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyAssignmentClearedEventModelAnchor}
+        h3. DutyAssignmentClearedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyAssignmentFinalisedEventModelAnchor}
+        h3. DutyAssignmentFinalisedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyAssignmentRedeploymentEventModelAnchor}
+        h3. DutyAssignmentRedeploymentEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |assignmentNumber |(x) |{noformat:nopanel=true}String{noformat} | |
+ |originalDuty |(x) |{noformat:nopanel=true}Duty{noformat} | |
+ |newDuty |(x) |{noformat:nopanel=true}Duty{noformat} | |
+        {anchor:DutyAssignmentRedeploymentEventAllOfModelAnchor}
+        h3. DutyAssignmentRedeploymentEventAllOf
+        ||Field Name||Required||Type||Description||
+         |assignmentNumber |(x) |{noformat:nopanel=true}String{noformat} | |
+ |originalDuty |(x) |{noformat:nopanel=true}Duty{noformat} | |
+ |newDuty |(x) |{noformat:nopanel=true}Duty{noformat} | |
+        {anchor:DutyAssignmentSubmittedEventModelAnchor}
+        h3. DutyAssignmentSubmittedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyAssignmentTimesheetConfirmedEventModelAnchor}
+        h3. DutyAssignmentTimesheetConfirmedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyAssignmentTimesheetRejectedEventModelAnchor}
+        h3. DutyAssignmentTimesheetRejectedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyAssignmentTimesheetUnconfirmedEventModelAnchor}
+        h3. DutyAssignmentTimesheetUnconfirmedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyAssignmentUnFinalisedEventModelAnchor}
+        h3. DutyAssignmentUnFinalisedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyAssignmentUpdatedEventModelAnchor}
+        h3. DutyAssignmentUpdatedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyCancelledEventModelAnchor}
+        h3. DutyCancelledEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyCascadeEventModelAnchor}
+        h3. DutyCascadeEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(/) |{noformat:nopanel=true}String{noformat} | |
+ |cascadeFrom |(x) |{noformat:nopanel=true}String{noformat} | |
+ |cascadeTo |(/) |{noformat:nopanel=true}String{noformat} | |
+ |isDutyReset |(x) |{noformat:nopanel=true}Boolean{noformat} |Is this a &#39;reset&#39; ? (I.E Revert) |
+        {anchor:DutyCascadeEventAllOfModelAnchor}
+        h3. DutyCascadeEventAllOf
+        ||Field Name||Required||Type||Description||
+         |dutyId |(/) |{noformat:nopanel=true}String{noformat} | |
+ |cascadeFrom |(x) |{noformat:nopanel=true}String{noformat} | |
+ |cascadeTo |(/) |{noformat:nopanel=true}String{noformat} | |
+ |isDutyReset |(x) |{noformat:nopanel=true}Boolean{noformat} |Is this a &#39;reset&#39; ? (I.E Revert) |
+        {anchor:DutyCostDetailsModelAnchor}
+        h3. DutyCostDetails
+        ||Field Name||Required||Type||Description||
+         |costingType |(x) |{noformat:nopanel=true}String{noformat} |Whether this cost is estimated, or actual |
+ |amount |(x) |{noformat:nopanel=true}BigDecimal{noformat} |The amount (sterling) |
+        {anchor:DutyDeletedEventModelAnchor}
+        h3. DutyDeletedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyDetailsModelAnchor}
+        h3. DutyDetails
+        ||Field Name||Required||Type||Description||
+         |when |(x) |{noformat:nopanel=true}DutyDetails_when{noformat} | |
+ |where |(x) |{noformat:nopanel=true}DutyDetails_where{noformat} | |
+ |requirements |(x) |{noformat:nopanel=true}Object{noformat} | |
+        {anchor:DutyDetailsWhenModelAnchor}
+        h3. DutyDetailsWhen
+        ||Field Name||Required||Type||Description||
+         |from |(x) |{noformat:nopanel=true}Date{noformat} | |
+ |to |(x) |{noformat:nopanel=true}Date{noformat} | |
+        {anchor:DutyDetailsWhereModelAnchor}
+        h3. DutyDetailsWhere
+        ||Field Name||Required||Type||Description||
+         |locationId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyEventModelAnchor}
+        h3. DutyEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyEventAllOfModelAnchor}
+        h3. DutyEventAllOf
+        ||Field Name||Required||Type||Description||
+         |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyRequirementsModelAnchor}
+        h3. DutyRequirements
+        ||Field Name||Required||Type||Description||
+         |gradeRequirement |(x) |{noformat:nopanel=true}Duty_requirements_gradeRequirement{noformat} | |
+ |gender |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutyRequirementsGradeRequirementModelAnchor}
+        h3. DutyRequirementsGradeRequirement
+        ||Field Name||Required||Type||Description||
+         |grade |(x) |{noformat:nopanel=true}String{noformat} | |
+ |gradeType |(x) |{noformat:nopanel=true}String{noformat} | |
+ |gradeTypeCategory |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:DutySendEventModelAnchor}
+        h3. DutySendEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |destination |(x) |{noformat:nopanel=true}String{noformat} |Where this duty has been sent |
+ |duty |(x) |{noformat:nopanel=true}Duty{noformat} | |
+        {anchor:DutyTempStaffingExpressionOfInterestEventModelAnchor}
+        h3. DutyTempStaffingExpressionOfInterestEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |id |(x) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+ |workerId |(x) |{noformat:nopanel=true}String{noformat} |Identifier for the note |
+        {anchor:DutyTempStaffingExpressionOfInterestEventAllOfModelAnchor}
+        h3. DutyTempStaffingExpressionOfInterestEventAllOf
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+ |workerId |(x) |{noformat:nopanel=true}String{noformat} |Identifier for the note |
+        {anchor:DutyTempStaffingNoteCreatedEventModelAnchor}
+        h3. DutyTempStaffingNoteCreatedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+ |noteId |(x) |{noformat:nopanel=true}String{noformat} |Identifier for the note |
+ |content |(x) |{noformat:nopanel=true}String{noformat} |Content for the note |
+        {anchor:DutyTempStaffingNoteCreatedEventAllOfModelAnchor}
+        h3. DutyTempStaffingNoteCreatedEventAllOf
+        ||Field Name||Required||Type||Description||
+         |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+ |noteId |(x) |{noformat:nopanel=true}String{noformat} |Identifier for the note |
+ |content |(x) |{noformat:nopanel=true}String{noformat} |Content for the note |
+        {anchor:DutyTempStaffingNoteDeletedEventModelAnchor}
+        h3. DutyTempStaffingNoteDeletedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+ |noteId |(x) |{noformat:nopanel=true}String{noformat} |Identifier for the note |
+        {anchor:DutyTempStaffingNoteDeletedEventAllOfModelAnchor}
+        h3. DutyTempStaffingNoteDeletedEventAllOf
+        ||Field Name||Required||Type||Description||
+         |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |
+ |noteId |(x) |{noformat:nopanel=true}String{noformat} |Identifier for the note |
+        {anchor:DutyTimesModelAnchor}
+        h3. DutyTimes
+        ||Field Name||Required||Type||Description||
+         |period |(x) |{noformat:nopanel=true}DutyTimes{noformat} | |
+ |restTime |(x) |{noformat:nopanel=true}Integer{noformat} |Number of minutes of rest date-time |
+        {anchor:DutyUpdatedEventModelAnchor}
+        h3. DutyUpdatedEvent
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+ |duty |(x) |{noformat:nopanel=true}Duty{noformat} | |
+        {anchor:DutyUpdatedEventAllOfModelAnchor}
+        h3. DutyUpdatedEventAllOf
+        ||Field Name||Required||Type||Description||
+         |duty |(x) |{noformat:nopanel=true}Duty{noformat} | |
+        {anchor:DutyWhenModelAnchor}
+        h3. DutyWhen
+        ||Field Name||Required||Type||Description||
+         |planned |(x) |{noformat:nopanel=true}DutyTimes{noformat} | |
+ |actual |(x) |{noformat:nopanel=true}DutyTimes{noformat} | |
+ |shiftType |(x) |{noformat:nopanel=true}String{noformat} |Night, Day, etc |
+        {anchor:DutyWhereModelAnchor}
+        h3. DutyWhere
+        ||Field Name||Required||Type||Description||
+         |trustId |(x) |{noformat:nopanel=true}String{noformat} |name of the trust |
+ |unitCode |(x) |{noformat:nopanel=true}String{noformat} |Code for the unit within the trust |
+        {anchor:EventModelAnchor}
+        h3. Event
+        ||Field Name||Required||Type||Description||
+         |eventType |(/) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:EventResponseModelAnchor}
+        h3. EventResponse
+        ||Field Name||Required||Type||Description||
+         |dutyId |(x) |{noformat:nopanel=true}String{noformat} | |

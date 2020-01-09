@@ -1,0 +1,1860 @@
+<!doctype html>
+<html>
+  <head>
+    <title>DE Provider Direct Engagement API</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>DE Provider Direct Engagement API</h1>
+    <div class="app-desc">description</div>
+    <div class="app-desc">More information: <a href="https://openapi-generator.tech">https://openapi-generator.tech</a></div>
+    <div class="app-desc">Contact Info: <a href="team@openapitools.org">team@openapitools.org</a></div>
+    <div class="app-desc">Version: 1.0</div>
+    <div class="app-desc">BasePath:</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Duty">Duty</a></h4>
+  <ul>
+  <li><a href="#cancelDuty"><code><span class="http-method">post</span> /{version}/trustcode/{trustCode}/duty/{dutyId}/cancel</code></a></li>
+  <li><a href="#fillDuty"><code><span class="http-method">post</span> /{version}/trustcode/{trustCode}/duty/{dutyId}/booking</code></a></li>
+  <li><a href="#getDutyDetails"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/duty/</code></a></li>
+  <li><a href="#getSingleDutyDetails"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/duty/{dutyId}</code></a></li>
+  <li><a href="#updateContractStatus"><code><span class="http-method">put</span> /{version}/trustcode/{trustCode}/duty/{dutyId}/contract/{contractId}/status/{statusId}</code></a></li>
+  <li><a href="#updateTimesheets"><code><span class="http-method">put</span> /{version}/trustcode/{trustCode}/duty/{dutyId}/timesheet</code></a></li>
+  </ul>
+  <h4><a href="#Event">Event</a></h4>
+  <ul>
+  <li><a href="#getEvents"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/event</code></a></li>
+  </ul>
+  <h4><a href="#ReferenceData">ReferenceData</a></h4>
+  <ul>
+  <li><a href="#getAgenciesByIds"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/agency/</code></a></li>
+  <li><a href="#getAllAgencies"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/agency</code></a></li>
+  <li><a href="#getAllContractStatuses"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/contractStatus</code></a></li>
+  <li><a href="#getAllGrades"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/grade</code></a></li>
+  <li><a href="#getAllReasonsForVacancy"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/reasonForVacancy</code></a></li>
+  <li><a href="#getAllStaffGroups"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/staffGroup</code></a></li>
+  <li><a href="#getAllUnits"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/unit</code></a></li>
+  <li><a href="#getContractStatusesByIds"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/contractStatus/</code></a></li>
+  <li><a href="#getGradesByIds"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/grade/</code></a></li>
+  <li><a href="#getReasonsForVacancyByIds"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/reasonForVacancy/</code></a></li>
+  <li><a href="#getStaffGroupsByIds"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/staffGroup/</code></a></li>
+  <li><a href="#getUnitsByIds"><code><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/unit/</code></a></li>
+  </ul>
+
+  <h1><a name="Duty">Duty</a></h1>
+  <div class="method"><a name="cancelDuty"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /{version}/trustcode/{trustCode}/duty/{dutyId}/cancel</code></pre></div>
+    <div class="method-summary">Cancel a duty (<span class="nickname">cancelDuty</span>)</div>
+    <div class="method-notes">Service that cancels certain duty.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div><div class="param">dutyId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the duty associated with the DE contract default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust/Duty not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="fillDuty"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /{version}/trustcode/{trustCode}/duty/{dutyId}/booking</code></pre></div>
+    <div class="method-summary">Creates booking for duty (<span class="nickname">fillDuty</span>)</div>
+    <div class="method-notes">Service that will create new booking on HR side with data sent by DE Provider.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div><div class="param">dutyId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the duty associated with the DE contract default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">BookingInfo <a href="#BookingInfo">BookingInfo</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#BookingResponse">BookingResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "allocatePersonId" : "TrustA.1126",
+  "dutyId" : "TrustA.11667",
+  "masterDutyId" : "TrustA.11668",
+  "bookingId" : "TrustA.33532",
+  "slaveDutyId" : "TrustA.11667"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#BookingResponse">BookingResponse</a>
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust/Duty not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getDutyDetails"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/duty/</code></pre></div>
+    <div class="method-summary">Returns details about a duties. (<span class="nickname">getDutyDetails</span>)</div>
+    <div class="method-notes">Returns details about a duties.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; IDs of the duties to return default: null </div><div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Duty">Duty</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "date" : "2000-01-23",
+  "specialty" : "Speciality",
+  "timeIntervalRates" : [ {
+    "rates" : [ {
+      "reference" : "basic_commission",
+      "rate" : 50.00
+    }, {
+      "reference" : "basic_commission",
+      "rate" : 50.00
+    } ],
+    "startTime" : "2000-01-23T04:56:07.000+00:00",
+    "endTime" : "2000-01-23T04:56:07.000+00:00"
+  }, {
+    "rates" : [ {
+      "reference" : "basic_commission",
+      "rate" : 50.00
+    }, {
+      "reference" : "basic_commission",
+      "rate" : 50.00
+    } ],
+    "startTime" : "2000-01-23T04:56:07.000+00:00",
+    "endTime" : "2000-01-23T04:56:07.000+00:00"
+  } ],
+  "clientDeptId" : "TrustA.667899",
+  "agency" : "TrustA.2209",
+  "requestGender" : "male",
+  "rates" : [ {
+    "reference" : "basic_commission",
+    "rate" : 50.00
+  }, {
+    "reference" : "basic_commission",
+    "rate" : 50.00
+  } ],
+  "fallbackGrade" : "TrustA.9989",
+  "fallbackSkill" : "Fallback skill",
+  "vacancyReason" : "TrustA.12",
+  "blockId" : "TrustA.77569",
+  "fallbackSpeciality" : "Fallback speciality",
+  "subDiscipline" : "TrustA.1323",
+  "person" : {
+    "allocatePersonId" : "TrustA.1123",
+    "firstName" : "Doe",
+    "telephoneNumber" : "+223504938839",
+    "surname" : "John",
+    "extSystemId" : "123e4567-e89b-12d3-a456-426655440000",
+    "personGender" : "male",
+    "dateOfBirth" : "2000-01-23",
+    "matchId" : "E124RT562.john.doe@mail.com",
+    "email" : "john.doe@mail.com"
+  },
+  "grade" : "TrustA.77889",
+  "skill" : "Skill",
+  "breakDuration" : 30,
+  "dutyId" : "TrustA.11667",
+  "startTime" : "22:00",
+  "endTime" : "01:25",
+  "uniqueNumber" : 112233,
+  "poNumber" : 0,
+  "slaveDutyId" : "TrustA.77569",
+  "status" : "active"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#Duty">Duty</a>
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getSingleDutyDetails"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/duty/{dutyId}</code></pre></div>
+    <div class="method-summary">Returns details about a duties. (<span class="nickname">getSingleDutyDetails</span>)</div>
+    <div class="method-notes">Returns details about a duties.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div><div class="param">dutyId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of a duty to return default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Duty">Duty</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "date" : "2000-01-23",
+  "specialty" : "Speciality",
+  "timeIntervalRates" : [ {
+    "rates" : [ {
+      "reference" : "basic_commission",
+      "rate" : 50.00
+    }, {
+      "reference" : "basic_commission",
+      "rate" : 50.00
+    } ],
+    "startTime" : "2000-01-23T04:56:07.000+00:00",
+    "endTime" : "2000-01-23T04:56:07.000+00:00"
+  }, {
+    "rates" : [ {
+      "reference" : "basic_commission",
+      "rate" : 50.00
+    }, {
+      "reference" : "basic_commission",
+      "rate" : 50.00
+    } ],
+    "startTime" : "2000-01-23T04:56:07.000+00:00",
+    "endTime" : "2000-01-23T04:56:07.000+00:00"
+  } ],
+  "clientDeptId" : "TrustA.667899",
+  "agency" : "TrustA.2209",
+  "requestGender" : "male",
+  "rates" : [ {
+    "reference" : "basic_commission",
+    "rate" : 50.00
+  }, {
+    "reference" : "basic_commission",
+    "rate" : 50.00
+  } ],
+  "fallbackGrade" : "TrustA.9989",
+  "fallbackSkill" : "Fallback skill",
+  "vacancyReason" : "TrustA.12",
+  "blockId" : "TrustA.77569",
+  "fallbackSpeciality" : "Fallback speciality",
+  "subDiscipline" : "TrustA.1323",
+  "person" : {
+    "allocatePersonId" : "TrustA.1123",
+    "firstName" : "Doe",
+    "telephoneNumber" : "+223504938839",
+    "surname" : "John",
+    "extSystemId" : "123e4567-e89b-12d3-a456-426655440000",
+    "personGender" : "male",
+    "dateOfBirth" : "2000-01-23",
+    "matchId" : "E124RT562.john.doe@mail.com",
+    "email" : "john.doe@mail.com"
+  },
+  "grade" : "TrustA.77889",
+  "skill" : "Skill",
+  "breakDuration" : 30,
+  "dutyId" : "TrustA.11667",
+  "startTime" : "22:00",
+  "endTime" : "01:25",
+  "uniqueNumber" : 112233,
+  "poNumber" : 0,
+  "slaveDutyId" : "TrustA.77569",
+  "status" : "active"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#Duty">Duty</a>
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="updateContractStatus"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /{version}/trustcode/{trustCode}/duty/{dutyId}/contract/{contractId}/status/{statusId}</code></pre></div>
+    <div class="method-summary">Updates DE Contract status (<span class="nickname">updateContractStatus</span>)</div>
+    <div class="method-notes">Service that will be used by DE Provider to update the contract status, after DE contract is created/approved.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div><div class="param">dutyId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the duty associated with the DE contract default: null </div><div class="param">contractId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the contract from DE Provider's system default: null </div><div class="param">statusId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash;  default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust/Duty not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="updateTimesheets"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /{version}/trustcode/{trustCode}/duty/{dutyId}/timesheet</code></pre></div>
+    <div class="method-summary">Updates timesheet for duty (<span class="nickname">updateTimesheets</span>)</div>
+    <div class="method-notes">Service that will be used by DE Provider to update the timesheets, after approving the payment on their side.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div><div class="param">dutyId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the duty associated with the DE contract default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">inline_object <a href="#inline_object">inline_object</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#"></a>
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust/Duty not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Event">Event</a></h1>
+  <div class="method"><a name="getEvents"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/event</code></pre></div>
+    <div class="method-summary">Get all events older than input timestamp (<span class="nickname">getEvents</span>)</div>
+    <div class="method-notes">Returns an array of events</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">dateTimeFrom (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Timestamp default: null format: date-time</div><div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Duty">Duty</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "date" : "2000-01-23",
+  "specialty" : "Speciality",
+  "timeIntervalRates" : [ {
+    "rates" : [ {
+      "reference" : "basic_commission",
+      "rate" : 50.00
+    }, {
+      "reference" : "basic_commission",
+      "rate" : 50.00
+    } ],
+    "startTime" : "2000-01-23T04:56:07.000+00:00",
+    "endTime" : "2000-01-23T04:56:07.000+00:00"
+  }, {
+    "rates" : [ {
+      "reference" : "basic_commission",
+      "rate" : 50.00
+    }, {
+      "reference" : "basic_commission",
+      "rate" : 50.00
+    } ],
+    "startTime" : "2000-01-23T04:56:07.000+00:00",
+    "endTime" : "2000-01-23T04:56:07.000+00:00"
+  } ],
+  "clientDeptId" : "TrustA.667899",
+  "agency" : "TrustA.2209",
+  "requestGender" : "male",
+  "rates" : [ {
+    "reference" : "basic_commission",
+    "rate" : 50.00
+  }, {
+    "reference" : "basic_commission",
+    "rate" : 50.00
+  } ],
+  "fallbackGrade" : "TrustA.9989",
+  "fallbackSkill" : "Fallback skill",
+  "vacancyReason" : "TrustA.12",
+  "blockId" : "TrustA.77569",
+  "fallbackSpeciality" : "Fallback speciality",
+  "subDiscipline" : "TrustA.1323",
+  "person" : {
+    "allocatePersonId" : "TrustA.1123",
+    "firstName" : "Doe",
+    "telephoneNumber" : "+223504938839",
+    "surname" : "John",
+    "extSystemId" : "123e4567-e89b-12d3-a456-426655440000",
+    "personGender" : "male",
+    "dateOfBirth" : "2000-01-23",
+    "matchId" : "E124RT562.john.doe@mail.com",
+    "email" : "john.doe@mail.com"
+  },
+  "grade" : "TrustA.77889",
+  "skill" : "Skill",
+  "breakDuration" : 30,
+  "dutyId" : "TrustA.11667",
+  "startTime" : "22:00",
+  "endTime" : "01:25",
+  "uniqueNumber" : 112233,
+  "poNumber" : 0,
+  "slaveDutyId" : "TrustA.77569",
+  "status" : "active"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        <a href="#Duty">Duty</a>
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="ReferenceData">ReferenceData</a></h1>
+  <div class="method"><a name="getAgenciesByIds"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/agency/</code></pre></div>
+    <div class="method-summary">Get agencies (<span class="nickname">getAgenciesByIds</span>)</div>
+    <div class="method-notes">Returns an array of agencies</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Array of reference data IDs to return default: null </div><div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#ReferenceDataResponse">ReferenceDataResponse</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "description" : "Description",
+  "refId" : "TrustA.12"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getAllAgencies"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/agency</code></pre></div>
+    <div class="method-summary">Get all agencies (<span class="nickname">getAllAgencies</span>)</div>
+    <div class="method-notes">Returns an array of agencies</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#ReferenceDataResponse">ReferenceDataResponse</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "description" : "Description",
+  "refId" : "TrustA.12"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getAllContractStatuses"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/contractStatus</code></pre></div>
+    <div class="method-summary">Get all contract statuses (<span class="nickname">getAllContractStatuses</span>)</div>
+    <div class="method-notes">Returns an array of contract statuses.</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#ReferenceDataResponse">ReferenceDataResponse</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "description" : "Description",
+  "refId" : "TrustA.12"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getAllGrades"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/grade</code></pre></div>
+    <div class="method-summary">Get all grades (<span class="nickname">getAllGrades</span>)</div>
+    <div class="method-notes">Returns an array of grades</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#ReferenceDataResponse">ReferenceDataResponse</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "description" : "Description",
+  "refId" : "TrustA.12"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getAllReasonsForVacancy"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/reasonForVacancy</code></pre></div>
+    <div class="method-summary">Get all reasons for vacancy (<span class="nickname">getAllReasonsForVacancy</span>)</div>
+    <div class="method-notes">Returns an array of reasons for vacancy</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#ReferenceDataResponse">ReferenceDataResponse</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "description" : "Description",
+  "refId" : "TrustA.12"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getAllStaffGroups"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/staffGroup</code></pre></div>
+    <div class="method-summary">Get all staff groups (<span class="nickname">getAllStaffGroups</span>)</div>
+    <div class="method-notes">Returns an array of staff groups</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#ReferenceDataResponse">ReferenceDataResponse</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "description" : "Description",
+  "refId" : "TrustA.12"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getAllUnits"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/unit</code></pre></div>
+    <div class="method-summary">Get all units (<span class="nickname">getAllUnits</span>)</div>
+    <div class="method-notes">Returns an array of units</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#UnitReferenceDataResponse">UnitReferenceDataResponse</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "unitSite" : "Unit site",
+  "description" : "Description",
+  "refId" : "TrustA.12"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getContractStatusesByIds"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/contractStatus/</code></pre></div>
+    <div class="method-summary">Get contract statuses (<span class="nickname">getContractStatusesByIds</span>)</div>
+    <div class="method-notes">Returns an array of contract statuses</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Array of reference data IDs to return default: null </div><div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#ReferenceDataResponse">ReferenceDataResponse</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "description" : "Description",
+  "refId" : "TrustA.12"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getGradesByIds"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/grade/</code></pre></div>
+    <div class="method-summary">Get grades (<span class="nickname">getGradesByIds</span>)</div>
+    <div class="method-notes">Returns an array of grades</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Array of reference data IDs to return default: null </div><div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#ReferenceDataResponse">ReferenceDataResponse</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "description" : "Description",
+  "refId" : "TrustA.12"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getReasonsForVacancyByIds"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/reasonForVacancy/</code></pre></div>
+    <div class="method-summary">Get reasons for vacancy (<span class="nickname">getReasonsForVacancyByIds</span>)</div>
+    <div class="method-notes">Returns an array of reasons for vacancy</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Array of reference data IDs to return default: null </div><div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#ReferenceDataResponse">ReferenceDataResponse</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "description" : "Description",
+  "refId" : "TrustA.12"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getStaffGroupsByIds"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/staffGroup/</code></pre></div>
+    <div class="method-summary">Get staff groups (<span class="nickname">getStaffGroupsByIds</span>)</div>
+    <div class="method-notes">Returns an array of staff groups</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Array of reference data IDs to return default: null </div><div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#ReferenceDataResponse">ReferenceDataResponse</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "description" : "Description",
+  "refId" : "TrustA.12"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getUnitsByIds"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /{version}/trustcode/{trustCode}/referenceData/unit/</code></pre></div>
+    <div class="method-summary">Get units (<span class="nickname">getUnitsByIds</span>)</div>
+    <div class="method-notes">Returns an array of units</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">version (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; API version default: null </div><div class="param">trustCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Trust code from BankStaff default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Array of reference data IDs to return default: null </div><div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Result page default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Count of records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#UnitReferenceDataResponse">UnitReferenceDataResponse</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "unitSite" : "Unit site",
+  "description" : "Description",
+  "refId" : "TrustA.12"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    OK
+        
+    <h4 class="field-label">400</h4>
+    Bad request errors
+        <a href="#String">String</a>
+    <h4 class="field-label">401</h4>
+    Unauthorized
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    Trust not found
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#ApiResponse"><code>ApiResponse</code> - </a></li>
+    <li><a href="#BookingInfo"><code>BookingInfo</code> - </a></li>
+    <li><a href="#BookingResponse"><code>BookingResponse</code> - </a></li>
+    <li><a href="#ContractStatus"><code>ContractStatus</code> - </a></li>
+    <li><a href="#Duty"><code>Duty</code> - </a></li>
+    <li><a href="#Event"><code>Event</code> - </a></li>
+    <li><a href="#Person"><code>Person</code> - </a></li>
+    <li><a href="#PersonGender"><code>PersonGender</code> - </a></li>
+    <li><a href="#Rates"><code>Rates</code> - </a></li>
+    <li><a href="#ReferenceDataResponse"><code>ReferenceDataResponse</code> - </a></li>
+    <li><a href="#RequestGender"><code>RequestGender</code> - </a></li>
+    <li><a href="#TimeIntervalRates"><code>TimeIntervalRates</code> - </a></li>
+    <li><a href="#UnitReferenceDataResponse"><code>UnitReferenceDataResponse</code> - </a></li>
+    <li><a href="#XPaginationHeader"><code>XPaginationHeader</code> - </a></li>
+    <li><a href="#inline_object"><code>inline_object</code> - </a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="ApiResponse"><code>ApiResponse</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="BookingInfo"><code>BookingInfo</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">contractId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of the contract in DE Provider system format: guid</div>
+<div class="param">agency (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Id of the booked agency </div>
+<div class="param">person (optional)</div><div class="param-desc"><span class="param-type"><a href="#Person">Person</a></span>  </div>
+<div class="param">grade (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Booking grade trust identifier. </div>
+<div class="param">rates (optional)</div><div class="param-desc"><span class="param-type"><a href="#Rates">array[Rates]</a></span> Trust Pay Agency &amp; Trust Pays DE provider - split rate between pay to worker and pay to agency </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="BookingResponse"><code>BookingResponse</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">dutyId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Trust identifier of the booked duty format: trustCode.dutyId</div>
+<div class="param">bookingId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Trust identifier of the booking in BankStaff format: trustCode.bookingId</div>
+<div class="param">allocatePersonId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Trust identifier of the booked person in BankStaff format: trustCode.allocatePersonId</div>
+<div class="param">masterDutyId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Trust identifier of the master duty if the duty is part of the consolidated duty format: trustCode.masterDutyId</div>
+<div class="param">slaveDutyId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Trust identifier of the slave duty if the duty is part of the consolidated duty format: trustCode.slaveDutyId</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ContractStatus"><code>ContractStatus</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Duty"><code>Duty</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">dutyId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Trust identifier of the duty format: trustCode.dutyId</div>
+<div class="param">slaveDutyId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Identifier of the slave duty if duty is part of consolidated duties format: trustCode.slaveDutyId</div>
+<div class="param">blockId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Identifier of block duties if duty is part of the block format: trustCode.blockId</div>
+<div class="param">clientDeptId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> BankStaff ward trust identifier format: trustCode.wardId</div>
+<div class="param">subDiscipline (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Staff group trust identifier format: trustCode.staffGroupId</div>
+<div class="param">requestGender (optional)</div><div class="param-desc"><span class="param-type"><a href="#RequestGender">RequestGender</a></span>  </div>
+<div class="param">grade (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Grade trust identifier of the request format: trustCode.gradeId</div>
+<div class="param">fallbackGrade (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: trustCode.gradeId</div>
+<div class="param">vacancyReason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: trustCode.vacancyReasonId</div>
+<div class="param">date (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span> Date of the duty format: date</div>
+<div class="param">startTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Start time of the shift </div>
+<div class="param">endTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> End time of the shift </div>
+<div class="param">breakDuration (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Duration of break in minutes </div>
+<div class="param">poNumber (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Need to understand if needed from Trust/Agency </div>
+<div class="param">uniqueNumber (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> BRN / Unique number </div>
+<div class="param">agency (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Supplying agency trust identifier </div>
+<div class="param">skill (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Stored as free text in DE Provider </div>
+<div class="param">specialty (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Stored as free text in DE Provider </div>
+<div class="param">fallbackSkill (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Stored as free text in DE Provider </div>
+<div class="param">fallbackSpeciality (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Stored as free text in DE Provider </div>
+<div class="param">status (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Will need to understand if duty is no longer required and cancel on DE Provider </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">active</div><div class="param-enum">cancelled</div>
+<div class="param">rates (optional)</div><div class="param-desc"><span class="param-type"><a href="#Rates">array[Rates]</a></span> Trust Pay Agency &amp; Trust Pays DE provider - split rate between pay to worker and pay to agency </div>
+<div class="param">timeIntervalRates (optional)</div><div class="param-desc"><span class="param-type"><a href="#TimeIntervalRates">array[TimeIntervalRates]</a></span> Array of rates and intervals for which the rate is applied </div>
+<div class="param">person (optional)</div><div class="param-desc"><span class="param-type"><a href="#Person">Person</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Event"><code>Event</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">eventType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Type of change that is done to the entity </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">CREATE</div><div class="param-enum">DELETE</div><div class="param-enum">UPDATE</div>
+<div class="param">entityType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Entity that is changed. </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">duty</div><div class="param-enum">timesheet</div><div class="param-enum">booking</div><div class="param-enum">grade</div><div class="param-enum">agency</div><div class="param-enum">reason_for_vacancy</div><div class="param-enum">contract_status</div><div class="param-enum">staff_group</div><div class="param-enum">unit</div>
+<div class="param">entityId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Trust identifier of the changed entity format: trustCode.entityId</div>
+<div class="param">timeStamp (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span> Timestamp of the event format: date-time</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Person"><code>Person</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">firstName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">surname (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">dateOfBirth (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span> Date of birth format: date</div>
+<div class="param">personGender (optional)</div><div class="param-desc"><span class="param-type"><a href="#PersonGender">PersonGender</a></span>  </div>
+<div class="param">matchId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> NINumber.e-mail </div>
+<div class="param">allocatePersonId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Business Key format: trustcode.id</div>
+<div class="param">email (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">telephoneNumber (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">extSystemId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: guid</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PersonGender"><code>PersonGender</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>Person gender, potenially could be a broader set</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Rates"><code>Rates</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">reference (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">basic_worker_pay</div><div class="param-enum">basic_commission</div><div class="param-enum">basic_ni</div><div class="param-enum">enhanced_worker_pay</div><div class="param-enum">enhanced_commission</div><div class="param-enum">enhanced_ni</div><div class="param-enum">fixed_worker_pay</div><div class="param-enum">fixed_commission</div><div class="param-enum">fixed_ni</div><div class="param-enum">enhanced_night_worker_pay</div><div class="param-enum">enhanced_night_commission</div><div class="param-enum">enhanced_night_ni</div><div class="param-enum">enhanced_saturday_worker_pay</div><div class="param-enum">enhanced_saturday_commission</div><div class="param-enum">enhanced_saturday_ni</div><div class="param-enum">enhanced_sunday_worker_pay</div><div class="param-enum">enhanced_sunday_commission</div><div class="param-enum">enhanced_sunday_ni</div><div class="param-enum">enhanced_holiday_worker_pay</div><div class="param-enum">enhanced_holiday_commission</div><div class="param-enum">enhanced_holiday_ni</div>
+<div class="param">rate (optional)</div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ReferenceDataResponse"><code>ReferenceDataResponse</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">refId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Reference data trust identifier from BankStaff format: trustCode.refId</div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Reference data description from BankStaff </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="RequestGender"><code>RequestGender</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>Requested gender for the duty</div>
+    <div class="field-items">
+          </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="TimeIntervalRates"><code>TimeIntervalRates</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">startTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">endTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">rates (optional)</div><div class="param-desc"><span class="param-type"><a href="#Rates">array[Rates]</a></span> Trust Pay Agency &amp; Trust Pays DE provider - split rate between pay to worker and pay to agency </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="UnitReferenceDataResponse"><code>UnitReferenceDataResponse</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">refId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Reference data trust identifier from BankStaff format: trustCode.refId</div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Reference data description from BankStaff </div>
+<div class="param">unitSite (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Location of the unit from BankStaff </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="XPaginationHeader"><code>XPaginationHeader</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">currentPage (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Current page of the response </div>
+<div class="param">pageSize (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Number of rows per page </div>
+<div class="param">totalCount (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Total number of rows in the response </div>
+<div class="param">totalPages (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Total number of pages of the response </div>
+<div class="param">previousPageInputParameters (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Input parameter values for getting the previous page of the response </div>
+<div class="param">nextPageInputParameters (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Input parameter values for calling the next page of the response </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="inline_object"><code>inline_object</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">startTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: time</div>
+<div class="param">endTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: time</div>
+<div class="param">break (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Break Duration </div>
+<div class="param">status (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Status of the timesheet </div>
+<div class="param">rates (optional)</div><div class="param-desc"><span class="param-type"><a href="#Rates">array[Rates]</a></span> Trust Pay Agency &amp; Trust Pays DE provider - split rate between pay to worker and pay to agency </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>

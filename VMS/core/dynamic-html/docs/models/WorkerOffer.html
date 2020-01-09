@@ -1,0 +1,33 @@
+
+<h2>WorkerOffer</h2>
+<ul class="parameter">
+  <li class="param-required-false">id : String
+    <br/>Unique identifier for this offer.
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">bookingRequestId : String
+    <br/>The underlying booking request for this offer.
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-true">worker : Person
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-true">agency : Agency
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-true">qualificationStatus : String
+    <br/>Qualification Status:  * &#x60;qualified&#x60; - Worker has passed all trust-defined checks, and may be considered valid to book.  * &#x60;unqualified&#x60; - Worker has not passed some, or all of the trust-defined checks. These should be performed before progressing to booking the worker. 
+      <dl class="param-enum">
+        <dt>Enum:
+            <dd>qualified</dd>
+            <dd>unqualified</dd>
+        </dt>
+      </dl>
+  </li>
+</ul>

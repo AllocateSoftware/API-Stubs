@@ -1,0 +1,665 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Activity API</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>Activity API</h1>
+    <div class="app-desc"><pre><code>## API for querying worker activity.
+
+This is an early availabilty API, and is subject to change.
+</code></pre>
+</div>
+    <div class="app-desc">More information: <a href="http://www.allocatesoftware.com/">http://www.allocatesoftware.com/</a></div>
+    <div class="app-desc">Contact Info: <a href="support@allocatesoftware.com">support@allocatesoftware.com</a></div>
+    <div class="app-desc">Version: 0.0.1</div>
+    <div class="app-desc">BasePath:/api/v1</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+    <ol>
+      <li>HTTP Basic Authentication</li>
+    </ol>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Default">Default</a></h4>
+  <ul>
+  <li><a href="#getActivities"><code><span class="http-method">get</span> /activities</code></a></li>
+  </ul>
+
+  <h1><a name="Default">Default</a></h1>
+  <div class="method"><a name="getActivities"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /activities</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getActivities</span>)</div>
+    <div class="method-notes">Provide hours and assignment details for workers</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">customerCode (required)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; The code for the customer (trust) for which the activities should be returned default: null </div><div class="param">format (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Format for the output. TBD, but may be used to control the scope of information returned. default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#HoursAssignment">HoursAssignment</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "owningUnit" : {
+    "externalReference" : "externalReference",
+    "code" : "Opal Ward",
+    "shortName" : "Opal Ward",
+    "longName" : "Opal Ward"
+  },
+  "actual" : {
+    "from" : "2000-01-23T04:56:07.000+00:00",
+    "to" : "2000-01-23T04:56:07.000+00:00"
+  },
+  "assignment" : {
+    "fromRequest" : true,
+    "method" : "autoroster"
+  },
+  "shift" : {
+    "name" : "early",
+    "type" : "day"
+  },
+  "contractedTime" : 450,
+  "payState" : "requested",
+  "requirement" : {
+    "grade" : {
+      "externalReference" : "externalReference",
+      "shortName" : "Band 5 RN",
+      "longName" : "Band 5 RN"
+    },
+    "gradeType" : {
+      "externalReference" : "externalReference",
+      "name" : "RN",
+      "description" : "Registered"
+    },
+    "gradeTypeCategory" : {
+      "name" : "Registered"
+    }
+  },
+  "posting" : {
+    "assignmentNumber" : "assignmentNumber"
+  },
+  "costCentre" : {
+    "code" : "code",
+    "name" : "name",
+    "description" : "description"
+  },
+  "dutyHasWarnings" : true,
+  "when" : "2000-01-23",
+  "workTime" : 450,
+  "resourcingUnit" : {
+    "externalReference" : "externalReference",
+    "code" : "Opal Ward",
+    "shortName" : "Opal Ward",
+    "longName" : "Opal Ward"
+  },
+  "additionalDutyReason" : "additionalDutyReason",
+  "employeeType" : {
+    "externalReference" : "externalReference",
+    "name" : "Bank Only",
+    "description" : "description"
+  },
+  "cancellation" : {
+    "reason" : {
+      "externalReference" : "externalReference",
+      "name" : "Unknown / Other",
+      "description" : "Unknown Duty Cancel Reason"
+    }
+  },
+  "post" : {
+    "grade" : {
+      "externalReference" : "externalReference",
+      "shortName" : "Band 5 RN",
+      "longName" : "Band 5 RN"
+    },
+    "title" : "NHSp Bank Contract - Band 5 RN"
+  },
+  "person" : {
+    "surname" : "Smith",
+    "mobileNumber" : "mobileNumber",
+    "grade" : {
+      "externalReference" : "externalReference",
+      "shortName" : "Band 5 RN",
+      "longName" : "Band 5 RN"
+    },
+    "gradeType" : {
+      "externalReference" : "externalReference",
+      "name" : "RN",
+      "description" : "Registered"
+    },
+    "WTE" : 0.9125,
+    "gradeTypeCategory" : {
+      "name" : "Registered"
+    },
+    "staffNumber" : "staffNumber",
+    "forenames" : "Fred"
+  },
+  "duty" : {
+    "when" : {
+      "from" : "01:00",
+      "to" : "08:30"
+    }
+  },
+  "location" : {
+    "type" : "type",
+    "longName" : "longName"
+  },
+  "id" : 123523,
+  "fulfillment" : {
+    "type" : "local",
+    "category" : "mandatory",
+    "status" : "vacant"
+  },
+  "inCharge" : true
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    The worker has been registered successfully
+        
+    <h4 class="field-label">400</h4>
+    One or more errors have occurred when attempting to process the provided data
+        <a href="#ErrorResponse">ErrorResponse</a>
+    <h4 class="field-label">403</h4>
+    Forbidden - you do not have the necessary permissions to undertake this action
+        <a href="#ErrorResponse">ErrorResponse</a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#AsyncResponse"><code>AsyncResponse</code> - </a></li>
+    <li><a href="#DateSpan"><code>DateSpan</code> - </a></li>
+    <li><a href="#ErrorResponse"><code>ErrorResponse</code> - </a></li>
+    <li><a href="#Grade"><code>Grade</code> - </a></li>
+    <li><a href="#GradeType"><code>GradeType</code> - </a></li>
+    <li><a href="#GradeTypeCategory"><code>GradeTypeCategory</code> - </a></li>
+    <li><a href="#HoursAssignment"><code>HoursAssignment</code> - </a></li>
+    <li><a href="#HoursAssignment_assignment"><code>HoursAssignment_assignment</code> - </a></li>
+    <li><a href="#HoursAssignment_cancellation"><code>HoursAssignment_cancellation</code> - </a></li>
+    <li><a href="#HoursAssignment_cancellation_reason"><code>HoursAssignment_cancellation_reason</code> - </a></li>
+    <li><a href="#HoursAssignment_costCentre"><code>HoursAssignment_costCentre</code> - </a></li>
+    <li><a href="#HoursAssignment_duty"><code>HoursAssignment_duty</code> - </a></li>
+    <li><a href="#HoursAssignment_employeeType"><code>HoursAssignment_employeeType</code> - </a></li>
+    <li><a href="#HoursAssignment_fulfillment"><code>HoursAssignment_fulfillment</code> - </a></li>
+    <li><a href="#HoursAssignment_location"><code>HoursAssignment_location</code> - </a></li>
+    <li><a href="#HoursAssignment_owningUnit"><code>HoursAssignment_owningUnit</code> - </a></li>
+    <li><a href="#HoursAssignment_person"><code>HoursAssignment_person</code> - </a></li>
+    <li><a href="#HoursAssignment_post"><code>HoursAssignment_post</code> - </a></li>
+    <li><a href="#HoursAssignment_posting"><code>HoursAssignment_posting</code> - </a></li>
+    <li><a href="#HoursAssignment_requirement"><code>HoursAssignment_requirement</code> - </a></li>
+    <li><a href="#HoursAssignment_shift"><code>HoursAssignment_shift</code> - </a></li>
+    <li><a href="#TimeSpan"><code>TimeSpan</code> - </a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="AsyncResponse"><code>AsyncResponse</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'><p>Where an API may respond with an asynchronous 'Accepted' (HTTP 202) response, it will return an AsyncResponse object. The eventual
+response will be returned by way of an async event, containing the corresponding correlation ID header returned below.</p>
+<pre><code>            The location of the correlation ID will depend upon the eventing transport in use - though typically it will be included as a message header (rather than a payload).
+</code></pre>
+</div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Correlation Identifier </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DateSpan"><code>DateSpan</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">from </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span> When the span starts format: date-time</div>
+<div class="param">to (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span> When the span ends format: date-time</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ErrorResponse"><code>ErrorResponse</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>An Error has occurred in processing your request</div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Optional identifier for this reponse (for matching with logging) </div>
+<div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Optional error code identifying this particular error </div>
+<div class="param">description </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Optional error code identifying this particular error </div>
+<div class="param">items (optional)</div><div class="param-desc"><span class="param-type"><a href="#ErrorResponse">array[ErrorResponse]</a></span> List of child errors </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Grade"><code>Grade</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">longName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">shortName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">externalReference (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GradeType"><code>GradeType</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">externalReference (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="GradeTypeCategory"><code>GradeTypeCategory</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment"><code>HoursAssignment</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Identifier for the hours assignment format: int32</div>
+<div class="param">when (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span> Date assignment begins on format: date</div>
+<div class="param">actual (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateSpan">DateSpan</a></span>  </div>
+<div class="param">workTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Number of minutes worked in assignment format: int32</div>
+<div class="param">contractedTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Number of minutes that count towards the person’s contracted hours format: int32</div>
+<div class="param">payState (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> <p>Details where the duty is in it’s lifecycle.</p>
+<ul>
+<li>Requested = (Requested Bank Duty)</li>
+<li>Accepted = (Roster Approved)</li>
+<li>Approved = (Finalised)</li>
+<li>Submitted = (PAID)</li>
+<li>Paid</li>
+<li>Unlocked = (Was once Finalised state.)</li>
+<li>Relocked = (Finalised given that it was once un-finalised for some reason)</li>
+</ul>
+ </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">requested</div><div class="param-enum">accepted</div><div class="param-enum">approved</div><div class="param-enum">submitted</div><div class="param-enum">paid</div><div class="param-enum">unlocked</div><div class="param-enum">relocked</div>
+<div class="param">employeeType (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_employeeType">HoursAssignment_employeeType</a></span>  </div>
+<div class="param">person (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_person">HoursAssignment_person</a></span>  </div>
+<div class="param">assignment (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_assignment">HoursAssignment_assignment</a></span>  </div>
+<div class="param">post (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_post">HoursAssignment_post</a></span>  </div>
+<div class="param">posting (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_posting">HoursAssignment_posting</a></span>  </div>
+<div class="param">cancellation (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_cancellation">HoursAssignment_cancellation</a></span>  </div>
+<div class="param">inCharge (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Was the employee in charge? </div>
+<div class="param">shift (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_shift">HoursAssignment_shift</a></span>  </div>
+<div class="param">duty (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_duty">HoursAssignment_duty</a></span>  </div>
+<div class="param">fulfillment (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_fulfillment">HoursAssignment_fulfillment</a></span>  </div>
+<div class="param">costCentre (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_costCentre">HoursAssignment_costCentre</a></span>  </div>
+<div class="param">owningUnit (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_owningUnit">HoursAssignment_owningUnit</a></span>  </div>
+<div class="param">resourcingUnit (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_owningUnit">HoursAssignment_owningUnit</a></span>  </div>
+<div class="param">requirement (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_requirement">HoursAssignment_requirement</a></span>  </div>
+<div class="param">location (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_location">HoursAssignment_location</a></span>  </div>
+<div class="param">additionalDutyReason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">dutyHasWarnings (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_assignment"><code>HoursAssignment_assignment</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">method (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> <p>How duty was assigned.</p>
+<ul>
+<li>Unspecified</li>
+<li>AutoRoster</li>
+<li>ManualManagerAssignment</li>
+<li>EmployeeWebTimesheet</li>
+<li>ExternalAssignment e.g. from BankStaff</li>
+<li>EmployeeRequest</li>
+</ul>
+ </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">unspecified</div><div class="param-enum">autoroster</div><div class="param-enum">manualManagerAssignment</div><div class="param-enum">employeeWebTimesheet</div><div class="param-enum">externalAssignment</div><div class="param-enum">employeeRequest</div>
+<div class="param">fromRequest (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Did the employee request this assignment? Yes/No </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_cancellation"><code>HoursAssignment_cancellation</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">reason (optional)</div><div class="param-desc"><span class="param-type"><a href="#HoursAssignment_cancellation_reason">HoursAssignment_cancellation_reason</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_cancellation_reason"><code>HoursAssignment_cancellation_reason</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">externalReference (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_costCentre"><code>HoursAssignment_costCentre</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_duty"><code>HoursAssignment_duty</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">when (optional)</div><div class="param-desc"><span class="param-type"><a href="#TimeSpan">TimeSpan</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_employeeType"><code>HoursAssignment_employeeType</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> e.g: Employee, Bank, Agency </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">externalReference (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_fulfillment"><code>HoursAssignment_fulfillment</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">local</div><div class="param-enum">bank</div><div class="param-enum">agency</div>
+<div class="param">status (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">vacant</div><div class="param-enum">filled</div><div class="param-enum">partial</div>
+<div class="param">category (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">mandatory</div><div class="param-enum">optional</div><div class="param-enum">additional</div><div class="param-enum">stub</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_location"><code>HoursAssignment_location</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">longName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_owningUnit"><code>HoursAssignment_owningUnit</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">shortName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">longName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">externalReference (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_person"><code>HoursAssignment_person</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">staffNumber (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">forenames (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> List of forenames for the person </div>
+<div class="param">surname (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Surname for the person </div>
+<div class="param">mobileNumber (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">grade (optional)</div><div class="param-desc"><span class="param-type"><a href="#Grade">Grade</a></span>  </div>
+<div class="param">gradeType (optional)</div><div class="param-desc"><span class="param-type"><a href="#GradeType">GradeType</a></span>  </div>
+<div class="param">gradeTypeCategory (optional)</div><div class="param-desc"><span class="param-type"><a href="#GradeTypeCategory">GradeTypeCategory</a></span>  </div>
+<div class="param">WTE (optional)</div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span> Whole time Equivalent – this is the person’s contracted hours divided by the person’s default grade type value for WTE (if the grade type has no value then use grade type category if neither have a value use system default setting).
+e.g. 37.5 / (2250/60) = 1.00
+NOTE if the grade type default wte is not set this will not be returned </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_post"><code>HoursAssignment_post</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">grade (optional)</div><div class="param-desc"><span class="param-type"><a href="#Grade">Grade</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_posting"><code>HoursAssignment_posting</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">assignmentNumber (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_requirement"><code>HoursAssignment_requirement</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">grade (optional)</div><div class="param-desc"><span class="param-type"><a href="#Grade">Grade</a></span>  </div>
+<div class="param">gradeType (optional)</div><div class="param-desc"><span class="param-type"><a href="#GradeType">GradeType</a></span>  </div>
+<div class="param">gradeTypeCategory (optional)</div><div class="param-desc"><span class="param-type"><a href="#GradeTypeCategory">GradeTypeCategory</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="HoursAssignment_shift"><code>HoursAssignment_shift</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> <p>Standard HealthRoster enumerations:</p>
+<ul>
+<li>Day</li>
+<li>Combined</li>
+<li>Night</li>
+<li>OnCall</li>
+<li>SleepIn</li>
+<li>StandBy</li>
+<li>Rest</li>
+<li>None</li>
+<li>ADO</li>
+<li>Evening</li>
+<li>Other</li>
+<li>PrivatePractice</li>
+</ul>
+ </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">day</div><div class="param-enum">combined</div><div class="param-enum">night</div><div class="param-enum">onCall</div><div class="param-enum">sleepIn</div><div class="param-enum">standBy</div><div class="param-enum">rest</div><div class="param-enum">none</div><div class="param-enum">ADO</div><div class="param-enum">evening</div><div class="param-enum">other</div><div class="param-enum">PrivatePractice</div>
+<div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="TimeSpan"><code>TimeSpan</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>Represents a span of time, implicitly covering a maximum of 24hrs</div>
+    <div class="field-items">
+      <div class="param">from </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Time from, 24hr format </div>
+<div class="param">to (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Time from, 24hr format </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>

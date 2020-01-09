@@ -1,0 +1,240 @@
+h1. Activity API
+
+     ## API for querying worker activity.      This is an early availabilty API, and is subject to change. 
+
+*Version:* 0.0.1
+
+----
+
+{expand:Table of Contents - Click to expand}
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+{expand}
+
+h2. Endpoints
+
+
+h3. getActivities
+{panel:title=getActivities|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Provide hours and assignment details for workers
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/activities{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |customerCode |The code for the customer (trust) for which the activities should be returned |(/) |null |  |
+|format |Format for the output. TBD, but may be used to control the scope of information returned. |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | The worker has been registered successfully |
+    	|| Response Type | array[HoursAssignment] |
+    	|| Response Model | [array[HoursAssignment] Model|#array[HoursAssignment]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The worker has been registered successfully",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/HoursAssignment"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | One or more errors have occurred when attempting to process the provided data |
+    	|| Response Type | ErrorResponse |
+    	|| Response Model | [ErrorResponse Model|#ErrorResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "One or more errors have occurred when attempting to process the provided data",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ErrorResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=403|subtle=false} |
+    	|| Message | Forbidden - you do not have the necessary permissions to undertake this action |
+    	|| Response Type | ErrorResponse |
+    	|| Response Model | [ErrorResponse Model|#ErrorResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Forbidden - you do not have the necessary permissions to undertake this action",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ErrorResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+{anchor:models}
+h2. Models
+
+        {anchor:AsyncResponseModelAnchor}
+        h3. AsyncResponse
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |Correlation Identifier |
+        {anchor:DateSpanModelAnchor}
+        h3. DateSpan
+        ||Field Name||Required||Type||Description||
+         |from |(/) |{noformat:nopanel=true}Date{noformat} |When the span starts |
+ |to |(x) |{noformat:nopanel=true}Date{noformat} |When the span ends |
+        {anchor:ErrorResponseModelAnchor}
+        h3. ErrorResponse
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |Optional identifier for this reponse (for matching with logging) |
+ |code |(x) |{noformat:nopanel=true}String{noformat} |Optional error code identifying this particular error |
+ |description |(/) |{noformat:nopanel=true}String{noformat} |Optional error code identifying this particular error |
+ |items |(x) |{noformat:nopanel=true}array[ErrorResponse]{noformat} |List of child errors |
+        {anchor:GradeModelAnchor}
+        h3. Grade
+        ||Field Name||Required||Type||Description||
+         |longName |(x) |{noformat:nopanel=true}String{noformat} | |
+ |shortName |(x) |{noformat:nopanel=true}String{noformat} | |
+ |externalReference |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:GradeTypeModelAnchor}
+        h3. GradeType
+        ||Field Name||Required||Type||Description||
+         |name |(x) |{noformat:nopanel=true}String{noformat} | |
+ |description |(x) |{noformat:nopanel=true}String{noformat} | |
+ |externalReference |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:GradeTypeCategoryModelAnchor}
+        h3. GradeTypeCategory
+        ||Field Name||Required||Type||Description||
+         |name |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:HoursAssignmentModelAnchor}
+        h3. HoursAssignment
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}Integer{noformat} |Identifier for the hours assignment |
+ |when |(x) |{noformat:nopanel=true}date{noformat} |Date assignment begins on |
+ |actual |(x) |{noformat:nopanel=true}DateSpan{noformat} | |
+ |workTime |(x) |{noformat:nopanel=true}Integer{noformat} |Number of minutes worked in assignment |
+ |contractedTime |(x) |{noformat:nopanel=true}Integer{noformat} |Number of minutes that count towards the person’s contracted hours |
+ |payState |(x) |{noformat:nopanel=true}String{noformat} |Details where the duty is in it’s lifecycle. *   Requested &#x3D; (Requested Bank Duty) *   Accepted &#x3D; (Roster Approved) *   Approved &#x3D; (Finalised) *   Submitted &#x3D; (PAID) *   Paid *   Unlocked &#x3D; (Was once Finalised state.) *   Relocked &#x3D; (Finalised given that it was once un-finalised for some reason)  |
+ |employeeType |(x) |{noformat:nopanel=true}HoursAssignment_employeeType{noformat} | |
+ |person |(x) |{noformat:nopanel=true}HoursAssignment_person{noformat} | |
+ |assignment |(x) |{noformat:nopanel=true}HoursAssignment_assignment{noformat} | |
+ |post |(x) |{noformat:nopanel=true}HoursAssignment_post{noformat} | |
+ |posting |(x) |{noformat:nopanel=true}HoursAssignment_posting{noformat} | |
+ |cancellation |(x) |{noformat:nopanel=true}HoursAssignment_cancellation{noformat} | |
+ |inCharge |(x) |{noformat:nopanel=true}Boolean{noformat} |Was the employee in charge? |
+ |shift |(x) |{noformat:nopanel=true}HoursAssignment_shift{noformat} | |
+ |duty |(x) |{noformat:nopanel=true}HoursAssignment_duty{noformat} | |
+ |fulfillment |(x) |{noformat:nopanel=true}HoursAssignment_fulfillment{noformat} | |
+ |costCentre |(x) |{noformat:nopanel=true}HoursAssignment_costCentre{noformat} | |
+ |owningUnit |(x) |{noformat:nopanel=true}HoursAssignment_owningUnit{noformat} | |
+ |resourcingUnit |(x) |{noformat:nopanel=true}HoursAssignment_owningUnit{noformat} | |
+ |requirement |(x) |{noformat:nopanel=true}HoursAssignment_requirement{noformat} | |
+ |location |(x) |{noformat:nopanel=true}HoursAssignment_location{noformat} | |
+ |additionalDutyReason |(x) |{noformat:nopanel=true}String{noformat} | |
+ |dutyHasWarnings |(x) |{noformat:nopanel=true}Boolean{noformat} | |
+        {anchor:HoursAssignmentAssignmentModelAnchor}
+        h3. HoursAssignmentAssignment
+        ||Field Name||Required||Type||Description||
+         |method |(x) |{noformat:nopanel=true}String{noformat} |How duty was assigned. *   Unspecified *   AutoRoster *   ManualManagerAssignment *   EmployeeWebTimesheet *   ExternalAssignment e.g. from BankStaff *   EmployeeRequest  |
+ |fromRequest |(x) |{noformat:nopanel=true}Boolean{noformat} |Did the employee request this assignment? Yes/No |
+        {anchor:HoursAssignmentCancellationModelAnchor}
+        h3. HoursAssignmentCancellation
+        ||Field Name||Required||Type||Description||
+         |reason |(x) |{noformat:nopanel=true}HoursAssignment_cancellation_reason{noformat} | |
+        {anchor:HoursAssignmentCancellationReasonModelAnchor}
+        h3. HoursAssignmentCancellationReason
+        ||Field Name||Required||Type||Description||
+         |name |(x) |{noformat:nopanel=true}String{noformat} | |
+ |description |(x) |{noformat:nopanel=true}String{noformat} | |
+ |externalReference |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:HoursAssignmentCostCentreModelAnchor}
+        h3. HoursAssignmentCostCentre
+        ||Field Name||Required||Type||Description||
+         |code |(x) |{noformat:nopanel=true}String{noformat} | |
+ |name |(x) |{noformat:nopanel=true}String{noformat} | |
+ |description |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:HoursAssignmentDutyModelAnchor}
+        h3. HoursAssignmentDuty
+        ||Field Name||Required||Type||Description||
+         |when |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+        {anchor:HoursAssignmentEmployeeTypeModelAnchor}
+        h3. HoursAssignmentEmployeeType
+        ||Field Name||Required||Type||Description||
+         |name |(x) |{noformat:nopanel=true}String{noformat} |e.g: Employee, Bank, Agency |
+ |description |(x) |{noformat:nopanel=true}String{noformat} | |
+ |externalReference |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:HoursAssignmentFulfillmentModelAnchor}
+        h3. HoursAssignmentFulfillment
+        ||Field Name||Required||Type||Description||
+         |type |(x) |{noformat:nopanel=true}String{noformat} | |
+ |status |(x) |{noformat:nopanel=true}String{noformat} | |
+ |category |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:HoursAssignmentLocationModelAnchor}
+        h3. HoursAssignmentLocation
+        ||Field Name||Required||Type||Description||
+         |type |(x) |{noformat:nopanel=true}String{noformat} | |
+ |longName |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:HoursAssignmentOwningUnitModelAnchor}
+        h3. HoursAssignmentOwningUnit
+        ||Field Name||Required||Type||Description||
+         |code |(x) |{noformat:nopanel=true}String{noformat} | |
+ |shortName |(x) |{noformat:nopanel=true}String{noformat} | |
+ |longName |(x) |{noformat:nopanel=true}String{noformat} | |
+ |externalReference |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:HoursAssignmentPersonModelAnchor}
+        h3. HoursAssignmentPerson
+        ||Field Name||Required||Type||Description||
+         |staffNumber |(x) |{noformat:nopanel=true}String{noformat} | |
+ |forenames |(x) |{noformat:nopanel=true}String{noformat} |List of forenames for the person |
+ |surname |(x) |{noformat:nopanel=true}String{noformat} |Surname for the person |
+ |mobileNumber |(x) |{noformat:nopanel=true}String{noformat} | |
+ |grade |(x) |{noformat:nopanel=true}Grade{noformat} | |
+ |gradeType |(x) |{noformat:nopanel=true}GradeType{noformat} | |
+ |gradeTypeCategory |(x) |{noformat:nopanel=true}GradeTypeCategory{noformat} | |
+ |WTE |(x) |{noformat:nopanel=true}BigDecimal{noformat} |Whole time Equivalent – this is the person’s contracted hours divided by the person’s default grade type value for WTE (if the grade type has no value then use grade type category if neither have a value use system default setting). e.g. 37.5 / (2250/60) &#x3D; 1.00 NOTE if the grade type default wte is not set this will not be returned  |
+        {anchor:HoursAssignmentPostModelAnchor}
+        h3. HoursAssignmentPost
+        ||Field Name||Required||Type||Description||
+         |title |(x) |{noformat:nopanel=true}String{noformat} | |
+ |grade |(x) |{noformat:nopanel=true}Grade{noformat} | |
+        {anchor:HoursAssignmentPostingModelAnchor}
+        h3. HoursAssignmentPosting
+        ||Field Name||Required||Type||Description||
+         |assignmentNumber |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:HoursAssignmentRequirementModelAnchor}
+        h3. HoursAssignmentRequirement
+        ||Field Name||Required||Type||Description||
+         |grade |(x) |{noformat:nopanel=true}Grade{noformat} | |
+ |gradeType |(x) |{noformat:nopanel=true}GradeType{noformat} | |
+ |gradeTypeCategory |(x) |{noformat:nopanel=true}GradeTypeCategory{noformat} | |
+        {anchor:HoursAssignmentShiftModelAnchor}
+        h3. HoursAssignmentShift
+        ||Field Name||Required||Type||Description||
+         |type |(x) |{noformat:nopanel=true}String{noformat} | Standard HealthRoster enumerations: *   Day *   Combined *   Night *   OnCall *   SleepIn *   StandBy *   Rest *   None *   ADO *   Evening *   Other *   PrivatePractice                  |
+ |name |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:TimeSpanModelAnchor}
+        h3. TimeSpan
+        ||Field Name||Required||Type||Description||
+         |from |(/) |{noformat:nopanel=true}String{noformat} |Time from, 24hr format |
+ |to |(x) |{noformat:nopanel=true}String{noformat} |Time from, 24hr format |

@@ -1,0 +1,673 @@
+{
+  "openapi" : "3.0.2",
+  "info" : {
+    "contact" : {
+      "email" : "support@allocatesoftware.com",
+      "name" : "API support",
+      "url" : "http://www.allocatesoftware.com/"
+    },
+    "description" : "## Duties and Events\n",
+    "title" : "Duties and Events",
+    "version" : "1.0.0",
+    "x-logo" : {
+      "url" : "http://www.allocatesoftware.com/wp-content/uploads/sites/31/2017/08/Allocate_logo_digital_Horizontal_RGB_retina.png",
+      "backgroundColor" : "#FFFFc0",
+      "altText" : "Allocate Software"
+    }
+  },
+  "servers" : [ {
+    "url" : "http://healthsuite.allocatesoftware.com/api/duty/v1"
+  } ],
+  "tags" : [ {
+    "name" : "Duties"
+  }, {
+    "name" : "3rd Party Rostering"
+  }, {
+    "name" : "Costing"
+  }, {
+    "name" : "Bookings"
+  } ],
+  "paths" : {
+    "/duties" : {
+      "post" : {
+        "description" : "Create a new Duty",
+        "operationId" : "createDuty",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DutyDetails"
+              }
+            }
+          },
+          "description" : "Duty to be sent to agency",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "content" : {
+              "text/plain" : {
+                "schema" : {
+                  "description" : "ID of the newly created duty",
+                  "type" : "string"
+                }
+              }
+            },
+            "description" : "Duty created successfully"
+          },
+          "202" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AsyncResponse"
+                }
+              }
+            },
+            "description" : "The duty has been accepted and a response will be returned asyncronously."
+          }
+        },
+        "tags" : [ "Duties", "3rd Party Rostering" ]
+      }
+    },
+    "/duties/{id}/costing" : {
+      "post" : {
+        "operationId" : "sendDutyCosting",
+        "parameters" : [ {
+          "description" : "ID of the duty",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/DutyCostDetails"
+              }
+            }
+          },
+          "description" : "Costing Information",
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "Duty costing successfully"
+          },
+          "202" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AsyncResponse"
+                }
+              }
+            },
+            "description" : "The duty costing has been accepted and a response will be returned asyncronously."
+          }
+        },
+        "tags" : [ "Duties", "Costing", "Bookings" ]
+      }
+    },
+    "/duties/{id}/sendTo/{destination}" : {
+      "post" : {
+        "description" : "Send a duty for fulfillment by contingent workforce (Bank, Cloudstaff, Agency)",
+        "operationId" : "sendDutyForFulfillment",
+        "parameters" : [ {
+          "description" : "ID of the duty",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        }, {
+          "description" : "Desination to send the duty",
+          "explode" : false,
+          "in" : "path",
+          "name" : "destination",
+          "required" : true,
+          "schema" : {
+            "enum" : [ "bank", "agency", "cloudstaff" ],
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Duty sent successfully"
+          },
+          "202" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AsyncResponse"
+                }
+              }
+            },
+            "description" : "Request been accepted and a response will be returned asyncronously."
+          }
+        },
+        "tags" : [ "Duties", "3rd Party Rostering" ]
+      }
+    },
+    "/duties/{id}" : {
+      "delete" : {
+        "description" : "Cancel a duty. Also cancels any bookings (if present).",
+        "operationId" : "cancelDuty",
+        "parameters" : [ {
+          "description" : "ID of the duty",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Duty cancelled"
+          },
+          "202" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AsyncResponse"
+                }
+              }
+            },
+            "description" : "The cancellation has been accepted and a response will be returned asyncronously."
+          }
+        },
+        "tags" : [ "Duties", "3rd Party Rostering" ]
+      }
+    },
+    "/duties/{id}/booking" : {
+      "delete" : {
+        "description" : "Cancel a duty booking.",
+        "operationId" : "cancelDutyBooking",
+        "parameters" : [ {
+          "description" : "ID of the duty",
+          "explode" : false,
+          "in" : "path",
+          "name" : "id",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          },
+          "style" : "simple"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Duty booking cancelled"
+          },
+          "202" : {
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AsyncResponse"
+                }
+              }
+            },
+            "description" : "The duty cancellation been accepted and a response will be returned asyncronously."
+          },
+          "404" : {
+            "description" : "Duty or Customer not found"
+          }
+        },
+        "tags" : [ "Duties", "3rd Party Rostering" ]
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "AsyncResponse" : {
+        "properties" : {
+          "id" : {
+            "description" : "Correlation Identifier",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "DutyDetails" : {
+        "example" : {
+          "requirements" : "{}",
+          "where" : {
+            "locationId" : "TRST.101"
+          },
+          "when" : {
+            "from" : "2000-01-23T04:56:07.000+00:00",
+            "to" : "2000-01-23T04:56:07.000+00:00"
+          }
+        },
+        "properties" : {
+          "when" : {
+            "$ref" : "#/components/schemas/DutyDetails_when"
+          },
+          "where" : {
+            "$ref" : "#/components/schemas/DutyDetails_where"
+          },
+          "requirements" : {
+            "type" : "object"
+          }
+        },
+        "type" : "object"
+      },
+      "DutyCostDetails" : {
+        "example" : {
+          "amount" : 0.8008281904610115,
+          "costingType" : "estimated"
+        },
+        "properties" : {
+          "costingType" : {
+            "description" : "Whether this cost is estimated, or actual",
+            "enum" : [ "estimated", "actual" ],
+            "type" : "string"
+          },
+          "amount" : {
+            "description" : "The amount (sterling)",
+            "type" : "number"
+          }
+        },
+        "type" : "object"
+      },
+      "EventResponse" : {
+        "properties" : {
+          "dutyId" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Event" : {
+        "discriminator" : {
+          "propertyName" : "eventType"
+        },
+        "properties" : {
+          "eventType" : {
+            "type" : "string"
+          }
+        },
+        "required" : [ "eventType" ],
+        "type" : "object"
+      },
+      "DutyEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DateSpan" : {
+        "properties" : {
+          "start" : {
+            "description" : "Start date-time",
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "end" : {
+            "description" : "End date-time",
+            "format" : "date-time",
+            "type" : "string"
+          }
+        },
+        "type" : "object"
+      },
+      "DutyTimes" : {
+        "properties" : {
+          "period" : {
+            "$ref" : "#/components/schemas/DutyTimes"
+          },
+          "restTime" : {
+            "description" : "Number of minutes of rest date-time",
+            "example" : 60,
+            "type" : "integer"
+          }
+        },
+        "type" : "object"
+      },
+      "Duty" : {
+        "properties" : {
+          "id" : {
+            "description" : "Identifier for this duty",
+            "example" : "ABCD-93370",
+            "type" : "string"
+          },
+          "when" : {
+            "$ref" : "#/components/schemas/Duty_when"
+          },
+          "where" : {
+            "$ref" : "#/components/schemas/Duty_where"
+          },
+          "reason" : {
+            "description" : "reason for requestBody",
+            "type" : "string"
+          },
+          "requirements" : {
+            "$ref" : "#/components/schemas/Duty_requirements"
+          }
+        },
+        "type" : "object"
+      },
+      "DutySendEvent" : {
+        "properties" : {
+          "eventType" : {
+            "type" : "string"
+          },
+          "destination" : {
+            "description" : "Where this duty has been sent",
+            "enum" : [ "bank", "agency", "cloudstaff" ],
+            "type" : "string"
+          },
+          "duty" : {
+            "$ref" : "#/components/schemas/Duty"
+          }
+        },
+        "required" : [ "eventType" ],
+        "type" : "object"
+      },
+      "DutyTempStaffingNoteCreatedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyTempStaffingNoteCreatedEvent_allOf"
+        } ]
+      },
+      "DutyTempStaffingNoteDeletedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyTempStaffingNoteDeletedEvent_allOf"
+        } ],
+        "description" : "A note previously added to a duty has been deleted."
+      },
+      "DutyTempStaffingExpressionOfInterestEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyTempStaffingExpressionOfInterestEvent_allOf"
+        } ],
+        "description" : "A note previously added to a duty has been deleted."
+      },
+      "DutyCascadeEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyCascadeEvent_allOf"
+        } ],
+        "description" : "Duty has been cascaded to a temporary staffing tier"
+      },
+      "DutyUpdatedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyUpdatedEvent_allOf"
+        } ]
+      },
+      "DutyCancelledEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DutyDeletedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DutyApprovedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DutyAssignedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DutyAssignmentClearedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DutyAssignmentUpdatedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DutyAssignmentFinalisedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DutyAssignmentUnFinalisedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DutyAssignmentTimesheetConfirmedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DutyAssignmentTimesheetUnconfirmedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DutyAssignmentTimesheetRejectedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DutyAssignmentSubmittedEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyEvent_allOf"
+        } ]
+      },
+      "DutyAssignmentRedeploymentEvent" : {
+        "allOf" : [ {
+          "$ref" : "#/components/schemas/Event"
+        }, {
+          "$ref" : "#/components/schemas/DutyAssignmentRedeploymentEvent_allOf"
+        } ]
+      },
+      "DutyDetails_when" : {
+        "example" : {
+          "from" : "2000-01-23T04:56:07.000+00:00",
+          "to" : "2000-01-23T04:56:07.000+00:00"
+        },
+        "properties" : {
+          "from" : {
+            "format" : "date-time",
+            "type" : "string"
+          },
+          "to" : {
+            "format" : "date-time",
+            "type" : "string"
+          }
+        }
+      },
+      "DutyDetails_where" : {
+        "example" : {
+          "locationId" : "TRST.101"
+        },
+        "properties" : {
+          "locationId" : {
+            "example" : "TRST.101",
+            "type" : "string"
+          }
+        }
+      },
+      "DutyEvent_allOf" : {
+        "properties" : {
+          "dutyId" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Duty_when" : {
+        "properties" : {
+          "planned" : {
+            "$ref" : "#/components/schemas/DutyTimes"
+          },
+          "actual" : {
+            "$ref" : "#/components/schemas/DutyTimes"
+          },
+          "shiftType" : {
+            "description" : "Night, Day, etc",
+            "type" : "string"
+          }
+        }
+      },
+      "Duty_where" : {
+        "properties" : {
+          "trustId" : {
+            "description" : "name of the trust",
+            "example" : "SPQR",
+            "type" : "string"
+          },
+          "unitCode" : {
+            "description" : "Code for the unit within the trust",
+            "example" : "HPPDWard",
+            "type" : "string"
+          }
+        }
+      },
+      "Duty_requirements_gradeRequirement" : {
+        "properties" : {
+          "grade" : {
+            "type" : "string"
+          },
+          "gradeType" : {
+            "type" : "string"
+          },
+          "gradeTypeCategory" : {
+            "type" : "string"
+          }
+        }
+      },
+      "Duty_requirements" : {
+        "properties" : {
+          "gradeRequirement" : {
+            "$ref" : "#/components/schemas/Duty_requirements_gradeRequirement"
+          },
+          "gender" : {
+            "example" : "Female",
+            "type" : "string"
+          }
+        }
+      },
+      "DutyTempStaffingNoteCreatedEvent_allOf" : {
+        "properties" : {
+          "dutyId" : {
+            "type" : "string"
+          },
+          "noteId" : {
+            "description" : "Identifier for the note",
+            "type" : "string"
+          },
+          "content" : {
+            "description" : "Content for the note",
+            "type" : "string"
+          }
+        }
+      },
+      "DutyTempStaffingNoteDeletedEvent_allOf" : {
+        "properties" : {
+          "dutyId" : {
+            "type" : "string"
+          },
+          "noteId" : {
+            "description" : "Identifier for the note",
+            "type" : "string"
+          }
+        }
+      },
+      "DutyTempStaffingExpressionOfInterestEvent_allOf" : {
+        "properties" : {
+          "id" : {
+            "type" : "string"
+          },
+          "dutyId" : {
+            "type" : "string"
+          },
+          "workerId" : {
+            "description" : "Identifier for the note",
+            "type" : "string"
+          }
+        }
+      },
+      "DutyCascadeEvent_allOf" : {
+        "properties" : {
+          "dutyId" : {
+            "type" : "string"
+          },
+          "cascadeFrom" : {
+            "enum" : [ "ward", "bank", "cloudstaff", "agency", "nationalBank" ],
+            "type" : "string"
+          },
+          "cascadeTo" : {
+            "enum" : [ "ward", "bank", "cloudstaff", "agency", "nationalBank" ],
+            "type" : "string"
+          },
+          "isDutyReset" : {
+            "description" : "Is this a 'reset' ? (I.E Revert)",
+            "type" : "boolean"
+          }
+        },
+        "required" : [ "cascadeTo", "dutyId" ]
+      },
+      "DutyUpdatedEvent_allOf" : {
+        "properties" : {
+          "duty" : {
+            "$ref" : "#/components/schemas/Duty"
+          }
+        }
+      },
+      "DutyAssignmentRedeploymentEvent_allOf" : {
+        "properties" : {
+          "assignmentNumber" : {
+            "type" : "string"
+          },
+          "originalDuty" : {
+            "$ref" : "#/components/schemas/Duty"
+          },
+          "newDuty" : {
+            "$ref" : "#/components/schemas/Duty"
+          }
+        }
+      }
+    }
+  }
+}

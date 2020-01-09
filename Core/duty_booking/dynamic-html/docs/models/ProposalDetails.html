@@ -1,0 +1,44 @@
+
+<h2>ProposalDetails</h2>
+<ul class="parameter">
+  <li class="param-required-true">personId : String
+    <br/>The ASWid of the worker being offered for this duty
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-true">engagementRoute : String
+    <br/>The engagement route for this worker
+      <dl class="param-enum">
+        <dt>Enum:
+            <dd>substantive</dd>
+            <dd>bank</dd>
+            <dd>agency</dd>
+            <dd>other</dd>
+        </dt>
+      </dl>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">agencyId : Object
+    <br/>The ASWid of the agency, if this worker is being provided through an agency engagement
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-true">cost : BigDecimal
+    <br/>Cost for this worker
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-true">cancellationCosts : List
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">options : List
+    <br/>Any options being passed for this worker
+      <dl class="param-enum">
+        <dt>Enum:
+        </dt>
+      </dl>
+  </li>
+</ul>

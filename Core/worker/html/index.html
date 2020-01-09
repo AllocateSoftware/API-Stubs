@@ -1,0 +1,933 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Workers</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>Workers</h1>
+    <div class="app-desc"><h2>Workers and events</h2>
+</div>
+    <div class="app-desc">More information: <a href="http://www.allocatesoftware.com/">http://www.allocatesoftware.com/</a></div>
+    <div class="app-desc">Contact Info: <a href="support@allocatesoftware.com">support@allocatesoftware.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/api/worker/v1</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#AnnualLeaveClaims">AnnualLeaveClaims</a></h4>
+  <ul>
+  <li><a href="#submitAnnualLeaveClaim"><code><span class="http-method">post</span> /worker/{id}/leave</code></a></li>
+  </ul>
+  <h4><a href="#WorkerData">WorkerData</a></h4>
+  <ul>
+  <li><a href="#registerWorker"><code><span class="http-method">post</span> /workers</code></a></li>
+  </ul>
+  <h4><a href="#Workers">Workers</a></h4>
+  <ul>
+  <li><a href="#registerWorker"><code><span class="http-method">post</span> /workers</code></a></li>
+  <li><a href="#submitAnnualLeaveClaim"><code><span class="http-method">post</span> /worker/{id}/leave</code></a></li>
+  </ul>
+
+  <h1><a name="AnnualLeaveClaims">AnnualLeaveClaims</a></h1>
+  <div class="method"><a name="submitAnnualLeaveClaim"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /worker/{id}/leave</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">submitAnnualLeaveClaim</span>)</div>
+    <div class="method-notes">Submit an leave (vacation) claim for a worker</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the worker default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">LeaveClaim <a href="#LeaveClaim">LeaveClaim</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#AsyncResponse">AsyncResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "id" : "id"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">202</h4>
+    The worker data has been accepted, and will be processed in due course.
+        <a href="#AsyncResponse">AsyncResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="WorkerData">WorkerData</a></h1>
+  <div class="method"><a name="registerWorker"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /workers</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">registerWorker</span>)</div>
+    <div class="method-notes">Provide worker details for inclusion into the Allocate ecosystem. The platform will accept the worker information, and respond either synchronously or asynchronously with the allocate worker identifier. This may entail an on-boarding process, so the final response may require human interaction before it can be completed.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Person <a href="#Person">Person</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#WorkerRegistrationResponse">WorkerRegistrationResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "personId" : "personId"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    The worker has been registered successfully
+        <a href="#WorkerRegistrationResponse">WorkerRegistrationResponse</a>
+    <h4 class="field-label">400</h4>
+    One or more errors have occurred when attempting to process the provided data
+        <a href="#ErrorResponse">ErrorResponse</a>
+    <h4 class="field-label">202</h4>
+    The worker data has been accepted, and will be processed in due course.
+        <a href="#AsyncResponse">AsyncResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="Workers">Workers</a></h1>
+  <div class="method"><a name="registerWorker"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /workers</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">registerWorker</span>)</div>
+    <div class="method-notes">Provide worker details for inclusion into the Allocate ecosystem. The platform will accept the worker information, and respond either synchronously or asynchronously with the allocate worker identifier. This may entail an on-boarding process, so the final response may require human interaction before it can be completed.</div>
+
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Person <a href="#Person">Person</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#WorkerRegistrationResponse">WorkerRegistrationResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "personId" : "personId"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    The worker has been registered successfully
+        <a href="#WorkerRegistrationResponse">WorkerRegistrationResponse</a>
+    <h4 class="field-label">400</h4>
+    One or more errors have occurred when attempting to process the provided data
+        <a href="#ErrorResponse">ErrorResponse</a>
+    <h4 class="field-label">202</h4>
+    The worker data has been accepted, and will be processed in due course.
+        <a href="#AsyncResponse">AsyncResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="submitAnnualLeaveClaim"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /worker/{id}/leave</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">submitAnnualLeaveClaim</span>)</div>
+    <div class="method-notes">Submit an leave (vacation) claim for a worker</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the worker default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">LeaveClaim <a href="#LeaveClaim">LeaveClaim</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#AsyncResponse">AsyncResponse</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "id" : "id"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">202</h4>
+    The worker data has been accepted, and will be processed in due course.
+        <a href="#AsyncResponse">AsyncResponse</a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#AsyncResponse"><code>AsyncResponse</code> - </a></li>
+    <li><a href="#Attribute"><code>Attribute</code> - </a></li>
+    <li><a href="#Availabilities"><code>Availabilities</code> - </a></li>
+    <li><a href="#Availabilities_Availability"><code>Availabilities_Availability</code> - </a></li>
+    <li><a href="#Availabilities_NoBank"><code>Availabilities_NoBank</code> - </a></li>
+    <li><a href="#ContactDetailsUpdatedEvent"><code>ContactDetailsUpdatedEvent</code> - </a></li>
+    <li><a href="#ContactInformation"><code>ContactInformation</code> - </a></li>
+    <li><a href="#ContactLogEvent"><code>ContactLogEvent</code> - </a></li>
+    <li><a href="#ContactLogInformation"><code>ContactLogInformation</code> - </a></li>
+    <li><a href="#ContactLogInformation_details"><code>ContactLogInformation_details</code> - </a></li>
+    <li><a href="#Contract"><code>Contract</code> - </a></li>
+    <li><a href="#DateSpan"><code>DateSpan</code> - </a></li>
+    <li><a href="#EmploymentDetails"><code>EmploymentDetails</code> - </a></li>
+    <li><a href="#ErrorResponse"><code>ErrorResponse</code> - </a></li>
+    <li><a href="#Identification"><code>Identification</code> - </a></li>
+    <li><a href="#Identifier"><code>Identifier</code> - </a></li>
+    <li><a href="#LeaveClaim"><code>LeaveClaim</code> - </a></li>
+    <li><a href="#LeaveClaim_when"><code>LeaveClaim_when</code> - </a></li>
+    <li><a href="#Person"><code>Person</code> - </a></li>
+    <li><a href="#PersonalInfo"><code>PersonalInfo</code> - </a></li>
+    <li><a href="#PersonalPattern"><code>PersonalPattern</code> - </a></li>
+    <li><a href="#PersonalPattern_duty"><code>PersonalPattern_duty</code> - </a></li>
+    <li><a href="#PersonalPattern_unavailability"><code>PersonalPattern_unavailability</code> - </a></li>
+    <li><a href="#Posting"><code>Posting</code> - </a></li>
+    <li><a href="#Skill"><code>Skill</code> - </a></li>
+    <li><a href="#Specialty"><code>Specialty</code> - </a></li>
+    <li><a href="#TimeSpan"><code>TimeSpan</code> - </a></li>
+    <li><a href="#Visa"><code>Visa</code> - </a></li>
+    <li><a href="#WorkLocations"><code>WorkLocations</code> - </a></li>
+    <li><a href="#WorkerPerformanceEvent"><code>WorkerPerformanceEvent</code> - </a></li>
+    <li><a href="#WorkerPerformanceEvent_dutyDetails"><code>WorkerPerformanceEvent_dutyDetails</code> - </a></li>
+    <li><a href="#WorkerPerformanceEvent_evaluation"><code>WorkerPerformanceEvent_evaluation</code> - </a></li>
+    <li><a href="#WorkerPerformanceEvent_evaluation_evaluator"><code>WorkerPerformanceEvent_evaluation_evaluator</code> - </a></li>
+    <li><a href="#WorkerPerformanceEvent_evaluation_quesions"><code>WorkerPerformanceEvent_evaluation_quesions</code> - </a></li>
+    <li><a href="#WorkerPerformanceEvent_worker"><code>WorkerPerformanceEvent_worker</code> - </a></li>
+    <li><a href="#WorkerRegistrationResponse"><code>WorkerRegistrationResponse</code> - </a></li>
+    <li><a href="#WorkingRestriction"><code>WorkingRestriction</code> - </a></li>
+    <li><a href="#WorkingRestriction_defaultLeaveHours"><code>WorkingRestriction_defaultLeaveHours</code> - </a></li>
+    <li><a href="#WorkingRestriction_hoursOfWork"><code>WorkingRestriction_hoursOfWork</code> - </a></li>
+    <li><a href="#WorkingRestriction_restrictions"><code>WorkingRestriction_restrictions</code> - </a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="AsyncResponse"><code>AsyncResponse</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Correlation Identifier so a future AsyncData object can be related to the inbound call. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Attribute"><code>Attribute</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">validity </div><div class="param-desc"><span class="param-type"><a href="#DateSpan">DateSpan</a></span>  </div>
+<div class="param">value </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Availabilities"><code>Availabilities</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">Availability </div><div class="param-desc"><span class="param-type"><a href="#Availabilities_Availability">array[Availabilities_Availability]</a></span>  </div>
+<div class="param">NoBank </div><div class="param-desc"><span class="param-type"><a href="#Availabilities_NoBank">array[Availabilities_NoBank]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Availabilities_Availability"><code>Availabilities_Availability</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">date (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+<div class="param">availabilityType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">start (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">end (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">numberOfOccurrences (optional)</div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span>  </div>
+<div class="param">notes (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Availabilities_NoBank"><code>Availabilities_NoBank</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">start (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">numberOfOccurances (optional)</div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span>  </div>
+<div class="param">notes (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ContactDetailsUpdatedEvent"><code>ContactDetailsUpdatedEvent</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">personId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ASWid of the person </div>
+<div class="param">contactInformation </div><div class="param-desc"><span class="param-type"><a href="#ContactInformation">map[String, ContactInformation]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ContactInformation"><code>ContactInformation</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">email</div><div class="param-enum">telephone</div><div class="param-enum">mobile</div>
+<div class="param">value (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ContactLogEvent"><code>ContactLogEvent</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>Denote a contact with a worker</div>
+    <div class="field-items">
+      <div class="param">personId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ASWid of the person </div>
+<div class="param">contactLogInformation </div><div class="param-desc"><span class="param-type"><a href="#ContactLogInformation">map[String, ContactLogInformation]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ContactLogInformation"><code>ContactLogInformation</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">telephone</div><div class="param-enum">email</div><div class="param-enum">IM</div><div class="param-enum">faceToFace</div>
+<div class="param">when (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">who (optional)</div><div class="param-desc"><span class="param-type"><a href="#Identifier">map[String, Identifier]</a></span>  </div>
+<div class="param">details (optional)</div><div class="param-desc"><span class="param-type"><a href="#ContactLogInformation_details">ContactLogInformation_details</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ContactLogInformation_details"><code>ContactLogInformation_details</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">successful (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span> Was this contact successful? (e.g: Call was answered) </div>
+<div class="param">notes (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Notes on the contact </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Contract"><code>Contract</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">staffGroup (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">grade </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">contract </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">payscale (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">contractType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">contractedTime </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">defaultUnavailabilityHours (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">wtdOptOut (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+<div class="param">salaryFrequency (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">salaryAmount (optional)</div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DateSpan"><code>DateSpan</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">from (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span> When the span starts format: date</div>
+<div class="param">to (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span> When the span ends format: date</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="EmploymentDetails"><code>EmploymentDetails</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">employmentStatus (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">employeeType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">hireDetails </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">dateJoinedNHS (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+<div class="param">alAccrualPlan (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">prevEmployer (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">agencies (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ErrorResponse"><code>ErrorResponse</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Optional identifier for this reponse (for correlation with logging) </div>
+<div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Optional error code identifying this particular error </div>
+<div class="param">description </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of this error. </div>
+<div class="param">items (optional)</div><div class="param-desc"><span class="param-type"><a href="#ErrorResponse">array[ErrorResponse]</a></span> List of child errors </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Identification"><code>Identification</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">staffNumber </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Unique and unchanging staff number to use as the constant reference for a Person </div>
+<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> This value is subject to mapping in the Gateway. If unavailable, provide a constant value e.g. UNKNOWN, which can be mapped to an empty value in HealthRoster Optima </div>
+<div class="param">forenames </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">surname </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">middleInitials (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">knownAs (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">gender (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">male</div><div class="param-enum">female</div><div class="param-enum">other</div>
+<div class="param">dateOfBirth </div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+<div class="param">ssn (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> National Insurance \ Social Security Number. </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Identifier"><code>Identifier</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">namespace (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Namespace for this identifier. </div>
+<div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LeaveClaim"><code>LeaveClaim</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">when (optional)</div><div class="param-desc"><span class="param-type"><a href="#LeaveClaim_when">LeaveClaim_when</a></span>  </div>
+<div class="param">reason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The reason for the leave claim </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">annualLeave</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="LeaveClaim_when"><code>LeaveClaim_when</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">from (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span> 1st day (inclusive) of leave claim format: date</div>
+<div class="param">to (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span> Last day (inclusive) of leave claim format: date</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Person"><code>Person</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">identification (optional)</div><div class="param-desc"><span class="param-type"><a href="#Identification">Identification</a></span>  </div>
+<div class="param">personalInfo (optional)</div><div class="param-desc"><span class="param-type"><a href="#PersonalInfo">PersonalInfo</a></span>  </div>
+<div class="param">employmentDetails (optional)</div><div class="param-desc"><span class="param-type"><a href="#EmploymentDetails">EmploymentDetails</a></span>  </div>
+<div class="param">workLocations (optional)</div><div class="param-desc"><span class="param-type"><a href="#WorkLocations">WorkLocations</a></span>  </div>
+<div class="param">postings (optional)</div><div class="param-desc"><span class="param-type"><a href="#Posting">array[Posting]</a></span>  </div>
+<div class="param">contracts (optional)</div><div class="param-desc"><span class="param-type"><a href="#Contract">array[Contract]</a></span>  </div>
+<div class="param">skills (optional)</div><div class="param-desc"><span class="param-type"><a href="#Skill">array[Skill]</a></span>  </div>
+<div class="param">specialties (optional)</div><div class="param-desc"><span class="param-type"><a href="#Specialty">array[Specialty]</a></span>  </div>
+<div class="param">attributes (optional)</div><div class="param-desc"><span class="param-type"><a href="#Attribute">array[Attribute]</a></span>  </div>
+<div class="param">visas (optional)</div><div class="param-desc"><span class="param-type"><a href="#Visa">array[Visa]</a></span>  </div>
+<div class="param">workingRestrictions (optional)</div><div class="param-desc"><span class="param-type"><a href="#WorkingRestriction">array[WorkingRestriction]</a></span>  </div>
+<div class="param">availabilities (optional)</div><div class="param-desc"><span class="param-type"><a href="#Availabilities">Availabilities</a></span>  </div>
+<div class="param">personalPattern (optional)</div><div class="param-desc"><span class="param-type"><a href="#PersonalPattern">PersonalPattern</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PersonalInfo"><code>PersonalInfo</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">maidenName (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">maritalStatus (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">additionalID (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">placeOfBirth (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">nationality (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">ethnicOrigin (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">visaRequired (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">disabledNo (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">disability (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PersonalPattern"><code>PersonalPattern</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">duty (optional)</div><div class="param-desc"><span class="param-type"><a href="#PersonalPattern_duty">array[PersonalPattern_duty]</a></span>  </div>
+<div class="param">unavailability (optional)</div><div class="param-desc"><span class="param-type"><a href="#PersonalPattern_unavailability">array[PersonalPattern_unavailability]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PersonalPattern_duty"><code>PersonalPattern_duty</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">shiftGroup (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">shift (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">rosterLocation (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">team (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">activityCategory (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">activityBenchmark (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">activityType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">activityProfile (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">work (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">start (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">end (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">monthlyReccurrance (optional)</div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="PersonalPattern_unavailability"><code>PersonalPattern_unavailability</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">unavailabilityGroup (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">unavailabilityReason </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">work (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">start </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">end </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">externalUnavailabilityIdentifier </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Posting"><code>Posting</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">unit </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">post (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">postingType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">assignmentNo </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">team (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">isPrimary </div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Skill"><code>Skill</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">skillGroup (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">cluster (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">skill (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">validity </div><div class="param-desc"><span class="param-type"><a href="#DateSpan">DateSpan</a></span>  </div>
+<div class="param">dateGained (optional)</div><div class="param-desc"><span class="param-type"><a href="#date">date</a></span>  format: date</div>
+<div class="param">obtainedFromReason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">certificateNumber (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">notes (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Specialty"><code>Specialty</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">tempStaffSpeciality (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">validity </div><div class="param-desc"><span class="param-type"><a href="#DateSpan">DateSpan</a></span>  </div>
+<div class="param">notes (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="TimeSpan"><code>TimeSpan</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">from (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Time from, 24hr format </div>
+<div class="param">to (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Time from, 24hr format </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Visa"><code>Visa</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">number (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">country (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">issuingOffice (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">entries (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">validity </div><div class="param-desc"><span class="param-type"><a href="#DateSpan">DateSpan</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkLocations"><code>WorkLocations</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">homeTrust </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The identifier for the home trust for this worker </div>
+<div class="param">workingTrusts (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span> Identifiers for the trusts that the worker may work in (in addition to their home trust) </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkerPerformanceEvent"><code>WorkerPerformanceEvent</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">worker (optional)</div><div class="param-desc"><span class="param-type"><a href="#WorkerPerformanceEvent_worker">WorkerPerformanceEvent_worker</a></span>  </div>
+<div class="param">dutyDetails (optional)</div><div class="param-desc"><span class="param-type"><a href="#WorkerPerformanceEvent_dutyDetails">WorkerPerformanceEvent_dutyDetails</a></span>  </div>
+<div class="param">evaluation (optional)</div><div class="param-desc"><span class="param-type"><a href="#WorkerPerformanceEvent_evaluation">WorkerPerformanceEvent_evaluation</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkerPerformanceEvent_dutyDetails"><code>WorkerPerformanceEvent_dutyDetails</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">dutyId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ID of the duty within the allocate system </div>
+<div class="param">from (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span> When the duty started format: date-time</div>
+<div class="param">to (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span> When the duty ended format: date-time</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkerPerformanceEvent_evaluation"><code>WorkerPerformanceEvent_evaluation</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">evaluator (optional)</div><div class="param-desc"><span class="param-type"><a href="#WorkerPerformanceEvent_evaluation_evaluator">WorkerPerformanceEvent_evaluation_evaluator</a></span>  </div>
+<div class="param">score (optional)</div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span> Score out of 10 </div>
+<div class="param">comment (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Free text comment </div>
+<div class="param">quesions (optional)</div><div class="param-desc"><span class="param-type"><a href="#WorkerPerformanceEvent_evaluation_quesions">array[WorkerPerformanceEvent_evaluation_quesions]</a></span> List of questions and answers froman evaluator </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkerPerformanceEvent_evaluation_evaluator"><code>WorkerPerformanceEvent_evaluation_evaluator</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">identities (optional)</div><div class="param-desc"><span class="param-type"><a href="#Identifier">array[Identifier]</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkerPerformanceEvent_evaluation_quesions"><code>WorkerPerformanceEvent_evaluation_quesions</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">question (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">answer (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkerPerformanceEvent_worker"><code>WorkerPerformanceEvent_worker</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Simple name for the worker </div>
+<div class="param">identities (optional)</div><div class="param-desc"><span class="param-type"><a href="#Identifier">array[Identifier]</a></span> Collection of identifiers of the worker. There may be several unique
+identifiers for a worker within HealthSuite, and identifiers used for
+interactions with 3rd party systems (I.E: their identifiers). </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkerRegistrationResponse"><code>WorkerRegistrationResponse</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">personId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ASWid of the person </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkingRestriction"><code>WorkingRestriction</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">title </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">validity </div><div class="param-desc"><span class="param-type"><a href="#DateSpan">DateSpan</a></span>  </div>
+<div class="param">hoursOfWork </div><div class="param-desc"><span class="param-type"><a href="#WorkingRestriction_hoursOfWork">WorkingRestriction_hoursOfWork</a></span>  </div>
+<div class="param">defaultLeaveHours </div><div class="param-desc"><span class="param-type"><a href="#WorkingRestriction_defaultLeaveHours">WorkingRestriction_defaultLeaveHours</a></span>  </div>
+<div class="param">restrictions </div><div class="param-desc"><span class="param-type"><a href="#WorkingRestriction_restrictions">WorkingRestriction_restrictions</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkingRestriction_defaultLeaveHours"><code>WorkingRestriction_defaultLeaveHours</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">useWorkingDay (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">mondayTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">tuesdayTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">wednesdayTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">fridayTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">saturdayTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">sundayTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkingRestriction_hoursOfWork"><code>WorkingRestriction_hoursOfWork</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">mon (optional)</div><div class="param-desc"><span class="param-type"><a href="#TimeSpan">TimeSpan</a></span>  </div>
+<div class="param">tue (optional)</div><div class="param-desc"><span class="param-type"><a href="#TimeSpan">TimeSpan</a></span>  </div>
+<div class="param">wed (optional)</div><div class="param-desc"><span class="param-type"><a href="#TimeSpan">TimeSpan</a></span>  </div>
+<div class="param">thu (optional)</div><div class="param-desc"><span class="param-type"><a href="#TimeSpan">TimeSpan</a></span>  </div>
+<div class="param">fri (optional)</div><div class="param-desc"><span class="param-type"><a href="#TimeSpan">TimeSpan</a></span>  </div>
+<div class="param">sat (optional)</div><div class="param-desc"><span class="param-type"><a href="#TimeSpan">TimeSpan</a></span>  </div>
+<div class="param">sun (optional)</div><div class="param-desc"><span class="param-type"><a href="#TimeSpan">TimeSpan</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="WorkingRestriction_restrictions"><code>WorkingRestriction_restrictions</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">effectiveFrom (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">daysPerWeek (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">maxDaysPerWeek (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">maxShiftsPerWeek (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">maxConsecutiveDays (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">maxConsecutiveDaysRequested (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">maxWorkTimePerDay (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">maxDurationPerShift (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">additionalHoursPerWeek (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">maxOvertimePerDay (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">maxOvertimePerWeek (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">maxOvertimePerCalendarMonth (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">wtdDayStart (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">wtdWeekDayStart (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">wtdWeekTimeStart (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">minBreakBetweenShifts (optional)</div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span>  </div>
+<div class="param">notes (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>

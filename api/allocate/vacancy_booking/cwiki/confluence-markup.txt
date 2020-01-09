@@ -1,0 +1,509 @@
+h1. Vacancy Booking API and Events
+
+     ## Duty Booking API and events and Events 
+
+*Version:* 1.0.0
+
+----
+
+{expand:Table of Contents - Click to expand}
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+{expand}
+
+h2. Endpoints
+
+
+h3. acceptProposal
+{panel:title=acceptProposal|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Accept the proposal (possibly on behalf of the trust). Note that it is not neccessary to call this API in the case of direct-book scenarios as it will be assumed as a part of the workflow.
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/proposals/{id}/accept{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the proposal |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | The proposal was not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The proposal was not found"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Proposal successfully accepted |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Proposal successfully accepted"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. cancelProposal
+{panel:title=cancelProposal|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Cancel the proposal (and the booking, if it has been accepted)
+
+	|| HttpMethod | {status:colour=Yellow|title=delete|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/proposals/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the proposal |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | The proposal was not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The proposal was not found"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Cancelled successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Cancelled successfully"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The request was accepted and will be processed asynchronously |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The request was accepted and will be processed asynchronously",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getProposal
+{panel:title=getProposal|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* *No Description*
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/proposals/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the proposal |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | The proposal was not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The proposal was not found"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Proposal successfully found |
+    	|| Response Type | ProposalDetails |
+    	|| Response Model | [ProposalDetails Model|#ProposalDetailsModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Proposal successfully found",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ProposalDetails"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. updateProposal
+{panel:title=updateProposal|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* *No Description*
+
+	|| HttpMethod | {status:colour=Yellow|title=put|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/proposals/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the proposal |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |proposalDetails |Details of the proposal for filling the duty (worker) |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | The proposal was not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The proposal was not found"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | The Proposal successfully updated |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The Proposal successfully updated"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. createProposal
+{panel:title=createProposal|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Offer a worker for filling a duty
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vacancies/{vacancyId}/proposals{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |vacancyId |The ID of the vacancy |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |proposalDetails |Details of the proposal for filling the vacancy (worker, costs, etc) |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Proposal created successfully |
+    	|| Response Type | CreateProposalResponse |
+    	|| Response Model | [CreateProposalResponse Model|#CreateProposalResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Proposal created successfully",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/CreateProposalResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The proposal has been accepted and a response will be returned asyncronously. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The proposal has been accepted and a response will be returned asyncronously.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | One or more errors have occurred when attempting to process the provided data |
+    	|| Response Type | ErrorResponse |
+    	|| Response Model | [ErrorResponse Model|#ErrorResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "One or more errors have occurred when attempting to process the provided data",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ErrorResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. createVacancy
+{panel:title=createVacancy|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Create a new vacancy
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vacancies{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |vacancy |Details of the vacancy |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=403|subtle=false} |
+    	|| Message | Forbidden - you do not have the necessary permissions to undertake this action |
+    	|| Response Type | ErrorResponse |
+    	|| Response Model | [ErrorResponse Model|#ErrorResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Forbidden - you do not have the necessary permissions to undertake this action",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ErrorResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Vacancy created successfully |
+    	|| Response Type | CreateVacancyResponse |
+    	|| Response Model | [CreateVacancyResponse Model|#CreateVacancyResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Vacancy created successfully",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/CreateVacancyResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. submitTimesheet
+{panel:title=submitTimesheet|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Send timesheet information for a completed activity
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vacancies/{vacancyId}/timesheet{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |vacancyId |The ID of the vacancy |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |inlineObject | |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Timesheet successfully submitted |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Timesheet successfully submitted"
+}{code} |
+    	
+
+{panel}
+
+
+{anchor:models}
+h2. Models
+
+        {anchor:AsyncResponseModelAnchor}
+        h3. AsyncResponse
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |Correlation Identifier |
+        {anchor:BookingCancelledEventModelAnchor}
+        h3. BookingCancelledEvent
+        ||Field Name||Required||Type||Description||
+         |proposalId |(/) |{noformat:nopanel=true}String{noformat} |The ID of the proposal |
+ |vacancyId |(/) |{noformat:nopanel=true}String{noformat} |The ID of the vacancy |
+        {anchor:BookingEventModelAnchor}
+        h3. BookingEvent
+        ||Field Name||Required||Type||Description||
+         |proposalId |(/) |{noformat:nopanel=true}String{noformat} |The ID of the proposal |
+ |vacancyId |(/) |{noformat:nopanel=true}String{noformat} |The ID of the vacancy |
+        {anchor:CancellationCostModelAnchor}
+        h3. CancellationCost
+        ||Field Name||Required||Type||Description||
+         |afterDate |(/) |{noformat:nopanel=true}Date{noformat} |The date/time after which this cost becomes valid |
+ |amount |(/) |{noformat:nopanel=true}BigDecimal{noformat} |The cost of cancellation |
+        {anchor:CreateProposalResponseModelAnchor}
+        h3. CreateProposalResponse
+        ||Field Name||Required||Type||Description||
+         |proposalId |(/) |{noformat:nopanel=true}String{noformat} |The ID of the proposal created |
+        {anchor:CreateVacancyResponseModelAnchor}
+        h3. CreateVacancyResponse
+        ||Field Name||Required||Type||Description||
+         |vacancyId |(/) |{noformat:nopanel=true}String{noformat} |The ID of the vacancy created |
+        {anchor:DateSpanModelAnchor}
+        h3. DateSpan
+        ||Field Name||Required||Type||Description||
+         |from |(/) |{noformat:nopanel=true}Date{noformat} |When the span starts |
+ |to |(x) |{noformat:nopanel=true}Date{noformat} |When the span ends |
+        {anchor:ErrorResponseModelAnchor}
+        h3. ErrorResponse
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |Optional identifier for this reponse (for matching with logging) |
+ |code |(x) |{noformat:nopanel=true}String{noformat} |Optional error code identifying this particular error |
+ |description |(/) |{noformat:nopanel=true}String{noformat} |Optional error code identifying this particular error |
+ |items |(x) |{noformat:nopanel=true}array[ErrorResponse]{noformat} |List of child errors |
+        {anchor:IdentifierModelAnchor}
+        h3. Identifier
+        ||Field Name||Required||Type||Description||
+         |namespace |(/) |{noformat:nopanel=true}String{noformat} |Namespace for this identifier. |
+ |id |(/) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:InlineObjectModelAnchor}
+        h3. InlineObject
+        ||Field Name||Required||Type||Description||
+         |proposalId |(x) |{noformat:nopanel=true}String{noformat} |The ID of the orignal proposal (booking) |
+ |times |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |break |(x) |{noformat:nopanel=true}Integer{noformat} |Break time in minutes |
+        {anchor:ProposalDetailsModelAnchor}
+        h3. ProposalDetails
+        ||Field Name||Required||Type||Description||
+         |personId |(/) |{noformat:nopanel=true}String{noformat} |Allocate PersonID for the person being proposed |
+ |engagementRoute |(/) |{noformat:nopanel=true}String{noformat} |The engagement route for this worker |
+ |agencyId |(x) |{noformat:nopanel=true}String{noformat} |The Allocate Agency ID for the agency, if this worker is being provided through an agency engagement |
+ |cost |(x) |{noformat:nopanel=true}BigDecimal{noformat} | |
+ |cancellationCosts |(x) |{noformat:nopanel=true}array[CancellationCost]{noformat} | |
+        {anchor:TimeSpanModelAnchor}
+        h3. TimeSpan
+        ||Field Name||Required||Type||Description||
+         |from |(/) |{noformat:nopanel=true}String{noformat} |Time from, 24hr format |
+ |to |(x) |{noformat:nopanel=true}String{noformat} |Time from, 24hr format |
+        {anchor:VacancyModelAnchor}
+        h3. Vacancy
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |Identifier for this vacancy |
+ |when |(x) |{noformat:nopanel=true}Vacancy_when{noformat} | |
+ |where |(x) |{noformat:nopanel=true}Vacancy_where{noformat} | |
+ |reason |(x) |{noformat:nopanel=true}String{noformat} |Reason for the request |
+ |personRequirements |(x) |{noformat:nopanel=true}Vacancy_personRequirements{noformat} | |
+        {anchor:VacancyPersonRequirementsModelAnchor}
+        h3. VacancyPersonRequirements
+        ||Field Name||Required||Type||Description||
+         |grade |(x) |{noformat:nopanel=true}String{noformat} | |
+ |gradeType |(x) |{noformat:nopanel=true}String{noformat} | |
+ |gradeTypeCategory |(x) |{noformat:nopanel=true}String{noformat} | |
+ |gender |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:VacancyPublishedEventModelAnchor}
+        h3. VacancyPublishedEvent
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |ID of the vacancy |
+ |vacancy |(/) |{noformat:nopanel=true}Vacancy{noformat} | |
+        {anchor:VacancyUpdatedEventModelAnchor}
+        h3. VacancyUpdatedEvent
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |ID of the vacancy |
+ |vacancy |(/) |{noformat:nopanel=true}String{noformat} |Details of the vacancy |
+        {anchor:VacancyWhenModelAnchor}
+        h3. VacancyWhen
+        ||Field Name||Required||Type||Description||
+         |planned |(x) |{noformat:nopanel=true}DateSpan{noformat} | |
+        {anchor:VacancyWhereModelAnchor}
+        h3. VacancyWhere
+        ||Field Name||Required||Type||Description||
+         |trustId |(x) |{noformat:nopanel=true}String{noformat} | |
+ |location |(x) |{noformat:nopanel=true}Vacancy_where_location{noformat} | |
+        {anchor:VacancyWhereLocationModelAnchor}
+        h3. VacancyWhereLocation
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |The ID of the location (within the trust) |
+ |name |(x) |{noformat:nopanel=true}String{noformat} |The name of the location |
+        {anchor:VacancyWithdrawnEventModelAnchor}
+        h3. VacancyWithdrawnEvent
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |ID of the vacancy |

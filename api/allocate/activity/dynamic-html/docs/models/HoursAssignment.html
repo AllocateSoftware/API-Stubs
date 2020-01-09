@@ -1,0 +1,128 @@
+
+<h2>HoursAssignment</h2>
+<ul class="parameter">
+  <li class="param-required-true">id : Integer
+    <br/>Identifier for the hours assignment
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">when : date
+    <br/>Date assignment begins on
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">actual : DateSpan
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">workTime : Integer
+    <br/>Number of minutes worked in assignment
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">contractedTime : Integer
+    <br/>Number of minutes that count towards the person’s contracted hours
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">payState : String
+    <br/>Details where the duty is in it’s lifecycle. *   Requested &#x3D; (Requested Bank Duty) *   Accepted &#x3D; (Roster Approved) *   Approved &#x3D; (Finalised) *   Submitted &#x3D; (PAID) *   Paid *   Unlocked &#x3D; (Was once Finalised state.) *   Relocked &#x3D; (Finalised given that it was once un-finalised for some reason) 
+      <dl class="param-enum">
+        <dt>Enum:
+            <dd>requested</dd>
+            <dd>accepted</dd>
+            <dd>approved</dd>
+            <dd>submitted</dd>
+            <dd>paid</dd>
+            <dd>unlocked</dd>
+            <dd>relocked</dd>
+        </dt>
+      </dl>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">employeeType : HoursAssignment_employeeType
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">person : HoursAssignment_person
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">assignment : HoursAssignment_assignment
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">post : HoursAssignment_post
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">posting : HoursAssignment_posting
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">cancellation : HoursAssignment_cancellation
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">inCharge : Boolean
+    <br/>Was the employee in charge?
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">shift : HoursAssignment_shift
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">duty : HoursAssignment_duty
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">fulfillment : HoursAssignment_fulfillment
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">costCentre : HoursAssignment_costCentre
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">owningUnit : HoursAssignment_owningUnit
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">resourcingUnit : HoursAssignment_owningUnit
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">requirement : HoursAssignment_requirement
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">location : HoursAssignment_location
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">additionalDutyReason : String
+    <br/>
+  </li>
+</ul>
+<ul class="parameter">
+  <li class="param-required-false">dutyHasWarnings : Boolean
+    <br/>
+  </li>
+</ul>

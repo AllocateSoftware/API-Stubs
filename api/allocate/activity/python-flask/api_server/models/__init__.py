@@ -1,0 +1,27 @@
+# coding: utf-8
+
+# flake8: noqa
+from __future__ import absolute_import
+# import models into model package
+from api_server.models.async_response import AsyncResponse
+from api_server.models.date_span import DateSpan
+from api_server.models.error_response import ErrorResponse
+from api_server.models.grade import Grade
+from api_server.models.grade_type import GradeType
+from api_server.models.grade_type_category import GradeTypeCategory
+from api_server.models.hours_assignment import HoursAssignment
+from api_server.models.hours_assignment_assignment import HoursAssignmentAssignment
+from api_server.models.hours_assignment_cancellation import HoursAssignmentCancellation
+from api_server.models.hours_assignment_cancellation_reason import HoursAssignmentCancellationReason
+from api_server.models.hours_assignment_cost_centre import HoursAssignmentCostCentre
+from api_server.models.hours_assignment_duty import HoursAssignmentDuty
+from api_server.models.hours_assignment_employee_type import HoursAssignmentEmployeeType
+from api_server.models.hours_assignment_fulfillment import HoursAssignmentFulfillment
+from api_server.models.hours_assignment_location import HoursAssignmentLocation
+from api_server.models.hours_assignment_owning_unit import HoursAssignmentOwningUnit
+from api_server.models.hours_assignment_person import HoursAssignmentPerson
+from api_server.models.hours_assignment_post import HoursAssignmentPost
+from api_server.models.hours_assignment_posting import HoursAssignmentPosting
+from api_server.models.hours_assignment_requirement import HoursAssignmentRequirement
+from api_server.models.hours_assignment_shift import HoursAssignmentShift
+from api_server.models.time_span import TimeSpan

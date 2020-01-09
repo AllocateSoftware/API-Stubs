@@ -1,0 +1,745 @@
+h1. Reference data and Mappings API
+
+     ## API for accessing reference data and mapping information 
+
+*Version:* 1.0.0
+
+----
+
+{expand:Table of Contents - Click to expand}
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+{expand}
+
+h2. Endpoints
+
+
+h3. createMapping
+{panel:title=createMapping|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Create a new entry in a mapping set
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/mappingSets/{setId}/mappings{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}text/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |setId |The ID of the mapping set |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |mapping |Details of the mapping |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Successfully created |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Successfully created",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string",
+        "description" : "ID of the new entry"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. deleteMapping
+{panel:title=deleteMapping|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Delete a vocabulary entry
+
+	|| HttpMethod | {status:colour=Yellow|title=delete|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/mappingSets/{id}/mappings/{mappingId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the vocabulary |(/) |null |  |
+
+        |mappingId |The ID of the mapping |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Updated successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Updated successfully"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getMapping
+{panel:title=getMapping|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Return the mapping
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/mappingSets/{id}/mappings/{mappingId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the mapping set |(/) |null |  |
+
+        |mappingId |The ID of the mapping set element |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Returning a list of vocabularies |
+    	|| Response Type | Mapping |
+    	|| Response Model | [Mapping Model|#MappingModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Returning a list of vocabularies",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Mapping"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getMappingSetById
+{panel:title=getMappingSetById|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Get a mapping set by ID
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/mappingSets/{setId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |setId |The ID of the vocabulary type |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Returning a list of mapping sets |
+    	|| Response Type | MappingSet |
+    	|| Response Model | [MappingSet Model|#MappingSetModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Returning a list of mapping sets",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/MappingSet"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getMappingSets
+{panel:title=getMappingSets|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Return a list of mapping sets that you may utilise
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/mappingSets{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Returning a list of mapping sets |
+    	|| Response Type | array[MappingSet] |
+    	|| Response Model | [array[MappingSet] Model|#array[MappingSet]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Returning a list of mapping sets",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/MappingSet"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getMappings
+{panel:title=getMappings|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Return the elements of a mapping set
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/mappingSets/{setId}/mappings{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |setId |The ID of the mapping set |(/) |null |  |
+
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |fromCode |Search for a mapping where the from code matches the provided string |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Returning a list of mapping set entries |
+    	|| Response Type | array[Mapping] |
+    	|| Response Model | [array[Mapping] Model|#array[Mapping]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Returning a list of mapping set entries",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Mapping"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. putMapping
+{panel:title=putMapping|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Update a mapping
+
+	|| HttpMethod | {status:colour=Yellow|title=put|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/mappingSets/{id}/mappings/{mappingId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the vocabulary |(/) |null |  |
+
+        |mappingId |The ID of the vocabulary element |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |mapping |Details of the mapping |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Updated successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Updated successfully"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. createVocabularyEntry
+{panel:title=createVocabularyEntry|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Create a new entry in a vocabulary
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vocabularies/{id}/entries{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}text/plain{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the vocabulary |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |vocabularyEntry |Details of the vocabulary entry |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Returning a list of vocabularies |
+    	|| Response Type | String |
+    	|| Response Model | [String Model|#StringModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Returning a list of vocabularies",
+  "content" : {
+    "text/plain" : {
+      "schema" : {
+        "type" : "string",
+        "description" : "ID of the new entry"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. deleteVocabularyEntry
+{panel:title=deleteVocabularyEntry|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Delete a vocabulary entry
+
+	|| HttpMethod | {status:colour=Yellow|title=delete|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vocabularies/{id}/entries/{elementId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the vocabulary |(/) |null |  |
+
+        |elementId |The ID of the vocabulary element |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Updated successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Updated successfully"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getVocabularies
+{panel:title=getVocabularies|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Return a list of vocabularies types that you may query
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vocabularies{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+
+
+
+h5. Query Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |vocabularyTypeId |Limit to vocabulary types |(x) |null |  |
+|page |Return page of results |(x) |null |  |
+|pageSize |Records per page |(x) |null |  |
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Returning a list of vocabularies |
+    	|| Response Type | array[Vocabulary] |
+    	|| Response Model | [array[Vocabulary] Model|#array[Vocabulary]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Returning a list of vocabularies",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Vocabulary"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getVocabulary
+{panel:title=getVocabulary|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Return a list of vocabularies that you may query
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vocabularies/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the vocabulary |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Returning a vocabulary |
+    	|| Response Type | Vocabulary |
+    	|| Response Model | [Vocabulary Model|#VocabularyModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Returning a vocabulary",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Vocabulary"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getVocabularyElement
+{panel:title=getVocabularyElement|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Return the elements of a vocabulary
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vocabularies/{id}/entries/{elementId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the vocabulary |(/) |null |  |
+
+        |elementId |The ID of the vocabulary element |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Returning a list of vocabularies |
+    	|| Response Type | VocabularyEntry |
+    	|| Response Model | [VocabularyEntry Model|#VocabularyEntryModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Returning a list of vocabularies",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/VocabularyEntry"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getVocabularyEntries
+{panel:title=getVocabularyEntries|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Return the elements of a vocabulary
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vocabularies/{id}/entries{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the vocabulary |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Returning a list of vocabularies |
+    	|| Response Type | array[VocabularyEntry] |
+    	|| Response Model | [array[VocabularyEntry] Model|#array[VocabularyEntry]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Returning a list of vocabularies",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/VocabularyEntry"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getVocabularyTypeById
+{panel:title=getVocabularyTypeById|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Return a vocabulary type
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vocabularyTypes/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the vocabulary type |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Returning a vocabulary type |
+    	|| Response Type | VocabularyType |
+    	|| Response Model | [VocabularyType Model|#VocabularyTypeModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Returning a vocabulary type",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/VocabularyType"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. getVocabularyTypes
+{panel:title=getVocabularyTypes|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Return a list of vocabularies types that you may query
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vocabularyTypes{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Returning a list of vocabulary types |
+    	|| Response Type | array[VocabularyType] |
+    	|| Response Model | [array[VocabularyType] Model|#array[VocabularyType]ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Returning a list of vocabulary types",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/VocabularyType"
+        }
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. putVocabularyEntry
+{panel:title=putVocabularyEntry|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Create a new entry in a vocabulary
+
+	|| HttpMethod | {status:colour=Yellow|title=put|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/vocabularies/{id}/entries/{elementId}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the vocabulary |(/) |null |  |
+
+        |elementId |The ID of the vocabulary element |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |vocabularyEntry |Details of the vocabulary entry |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Updated successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Updated successfully"
+}{code} |
+    	
+
+{panel}
+
+
+{anchor:models}
+h2. Models
+
+        {anchor:MappingModelAnchor}
+        h3. Mapping
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |Id of this mapping |
+ |mappingSetId |(/) |{noformat:nopanel=true}String{noformat} | |
+ |from |(/) |{noformat:nopanel=true}VocabularyEntry{noformat} | |
+ |to |(/) |{noformat:nopanel=true}VocabularyEntry{noformat} | |
+        {anchor:MappingSetModelAnchor}
+        h3. MappingSet
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |ID of this mapping set |
+ |vocabularyType |(/) |{noformat:nopanel=true}VocabularyType{noformat} | |
+        {anchor:VocabularyModelAnchor}
+        h3. Vocabulary
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |ID of this vocabulary |
+ |typeId |(/) |{noformat:nopanel=true}String{noformat} |ID of the type of vocabulary that this is an example of |
+ |code |(/) |{noformat:nopanel=true}String{noformat} |Code for this vocabulary. Unique within the type of vocabulary |
+ |description |(x) |{noformat:nopanel=true}String{noformat} |Optional description of the vocabulary |
+        {anchor:VocabularyEntryModelAnchor}
+        h3. VocabularyEntry
+        ||Field Name||Required||Type||Description||
+         |code |(/) |{noformat:nopanel=true}String{noformat} |Code for the element. Should be unique within the vocabulary |
+ |title |(x) |{noformat:nopanel=true}String{noformat} |Title for the element |
+        {anchor:VocabularyTypeModelAnchor}
+        h3. VocabularyType
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |ID of this vocabulary type |
+ |name |(/) |{noformat:nopanel=true}String{noformat} |Name of the vocabulary. Usually would not contain spaces (as this will be used in URLs). |
+ |description |(/) |{noformat:nopanel=true}String{noformat} |Description of the vocabulary |
+ |tags |(x) |{noformat:nopanel=true}map[String, String]{noformat} |Optional array of tags which may be applied |
+        {anchor:VocabularyVariantModelAnchor}
+        h3. VocabularyVariant
+        ||Field Name||Required||Type||Description||
+         |name |(/) |{noformat:nopanel=true}String{noformat} |Name of the variant. Usually would not contain spaces (as this will be used in URLs). |
+ |description |(x) |{noformat:nopanel=true}String{noformat} |Description of the vocabulary |
+        {anchor:XPaginationHeaderModelAnchor}
+        h3. XPaginationHeader
+        ||Field Name||Required||Type||Description||
+         |currentPage |(/) |{noformat:nopanel=true}Integer{noformat} | |
+ |pageSize |(/) |{noformat:nopanel=true}Integer{noformat} | |

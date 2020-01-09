@@ -1,0 +1,1077 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Reference data and Mappings API</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>Reference data and Mappings API</h1>
+    <div class="app-desc"><pre><code>## API for accessing reference data and mapping information
+</code></pre>
+</div>
+    <div class="app-desc">More information: <a href="http://www.allocatesoftware.com/">http://www.allocatesoftware.com/</a></div>
+    <div class="app-desc">Contact Info: <a href="support@allocatesoftware.com">support@allocatesoftware.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/api/v1</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+    <ol>
+      <li>HTTP Basic Authentication</li>
+    </ol>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#Mappings">Mappings</a></h4>
+  <ul>
+  <li><a href="#createMapping"><code><span class="http-method">post</span> /mappingSets/{setId}/mappings</code></a></li>
+  <li><a href="#deleteMapping"><code><span class="http-method">delete</span> /mappingSets/{id}/mappings/{mappingId}</code></a></li>
+  <li><a href="#getMapping"><code><span class="http-method">get</span> /mappingSets/{id}/mappings/{mappingId}</code></a></li>
+  <li><a href="#getMappingSetById"><code><span class="http-method">get</span> /mappingSets/{setId}</code></a></li>
+  <li><a href="#getMappingSets"><code><span class="http-method">get</span> /mappingSets</code></a></li>
+  <li><a href="#getMappings"><code><span class="http-method">get</span> /mappingSets/{setId}/mappings</code></a></li>
+  <li><a href="#putMapping"><code><span class="http-method">put</span> /mappingSets/{id}/mappings/{mappingId}</code></a></li>
+  </ul>
+  <h4><a href="#ReferenceData">ReferenceData</a></h4>
+  <ul>
+  <li><a href="#createVocabularyEntry"><code><span class="http-method">post</span> /vocabularies/{id}/entries</code></a></li>
+  <li><a href="#deleteVocabularyEntry"><code><span class="http-method">delete</span> /vocabularies/{id}/entries/{elementId}</code></a></li>
+  <li><a href="#getVocabularies"><code><span class="http-method">get</span> /vocabularies</code></a></li>
+  <li><a href="#getVocabulary"><code><span class="http-method">get</span> /vocabularies/{id}</code></a></li>
+  <li><a href="#getVocabularyElement"><code><span class="http-method">get</span> /vocabularies/{id}/entries/{elementId}</code></a></li>
+  <li><a href="#getVocabularyEntries"><code><span class="http-method">get</span> /vocabularies/{id}/entries</code></a></li>
+  <li><a href="#getVocabularyTypeById"><code><span class="http-method">get</span> /vocabularyTypes/{id}</code></a></li>
+  <li><a href="#getVocabularyTypes"><code><span class="http-method">get</span> /vocabularyTypes</code></a></li>
+  <li><a href="#putVocabularyEntry"><code><span class="http-method">put</span> /vocabularies/{id}/entries/{elementId}</code></a></li>
+  </ul>
+
+  <h1><a name="Mappings">Mappings</a></h1>
+  <div class="method"><a name="createMapping"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /mappingSets/{setId}/mappings</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">createMapping</span>)</div>
+    <div class="method-notes">Create a new entry in a mapping set</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">setId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the mapping set default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Mapping <a href="#Mapping">Mapping</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Successfully created
+        <a href="#String">String</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteMapping"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /mappingSets/{id}/mappings/{mappingId}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">deleteMapping</span>)</div>
+    <div class="method-notes">Delete a vocabulary entry</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary default: null </div><div class="param">mappingId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the mapping default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Updated successfully
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getMapping"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /mappingSets/{id}/mappings/{mappingId}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getMapping</span>)</div>
+    <div class="method-notes">Return the mapping</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the mapping set default: null </div><div class="param">mappingId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the mapping set element default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Mapping">Mapping</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "mappingSetId" : "mappingSetId",
+  "from" : {
+    "code" : "ABCD",
+    "title" : "ABCD"
+  },
+  "id" : "id",
+  "to" : {
+    "code" : "ABCD",
+    "title" : "ABCD"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Returning a list of vocabularies
+        <a href="#Mapping">Mapping</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getMappingSetById"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /mappingSets/{setId}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getMappingSetById</span>)</div>
+    <div class="method-notes">Get a mapping set by ID</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">setId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary type default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#MappingSet">MappingSet</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "id" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+  "vocabularyType" : {
+    "name" : "grades",
+    "description" : "List of grades",
+    "id" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+    "tags" : {
+      "key" : "tags"
+    }
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Returning a list of mapping sets
+        <a href="#MappingSet">MappingSet</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getMappingSets"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /mappingSets</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getMappingSets</span>)</div>
+    <div class="method-notes">Return a list of mapping sets that you may utilise</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#MappingSet">MappingSet</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "id" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+  "vocabularyType" : {
+    "name" : "grades",
+    "description" : "List of grades",
+    "id" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+    "tags" : {
+      "key" : "tags"
+    }
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Returning a list of mapping sets
+        
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getMappings"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /mappingSets/{setId}/mappings</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getMappings</span>)</div>
+    <div class="method-notes">Return the elements of a mapping set</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">setId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the mapping set default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">fromCode (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Search for a mapping where the from code matches the provided string default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Mapping">Mapping</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "mappingSetId" : "mappingSetId",
+  "from" : {
+    "code" : "ABCD",
+    "title" : "ABCD"
+  },
+  "id" : "id",
+  "to" : {
+    "code" : "ABCD",
+    "title" : "ABCD"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Returning a list of mapping set entries
+        
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="putMapping"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /mappingSets/{id}/mappings/{mappingId}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">putMapping</span>)</div>
+    <div class="method-notes">Update a mapping</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary default: null </div><div class="param">mappingId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary element default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">Mapping <a href="#Mapping">Mapping</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Updated successfully
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <h1><a name="ReferenceData">ReferenceData</a></h1>
+  <div class="method"><a name="createVocabularyEntry"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /vocabularies/{id}/entries</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">createVocabularyEntry</span>)</div>
+    <div class="method-notes">Create a new entry in a vocabulary</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">VocabularyEntry <a href="#VocabularyEntry">VocabularyEntry</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/plain</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Returning a list of vocabularies
+        <a href="#String">String</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="deleteVocabularyEntry"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /vocabularies/{id}/entries/{elementId}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">deleteVocabularyEntry</span>)</div>
+    <div class="method-notes">Delete a vocabulary entry</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary default: null </div><div class="param">elementId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary element default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Updated successfully
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getVocabularies"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /vocabularies</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getVocabularies</span>)</div>
+    <div class="method-notes">Return a list of vocabularies types that you may query</div>
+
+
+
+
+
+    <h3 class="field-label">Query parameters</h3>
+    <div class="field-items">
+      <div class="param">vocabularyTypeId (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Limit to vocabulary types default: null </div><div class="param">page (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Return page of results default: null </div><div class="param">pageSize (optional)</div>
+
+      <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Records per page default: null </div>
+    </div>  <!-- field-items -->
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#Vocabulary">Vocabulary</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "code" : "NCUH",
+  "description" : "List of grades",
+  "typeId" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+  "id" : "DA32F546-E049-49DE-BDDD-EA466597E27E"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Returning a list of vocabularies
+        
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getVocabulary"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /vocabularies/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getVocabulary</span>)</div>
+    <div class="method-notes">Return a list of vocabularies that you may query</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#Vocabulary">Vocabulary</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "code" : "NCUH",
+  "description" : "List of grades",
+  "typeId" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+  "id" : "DA32F546-E049-49DE-BDDD-EA466597E27E"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Returning a vocabulary
+        <a href="#Vocabulary">Vocabulary</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getVocabularyElement"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /vocabularies/{id}/entries/{elementId}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getVocabularyElement</span>)</div>
+    <div class="method-notes">Return the elements of a vocabulary</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary default: null </div><div class="param">elementId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary element default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#VocabularyEntry">VocabularyEntry</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "code" : "ABCD",
+  "title" : "ABCD"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Returning a list of vocabularies
+        <a href="#VocabularyEntry">VocabularyEntry</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getVocabularyEntries"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /vocabularies/{id}/entries</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getVocabularyEntries</span>)</div>
+    <div class="method-notes">Return the elements of a vocabulary</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#VocabularyEntry">VocabularyEntry</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "code" : "ABCD",
+  "title" : "ABCD"
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Returning a list of vocabularies
+        
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getVocabularyTypeById"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /vocabularyTypes/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getVocabularyTypeById</span>)</div>
+    <div class="method-notes">Return a vocabulary type</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary type default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      <a href="#VocabularyType">VocabularyType</a>
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "name" : "grades",
+  "description" : "List of grades",
+  "id" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+  "tags" : {
+    "key" : "tags"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Returning a vocabulary type
+        <a href="#VocabularyType">VocabularyType</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="getVocabularyTypes"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="get"><code class="huge"><span class="http-method">get</span> /vocabularyTypes</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">getVocabularyTypes</span>)</div>
+    <div class="method-notes">Return a list of vocabularies types that you may query</div>
+
+
+
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      array[<a href="#VocabularyType">VocabularyType</a>]
+      
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+    <h3 class="field-label">Example data</h3>
+    <div class="example-data-content-type">Content-Type: application/json</div>
+    <pre class="example"><code>{
+  "name" : "grades",
+  "description" : "List of grades",
+  "id" : "D1E3B83E-99A3-4AF3-B95B-3DC2913EDDC2",
+  "tags" : {
+    "key" : "tags"
+  }
+}</code></pre>
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Returning a list of vocabulary types
+        
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="putVocabularyEntry"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /vocabularies/{id}/entries/{elementId}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">putVocabularyEntry</span>)</div>
+    <div class="method-notes">Create a new entry in a vocabulary</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary default: null </div><div class="param">elementId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vocabulary element default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">VocabularyEntry <a href="#VocabularyEntry">VocabularyEntry</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Updated successfully
+        <a href="#"></a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#Mapping"><code>Mapping</code> - </a></li>
+    <li><a href="#MappingSet"><code>MappingSet</code> - </a></li>
+    <li><a href="#Vocabulary"><code>Vocabulary</code> - </a></li>
+    <li><a href="#VocabularyEntry"><code>VocabularyEntry</code> - </a></li>
+    <li><a href="#VocabularyType"><code>VocabularyType</code> - </a></li>
+    <li><a href="#VocabularyVariant"><code>VocabularyVariant</code> - </a></li>
+    <li><a href="#XPaginationHeader"><code>XPaginationHeader</code> - </a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="Mapping"><code>Mapping</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Id of this mapping </div>
+<div class="param">mappingSetId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">from </div><div class="param-desc"><span class="param-type"><a href="#VocabularyEntry">VocabularyEntry</a></span>  </div>
+<div class="param">to </div><div class="param-desc"><span class="param-type"><a href="#VocabularyEntry">VocabularyEntry</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="MappingSet"><code>MappingSet</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ID of this mapping set </div>
+<div class="param">vocabularyType </div><div class="param-desc"><span class="param-type"><a href="#VocabularyType">VocabularyType</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Vocabulary"><code>Vocabulary</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ID of this vocabulary </div>
+<div class="param">typeId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ID of the type of vocabulary that this is an example of </div>
+<div class="param">code </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Code for this vocabulary. Unique within the type of vocabulary </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Optional description of the vocabulary </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VocabularyEntry"><code>VocabularyEntry</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">code </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Code for the element. Should be unique within the vocabulary </div>
+<div class="param">title (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Title for the element </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VocabularyType"><code>VocabularyType</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ID of this vocabulary type </div>
+<div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name of the vocabulary. Usually would not contain spaces (as this will be used in URLs). </div>
+<div class="param">description </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the vocabulary </div>
+<div class="param">tags (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">map[String, String]</a></span> Optional array of tags which may be applied </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VocabularyVariant"><code>VocabularyVariant</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Name of the variant. Usually would not contain spaces (as this will be used in URLs). </div>
+<div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Description of the vocabulary </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="XPaginationHeader"><code>XPaginationHeader</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">currentPage </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+<div class="param">pageSize </div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>

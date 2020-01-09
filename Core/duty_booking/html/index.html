@@ -1,0 +1,541 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Duty Booking API and Events</title>
+    <style type="text/css">
+      body {
+	font-family: Trebuchet MS, sans-serif;
+	font-size: 15px;
+	color: #444;
+	margin-right: 24px;
+}
+
+h1	{
+	font-size: 25px;
+}
+h2	{
+	font-size: 20px;
+}
+h3	{
+	font-size: 16px;
+	font-weight: bold;
+}
+hr	{
+	height: 1px;
+	border: 0;
+	color: #ddd;
+	background-color: #ddd;
+}
+
+.app-desc {
+  clear: both;
+  margin-left: 20px;
+}
+.param-name {
+  width: 100%;
+}
+.license-info {
+  margin-left: 20px;
+}
+
+.license-url {
+  margin-left: 20px;
+}
+
+.model {
+  margin: 0 0 0px 20px;
+}
+
+.method {
+  margin-left: 20px;
+}
+
+.method-notes	{
+	margin: 10px 0 20px 0;
+	font-size: 90%;
+	color: #555;
+}
+
+pre {
+  padding: 10px;
+  margin-bottom: 2px;
+}
+
+.http-method {
+ text-transform: uppercase;
+}
+
+pre.get {
+  background-color: #0f6ab4;
+}
+
+pre.post {
+  background-color: #10a54a;
+}
+
+pre.put {
+  background-color: #c5862b;
+}
+
+pre.delete {
+  background-color: #a41e22;
+}
+
+.huge	{
+	color: #fff;
+}
+
+pre.example {
+  background-color: #f3f3f3;
+  padding: 10px;
+  border: 1px solid #ddd;
+}
+
+code {
+  white-space: pre;
+}
+
+.nickname {
+  font-weight: bold;
+}
+
+.method-path {
+  font-size: 1.5em;
+  background-color: #0f6ab4;
+}
+
+.up {
+  float:right;
+}
+
+.parameter {
+  width: 500px;
+}
+
+.param {
+  width: 500px;
+  padding: 10px 0 0 20px;
+  font-weight: bold;
+}
+
+.param-desc {
+  width: 700px;
+  padding: 0 0 0 20px;
+  color: #777;
+}
+
+.param-type {
+  font-style: italic;
+}
+
+.param-enum-header {
+width: 700px;
+padding: 0 0 0 60px;
+color: #777;
+font-weight: bold;
+}
+
+.param-enum {
+width: 700px;
+padding: 0 0 0 80px;
+color: #777;
+font-style: italic;
+}
+
+.field-label {
+  padding: 0;
+  margin: 0;
+  clear: both;
+}
+
+.field-items	{
+	padding: 0 0 15px 0;
+	margin-bottom: 15px;
+}
+
+.return-type {
+  clear: both;
+  padding-bottom: 10px;
+}
+
+.param-header {
+  font-weight: bold;
+}
+
+.method-tags {
+  text-align: right;
+}
+
+.method-tag {
+  background: none repeat scroll 0% 0% #24A600;
+  border-radius: 3px;
+  padding: 2px 10px;
+  margin: 2px;
+  color: #FFF;
+  display: inline-block;
+  text-decoration: none;
+}
+
+    </style>
+  </head>
+  <body>
+  <h1>Duty Booking API and Events</h1>
+    <div class="app-desc"><h2>Duty Booking API and events and Events</h2>
+</div>
+    <div class="app-desc">More information: <a href="http://www.allocatesoftware.com/">http://www.allocatesoftware.com/</a></div>
+    <div class="app-desc">Contact Info: <a href="support@allocatesoftware.com">support@allocatesoftware.com</a></div>
+    <div class="app-desc">Version: 1.0.0</div>
+    <div class="app-desc">BasePath:/api/booking/v1</div>
+    <div class="license-info">All rights reserved</div>
+    <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+  <h2>Access</h2>
+
+  <h2><a name="__Methods">Methods</a></h2>
+  [ Jump to <a href="#__Models">Models</a> ]
+
+  <h3>Table of Contents </h3>
+  <div class="method-summary"></div>
+  <h4><a href="#DutyBooking">DutyBooking</a></h4>
+  <ul>
+  <li><a href="#cancelProposal"><code><span class="http-method">delete</span> /proposals/{id}</code></a></li>
+  <li><a href="#createProposal"><code><span class="http-method">post</span> /vacancy/{vacancyId}/proposals</code></a></li>
+  <li><a href="#updateProposal"><code><span class="http-method">put</span> /proposals/{id}</code></a></li>
+  </ul>
+
+  <h1><a name="DutyBooking">DutyBooking</a></h1>
+  <div class="method"><a name="cancelProposal"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="delete"><code class="huge"><span class="http-method">delete</span> /proposals/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">cancelProposal</span>)</div>
+    <div class="method-notes">Cancel the proposal (and the booking, if it has been accepted)</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the proposal default: null </div>
+    </div>  <!-- field-items -->
+
+
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Cancelled successfully
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The proposal was not found
+        <a href="#"></a>
+    <h4 class="field-label">202</h4>
+    The request was accepted and will be processed asynchronously
+        <a href="#AsyncResponse">AsyncResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="createProposal"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="post"><code class="huge"><span class="http-method">post</span> /vacancy/{vacancyId}/proposals</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">createProposal</span>)</div>
+    <div class="method-notes">Offer a worker for filling a duty</div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">vacancyId (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; The ID of the vacancy default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">ProposalDetails <a href="#ProposalDetails">ProposalDetails</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+    <h3 class="field-label">Return type</h3>
+    <div class="return-type">
+      
+      String
+    </div>
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>text/plain</code></li>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Proposal created successfully
+        <a href="#String">String</a>
+    <h4 class="field-label">202</h4>
+    The proposal has been accepted and a response will be returned asyncronously.
+        <a href="#AsyncResponse">AsyncResponse</a>
+  </div> <!-- method -->
+  <hr/>
+  <div class="method"><a name="updateProposal"/>
+    <div class="method-path">
+    <a class="up" href="#__Methods">Up</a>
+    <pre class="put"><code class="huge"><span class="http-method">put</span> /proposals/{id}</code></pre></div>
+    <div class="method-summary"> (<span class="nickname">updateProposal</span>)</div>
+    <div class="method-notes"></div>
+
+    <h3 class="field-label">Path parameters</h3>
+    <div class="field-items">
+      <div class="param">id (required)</div>
+
+      <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; ID of the proposal default: null </div>
+    </div>  <!-- field-items -->
+
+    <h3 class="field-label">Consumes</h3>
+    This API call consumes the following media types via the <span class="header">Content-Type</span> request header:
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Request body</h3>
+    <div class="field-items">
+      <div class="param">ProposalDetails <a href="#ProposalDetails">ProposalDetails</a> (required)</div>
+
+      <div class="param-desc"><span class="param-type">Body Parameter</span> &mdash;  </div>
+
+    </div>  <!-- field-items -->
+
+
+
+
+
+    <!--Todo: process Response Object and its headers, schema, examples -->
+
+
+    <h3 class="field-label">Produces</h3>
+    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+    the media type will be conveyed by the <span class="header">Content-Type</span> response header.
+    <ul>
+      <li><code>application/json</code></li>
+    </ul>
+
+    <h3 class="field-label">Responses</h3>
+    <h4 class="field-label">200</h4>
+    Duty costing successfully
+        <a href="#"></a>
+    <h4 class="field-label">404</h4>
+    The proposal was not found
+        <a href="#"></a>
+    <h4 class="field-label">202</h4>
+    The request was accepted and will be processed asynchronously
+        <a href="#AsyncResponse">AsyncResponse</a>
+  </div> <!-- method -->
+  <hr/>
+
+  <h2><a name="__Models">Models</a></h2>
+  [ Jump to <a href="#__Methods">Methods</a> ]
+
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#AsyncResponse"><code>AsyncResponse</code> - </a></li>
+    <li><a href="#BookingCancelledEvent"><code>BookingCancelledEvent</code> - </a></li>
+    <li><a href="#BookingEvent"><code>BookingEvent</code> - </a></li>
+    <li><a href="#CancellationCost"><code>CancellationCost</code> - </a></li>
+    <li><a href="#DateSpan"><code>DateSpan</code> - </a></li>
+    <li><a href="#Duty"><code>Duty</code> - </a></li>
+    <li><a href="#DutyDetails"><code>DutyDetails</code> - </a></li>
+    <li><a href="#DutyDetails_when"><code>DutyDetails_when</code> - </a></li>
+    <li><a href="#DutyDetails_where"><code>DutyDetails_where</code> - </a></li>
+    <li><a href="#DutyTimes"><code>DutyTimes</code> - </a></li>
+    <li><a href="#Duty_requirements"><code>Duty_requirements</code> - </a></li>
+    <li><a href="#Duty_requirements_gradeRequirement"><code>Duty_requirements_gradeRequirement</code> - </a></li>
+    <li><a href="#Duty_when"><code>Duty_when</code> - </a></li>
+    <li><a href="#Duty_where"><code>Duty_where</code> - </a></li>
+    <li><a href="#ProposalDetails"><code>ProposalDetails</code> - </a></li>
+    <li><a href="#VacancyPublishedEvent"><code>VacancyPublishedEvent</code> - </a></li>
+    <li><a href="#VacancyUpdatedEvent"><code>VacancyUpdatedEvent</code> - </a></li>
+    <li><a href="#VacancyWithdrawnEvent"><code>VacancyWithdrawnEvent</code> - </a></li>
+  </ol>
+
+  <div class="model">
+    <h3><a name="AsyncResponse"><code>AsyncResponse</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Correlation Identifier </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="BookingCancelledEvent"><code>BookingCancelledEvent</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A booking has been cancelled</div>
+    <div class="field-items">
+      <div class="param">proposalId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ID of the booking </div>
+<div class="param">vacancyId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ID of the vacancy </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="BookingEvent"><code>BookingEvent</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A duty proposal has been booked</div>
+    <div class="field-items">
+      <div class="param">proposalId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ID of the proposal </div>
+<div class="param">vacancyId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ID of the vacancy </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="CancellationCost"><code>CancellationCost</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">afterDate </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span> The date/time after which this cost becomes valid format: date-time</div>
+<div class="param">amount </div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span> The cost of cancellation </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DateSpan"><code>DateSpan</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">start (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span> Start date-time format: date-time</div>
+<div class="param">end (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span> End date-time format: date-time</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Duty"><code>Duty</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Identifier for this duty </div>
+<div class="param">when (optional)</div><div class="param-desc"><span class="param-type"><a href="#Duty_when">Duty_when</a></span>  </div>
+<div class="param">where (optional)</div><div class="param-desc"><span class="param-type"><a href="#Duty_where">Duty_where</a></span>  </div>
+<div class="param">reason (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> reason for requestBody </div>
+<div class="param">requirements (optional)</div><div class="param-desc"><span class="param-type"><a href="#Duty_requirements">Duty_requirements</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DutyDetails"><code>DutyDetails</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">when (optional)</div><div class="param-desc"><span class="param-type"><a href="#DutyDetails_when">DutyDetails_when</a></span>  </div>
+<div class="param">where (optional)</div><div class="param-desc"><span class="param-type"><a href="#DutyDetails_where">DutyDetails_where</a></span>  </div>
+<div class="param">requirements (optional)</div><div class="param-desc"><span class="param-type"><a href="#">Object</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DutyDetails_when"><code>DutyDetails_when</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">from (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+<div class="param">to (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DutyDetails_where"><code>DutyDetails_where</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">locationId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="DutyTimes"><code>DutyTimes</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">period (optional)</div><div class="param-desc"><span class="param-type"><a href="#DutyTimes">DutyTimes</a></span>  </div>
+<div class="param">restTime (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span> Number of minutes of rest date-time </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Duty_requirements"><code>Duty_requirements</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">gradeRequirement (optional)</div><div class="param-desc"><span class="param-type"><a href="#Duty_requirements_gradeRequirement">Duty_requirements_gradeRequirement</a></span>  </div>
+<div class="param">gender (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Duty_requirements_gradeRequirement"><code>Duty_requirements_gradeRequirement</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">grade (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">gradeType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+<div class="param">gradeTypeCategory (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Duty_when"><code>Duty_when</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">planned (optional)</div><div class="param-desc"><span class="param-type"><a href="#DutyTimes">DutyTimes</a></span>  </div>
+<div class="param">actual (optional)</div><div class="param-desc"><span class="param-type"><a href="#DutyTimes">DutyTimes</a></span>  </div>
+<div class="param">shiftType (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Night, Day, etc </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="Duty_where"><code>Duty_where</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">trustId (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> name of the trust </div>
+<div class="param">unitCode (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> Code for the unit within the trust </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="ProposalDetails"><code>ProposalDetails</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'></div>
+    <div class="field-items">
+      <div class="param">personId </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The ASWid of the worker being offered for this duty </div>
+<div class="param">engagementRoute </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> The engagement route for this worker </div>
+        <div class="param-enum-header">Enum:</div>
+        <div class="param-enum">substantive</div><div class="param-enum">bank</div><div class="param-enum">agency</div><div class="param-enum">other</div>
+<div class="param">agencyId (optional)</div><div class="param-desc"><span class="param-type"><a href="#object">Object</a></span> The ASWid of the agency, if this worker is being provided through an agency engagement </div>
+<div class="param">cost </div><div class="param-desc"><span class="param-type"><a href="#number">BigDecimal</a></span> Cost for this worker </div>
+<div class="param">cancellationCosts </div><div class="param-desc"><span class="param-type"><a href="#CancellationCost">array[CancellationCost]</a></span>  </div>
+<div class="param">options (optional)</div><div class="param-desc"><span class="param-type"><a href="#array">array[array[String]]</a></span> Any options being passed for this worker </div>
+        <div class="param-enum-header">Enum:</div>
+        
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VacancyPublishedEvent"><code>VacancyPublishedEvent</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A vacancy has become available for filling.</div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ID of the vacancy </div>
+<div class="param">duty </div><div class="param-desc"><span class="param-type"><a href="#Duty">Duty</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VacancyUpdatedEvent"><code>VacancyUpdatedEvent</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A vacancy has become available for filling.</div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ID of the vacancy </div>
+<div class="param">duty </div><div class="param-desc"><span class="param-type"><a href="#Duty">Duty</a></span>  </div>
+    </div>  <!-- field-items -->
+  </div>
+  <div class="model">
+    <h3><a name="VacancyWithdrawnEvent"><code>VacancyWithdrawnEvent</code> - </a> <a class="up" href="#__Models">Up</a></h3>
+    <div class='model-description'>A vacancy has been withdrawn</div>
+    <div class="field-items">
+      <div class="param">id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span> ID of the vacancy </div>
+    </div>  <!-- field-items -->
+  </div>
+  </body>
+</html>

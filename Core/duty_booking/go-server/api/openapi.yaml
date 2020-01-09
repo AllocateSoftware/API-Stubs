@@ -1,0 +1,340 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: support@allocatesoftware.com
+    name: API support
+    url: http://www.allocatesoftware.com/
+  description: |
+    ## Duty Booking API and events and Events
+  title: Duty Booking API and Events
+  version: 1.0.0
+  x-logo:
+    url: http://www.allocatesoftware.com/wp-content/uploads/sites/31/2017/08/Allocate_logo_digital_Horizontal_RGB_retina.png
+    backgroundColor: '#FFFFc0'
+    altText: Allocate Software
+servers:
+- url: http://healthsuite.allocatesoftware.com/api/booking/v1
+tags:
+- name: Duty Booking
+paths:
+  /vacancy/{vacancyId}/proposals:
+    post:
+      description: Offer a worker for filling a duty
+      operationId: createProposal
+      parameters:
+      - description: The ID of the vacancy
+        explode: false
+        in: path
+        name: vacancyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProposalDetails'
+        description: Details of the proposal for filling the duty (worker)
+        required: true
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                description: ID of the proposal
+                type: string
+          description: Proposal created successfully
+        202:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncResponse'
+          description: The proposal has been accepted and a response will be returned
+            asyncronously.
+      tags:
+      - Duty Booking
+  /proposals/{id}:
+    delete:
+      description: Cancel the proposal (and the booking, if it has been accepted)
+      operationId: cancelProposal
+      parameters:
+      - description: ID of the proposal
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          description: Cancelled successfully
+        404:
+          description: The proposal was not found
+        202:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncResponse'
+          description: The request was accepted and will be processed asynchronously
+      tags:
+      - Duty Booking
+    put:
+      operationId: updateProposal
+      parameters:
+      - description: ID of the proposal
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProposalDetails'
+        description: Details of the proposal for filling the duty (worker)
+        required: true
+      responses:
+        200:
+          description: Duty costing successfully
+        404:
+          description: The proposal was not found
+        202:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncResponse'
+          description: The request was accepted and will be processed asynchronously
+      tags:
+      - Duty Booking
+components:
+  schemas:
+    AsyncResponse:
+      properties:
+        id:
+          description: Correlation Identifier
+          type: string
+      type: object
+    ProposalDetails:
+      example:
+        cost: 0.8008281904610115
+        options:
+        - - directBook
+          - directBook
+        - - directBook
+          - directBook
+        engagementRoute: substantive
+        personId: personId
+        agencyId: ""
+        cancellationCosts:
+        - amount: 6.027456183070403
+          afterDate: 2000-01-23T04:56:07.000+00:00
+        - amount: 6.027456183070403
+          afterDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        personId:
+          description: The ASWid of the worker being offered for this duty
+          type: string
+        engagementRoute:
+          description: The engagement route for this worker
+          enum:
+          - substantive
+          - bank
+          - agency
+          - other
+          type: string
+        agencyId:
+          description: The ASWid of the agency, if this worker is being provided through
+            an agency engagement
+        cost:
+          description: Cost for this worker
+          type: number
+        cancellationCosts:
+          items:
+            $ref: '#/components/schemas/CancellationCost'
+          type: array
+        options:
+          description: Any options being passed for this worker
+          items:
+            items:
+              description: Use direct book if the engagment rules allow direct booking
+                by the system (e.g. Nursing)
+              enum:
+              - directBook
+              type: string
+            type: array
+          type: array
+      required:
+      - cancellationCosts
+      - cost
+      - engagementRoute
+      - personId
+      type: object
+    CancellationCost:
+      example:
+        amount: 6.027456183070403
+        afterDate: 2000-01-23T04:56:07.000+00:00
+      properties:
+        afterDate:
+          description: The date/time after which this cost becomes valid
+          format: date-time
+          type: string
+        amount:
+          description: The cost of cancellation
+          type: number
+      required:
+      - afterDate
+      - amount
+      type: object
+    DutyDetails:
+      properties:
+        when:
+          $ref: '#/components/schemas/DutyDetails_when'
+        where:
+          $ref: '#/components/schemas/DutyDetails_where'
+        requirements:
+          type: object
+      type: object
+    DateSpan:
+      properties:
+        start:
+          description: Start date-time
+          format: date-time
+          type: string
+        end:
+          description: End date-time
+          format: date-time
+          type: string
+      type: object
+    DutyTimes:
+      properties:
+        period:
+          $ref: '#/components/schemas/DutyTimes'
+        restTime:
+          description: Number of minutes of rest date-time
+          example: 60
+          type: integer
+      type: object
+    Duty:
+      properties:
+        id:
+          description: Identifier for this duty
+          example: ABCD-93370
+          type: string
+        when:
+          $ref: '#/components/schemas/Duty_when'
+        where:
+          $ref: '#/components/schemas/Duty_where'
+        reason:
+          description: reason for requestBody
+          type: string
+        requirements:
+          $ref: '#/components/schemas/Duty_requirements'
+      type: object
+    VacancyPublishedEvent:
+      description: A vacancy has become available for filling.
+      properties:
+        id:
+          description: ID of the vacancy
+          type: string
+        duty:
+          $ref: '#/components/schemas/Duty'
+      required:
+      - duty
+      - id
+      type: object
+    VacancyUpdatedEvent:
+      description: A vacancy has become available for filling.
+      properties:
+        id:
+          description: ID of the vacancy
+          type: string
+        duty:
+          $ref: '#/components/schemas/Duty'
+      required:
+      - duty
+      - id
+      type: object
+    VacancyWithdrawnEvent:
+      description: A vacancy has been withdrawn
+      properties:
+        id:
+          description: ID of the vacancy
+          type: string
+      required:
+      - id
+      type: object
+    BookingEvent:
+      description: A duty proposal has been booked
+      properties:
+        proposalId:
+          description: The ID of the proposal
+          type: string
+        vacancyId:
+          description: The ID of the vacancy
+          type: string
+      required:
+      - proposalId
+      type: object
+    BookingCancelledEvent:
+      description: A booking has been cancelled
+      properties:
+        proposalId:
+          description: The ID of the booking
+          type: string
+        vacancyId:
+          description: The ID of the vacancy
+          type: string
+      required:
+      - proposalId
+    DutyDetails_when:
+      properties:
+        from:
+          format: date-time
+          type: string
+        to:
+          format: date-time
+          type: string
+    DutyDetails_where:
+      properties:
+        locationId:
+          example: TRST.101
+          type: string
+    Duty_when:
+      properties:
+        planned:
+          $ref: '#/components/schemas/DutyTimes'
+        actual:
+          $ref: '#/components/schemas/DutyTimes'
+        shiftType:
+          description: Night, Day, etc
+          type: string
+    Duty_where:
+      properties:
+        trustId:
+          description: name of the trust
+          example: SPQR
+          type: string
+        unitCode:
+          description: Code for the unit within the trust
+          example: HPPDWard
+          type: string
+    Duty_requirements_gradeRequirement:
+      properties:
+        grade:
+          type: string
+        gradeType:
+          type: string
+        gradeTypeCategory:
+          type: string
+    Duty_requirements:
+      properties:
+        gradeRequirement:
+          $ref: '#/components/schemas/Duty_requirements_gradeRequirement'
+        gender:
+          example: Female
+          type: string

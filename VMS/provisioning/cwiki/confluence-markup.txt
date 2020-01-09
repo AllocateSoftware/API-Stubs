@@ -1,0 +1,189 @@
+h1. VMS Provisioning API
+
+## Description  API to be impemented by 247Time (and, potentially, partners) to enable provisioning of accounts and the org structure 
+
+*Version:* 1.0.0
+
+----
+
+{expand:Table of Contents - Click to expand}
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+{expand}
+
+h2. Endpoints
+
+
+h3. provisionStructure
+{panel:title=provisionStructure|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Provision the supplied structure.
+
+	|| HttpMethod | {status:colour=Yellow|title=put|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/provision/customer/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/vms/provisioning/v1{noformat} |
+    
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the customer to provision |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |structureProvision |Structure of the Customer (trust). This call should be considered a &#39;set&#39; - elements omitted that were present in previous provisionings should be removed. |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=204|subtle=false} |
+    	|| Message | Provisioning successful |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Provisioning successful"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Invalid input parameter |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Invalid input parameter"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. provisionUser
+{panel:title=provisionUser|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Provision the supplied user.
+
+	|| HttpMethod | {status:colour=Yellow|title=put|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/provision/user/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/vms/provisioning/v1{noformat} |
+    
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the user to provision |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |userProvision |Structure of the User |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=204|subtle=false} |
+    	|| Message | User accepted and provisioned. |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "User accepted and provisioned."
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | Invalid input parameter |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Invalid input parameter"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=401|subtle=false} |
+    	|| Message | Unauthorized |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Unauthorized"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | Trust not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Trust not found"
+}{code} |
+    	
+
+{panel}
+
+
+{anchor:models}
+h2. Models
+
+        {anchor:CostCentreModelAnchor}
+        h3. CostCentre
+        ||Field Name||Required||Type||Description||
+         |code |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:GradeModelAnchor}
+        h3. Grade
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} | |
+ |name |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:StaffGroupModelAnchor}
+        h3. StaffGroup
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} | |
+ |name |(x) |{noformat:nopanel=true}String{noformat} | |
+ |grades |(x) |{noformat:nopanel=true}array[Grade]{noformat} | |
+        {anchor:StructureProvisionModelAnchor}
+        h3. StructureProvision
+        ||Field Name||Required||Type||Description||
+         |customerCode |(x) |{noformat:nopanel=true}String{noformat} |ID of the Customer (Trust) |
+ |units |(x) |{noformat:nopanel=true}array[Unit]{noformat} |List of units present within the customer&#39;s system |
+        {anchor:UnitModelAnchor}
+        h3. Unit
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} | |
+ |name |(/) |{noformat:nopanel=true}String{noformat} | |
+ |costCentre |(x) |{noformat:nopanel=true}CostCentre{noformat} | |
+ |staffGroups |(x) |{noformat:nopanel=true}array[StaffGroup]{noformat} | |
+ |children |(x) |{noformat:nopanel=true}array[Unit]{noformat} |Children of this unit. This may be an arbitarily deep tree structure. |
+        {anchor:UserModelAnchor}
+        h3. User
+        ||Field Name||Required||Type||Description||
+         |uri |(x) |{noformat:nopanel=true}String{noformat} |Identifier of the user within the HealthSuite ecosystem |
+ |name |(x) |{noformat:nopanel=true}String{noformat} |Name for the user |
+ |roles |(x) |{noformat:nopanel=true}array[String]{noformat} |Optional list of textual roles that the user has in relation to the unit |
+        {anchor:UserProvisionModelAnchor}
+        h3. UserProvision
+        ||Field Name||Required||Type||Description||
+         |user |(x) |{noformat:nopanel=true}User{noformat} | |
+ |access |(x) |{noformat:nopanel=true}array[UserProvisionItem]{noformat} | |
+        {anchor:UserProvisionItemModelAnchor}
+        h3. UserProvisionItem
+        ||Field Name||Required||Type||Description||
+         |unitId |(x) |{noformat:nopanel=true}String{noformat} |Identifier of the unit within the HealthSuite ecosystem |
+ |roles |(x) |{noformat:nopanel=true}array[String]{noformat} |Optional list of textual roles that the user has in relation to the unit |

@@ -1,0 +1,568 @@
+h1. Workers
+
+## Workers and events 
+
+*Version:* 1.0.0
+
+----
+
+{expand:Table of Contents - Click to expand}
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+{expand}
+
+h2. Endpoints
+
+
+h3. submitAnnualLeaveClaim
+{panel:title=submitAnnualLeaveClaim|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Submit an leave (vacation) claim for a worker
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/worker/{id}/leave{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/worker/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the worker |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |leaveClaim |Leave claim for a worker |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The worker data has been accepted, and will be processed in due course. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The worker data has been accepted, and will be processed in due course.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. registerWorker
+{panel:title=registerWorker|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Provide worker details for inclusion into the Allocate ecosystem. The platform will accept the worker information, and respond either synchronously or asynchronously with the allocate worker identifier. This may entail an on-boarding process, so the final response may require human interaction before it can be completed.
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/workers{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/worker/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |person |Worker information |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | The worker has been registered successfully |
+    	|| Response Type | WorkerRegistrationResponse |
+    	|| Response Model | [WorkerRegistrationResponse Model|#WorkerRegistrationResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The worker has been registered successfully",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/WorkerRegistrationResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | One or more errors have occurred when attempting to process the provided data |
+    	|| Response Type | ErrorResponse |
+    	|| Response Model | [ErrorResponse Model|#ErrorResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "One or more errors have occurred when attempting to process the provided data",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ErrorResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The worker data has been accepted, and will be processed in due course. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The worker data has been accepted, and will be processed in due course.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. registerWorker
+{panel:title=registerWorker|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Provide worker details for inclusion into the Allocate ecosystem. The platform will accept the worker information, and respond either synchronously or asynchronously with the allocate worker identifier. This may entail an on-boarding process, so the final response may require human interaction before it can be completed.
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/workers{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/worker/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |person |Worker information |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | The worker has been registered successfully |
+    	|| Response Type | WorkerRegistrationResponse |
+    	|| Response Model | [WorkerRegistrationResponse Model|#WorkerRegistrationResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The worker has been registered successfully",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/WorkerRegistrationResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | One or more errors have occurred when attempting to process the provided data |
+    	|| Response Type | ErrorResponse |
+    	|| Response Model | [ErrorResponse Model|#ErrorResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "One or more errors have occurred when attempting to process the provided data",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ErrorResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The worker data has been accepted, and will be processed in due course. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The worker data has been accepted, and will be processed in due course.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. submitAnnualLeaveClaim
+{panel:title=submitAnnualLeaveClaim|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Submit an leave (vacation) claim for a worker
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/worker/{id}/leave{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/worker/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |ID of the worker |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |leaveClaim |Leave claim for a worker |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The worker data has been accepted, and will be processed in due course. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The worker data has been accepted, and will be processed in due course.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+{anchor:models}
+h2. Models
+
+        {anchor:AsyncResponseModelAnchor}
+        h3. AsyncResponse
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |Correlation Identifier so a future AsyncData object can be related to the inbound call. |
+        {anchor:AttributeModelAnchor}
+        h3. Attribute
+        ||Field Name||Required||Type||Description||
+         |name |(/) |{noformat:nopanel=true}String{noformat} | |
+ |validity |(/) |{noformat:nopanel=true}DateSpan{noformat} | |
+ |value |(/) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:AvailabilitiesModelAnchor}
+        h3. Availabilities
+        ||Field Name||Required||Type||Description||
+         |Availability |(/) |{noformat:nopanel=true}array[Availabilities_Availability]{noformat} | |
+ |NoBank |(/) |{noformat:nopanel=true}array[Availabilities_NoBank]{noformat} | |
+        {anchor:AvailabilitiesAvailabilityModelAnchor}
+        h3. AvailabilitiesAvailability
+        ||Field Name||Required||Type||Description||
+         |date |(x) |{noformat:nopanel=true}date{noformat} | |
+ |availabilityType |(x) |{noformat:nopanel=true}String{noformat} | |
+ |start |(x) |{noformat:nopanel=true}String{noformat} | |
+ |end |(x) |{noformat:nopanel=true}String{noformat} | |
+ |numberOfOccurrences |(x) |{noformat:nopanel=true}BigDecimal{noformat} | |
+ |notes |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:AvailabilitiesNoBankModelAnchor}
+        h3. AvailabilitiesNoBank
+        ||Field Name||Required||Type||Description||
+         |start |(x) |{noformat:nopanel=true}String{noformat} | |
+ |numberOfOccurances |(x) |{noformat:nopanel=true}BigDecimal{noformat} | |
+ |notes |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:ContactDetailsUpdatedEventModelAnchor}
+        h3. ContactDetailsUpdatedEvent
+        ||Field Name||Required||Type||Description||
+         |personId |(/) |{noformat:nopanel=true}String{noformat} |ASWid of the person |
+ |contactInformation |(/) |{noformat:nopanel=true}map[String, ContactInformation]{noformat} | |
+        {anchor:ContactInformationModelAnchor}
+        h3. ContactInformation
+        ||Field Name||Required||Type||Description||
+         |type |(x) |{noformat:nopanel=true}String{noformat} | |
+ |value |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:ContactLogEventModelAnchor}
+        h3. ContactLogEvent
+        ||Field Name||Required||Type||Description||
+         |personId |(/) |{noformat:nopanel=true}String{noformat} |ASWid of the person |
+ |contactLogInformation |(/) |{noformat:nopanel=true}map[String, ContactLogInformation]{noformat} | |
+        {anchor:ContactLogInformationModelAnchor}
+        h3. ContactLogInformation
+        ||Field Name||Required||Type||Description||
+         |type |(/) |{noformat:nopanel=true}String{noformat} | |
+ |when |(x) |{noformat:nopanel=true}Date{noformat} | |
+ |who |(x) |{noformat:nopanel=true}map[String, Identifier]{noformat} | |
+ |details |(x) |{noformat:nopanel=true}ContactLogInformation_details{noformat} | |
+        {anchor:ContactLogInformationDetailsModelAnchor}
+        h3. ContactLogInformationDetails
+        ||Field Name||Required||Type||Description||
+         |successful |(x) |{noformat:nopanel=true}Boolean{noformat} |Was this contact successful? (e.g: Call was answered)  |
+ |notes |(x) |{noformat:nopanel=true}String{noformat} |Notes on the contact |
+        {anchor:ContractModelAnchor}
+        h3. Contract
+        ||Field Name||Required||Type||Description||
+         |staffGroup |(x) |{noformat:nopanel=true}String{noformat} | |
+ |grade |(/) |{noformat:nopanel=true}String{noformat} | |
+ |contract |(/) |{noformat:nopanel=true}String{noformat} | |
+ |payscale |(x) |{noformat:nopanel=true}String{noformat} | |
+ |contractType |(x) |{noformat:nopanel=true}String{noformat} | |
+ |contractedTime |(/) |{noformat:nopanel=true}String{noformat} | |
+ |defaultUnavailabilityHours |(x) |{noformat:nopanel=true}String{noformat} | |
+ |wtdOptOut |(x) |{noformat:nopanel=true}Boolean{noformat} | |
+ |salaryFrequency |(x) |{noformat:nopanel=true}String{noformat} | |
+ |salaryAmount |(x) |{noformat:nopanel=true}BigDecimal{noformat} | |
+        {anchor:DateSpanModelAnchor}
+        h3. DateSpan
+        ||Field Name||Required||Type||Description||
+         |from |(x) |{noformat:nopanel=true}date{noformat} |When the span starts |
+ |to |(x) |{noformat:nopanel=true}date{noformat} |When the span ends |
+        {anchor:EmploymentDetailsModelAnchor}
+        h3. EmploymentDetails
+        ||Field Name||Required||Type||Description||
+         |employmentStatus |(x) |{noformat:nopanel=true}String{noformat} | |
+ |employeeType |(x) |{noformat:nopanel=true}String{noformat} | |
+ |hireDetails |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dateJoinedNHS |(x) |{noformat:nopanel=true}date{noformat} | |
+ |alAccrualPlan |(x) |{noformat:nopanel=true}String{noformat} | |
+ |prevEmployer |(x) |{noformat:nopanel=true}String{noformat} | |
+ |agencies |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:ErrorResponseModelAnchor}
+        h3. ErrorResponse
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |Optional identifier for this reponse (for correlation with logging) |
+ |code |(x) |{noformat:nopanel=true}String{noformat} |Optional error code identifying this particular error |
+ |description |(/) |{noformat:nopanel=true}String{noformat} |Description of this error. |
+ |items |(x) |{noformat:nopanel=true}array[ErrorResponse]{noformat} |List of child errors |
+        {anchor:IdentificationModelAnchor}
+        h3. Identification
+        ||Field Name||Required||Type||Description||
+         |staffNumber |(/) |{noformat:nopanel=true}String{noformat} |Unique and unchanging staff number to use as the constant reference for a Person |
+ |title |(x) |{noformat:nopanel=true}String{noformat} |This value is subject to mapping in the Gateway. If unavailable, provide a constant value e.g. UNKNOWN, which can be mapped to an empty value in HealthRoster Optima |
+ |forenames |(/) |{noformat:nopanel=true}String{noformat} | |
+ |surname |(/) |{noformat:nopanel=true}String{noformat} | |
+ |middleInitials |(x) |{noformat:nopanel=true}String{noformat} | |
+ |knownAs |(x) |{noformat:nopanel=true}String{noformat} | |
+ |gender |(x) |{noformat:nopanel=true}String{noformat} | |
+ |dateOfBirth |(/) |{noformat:nopanel=true}date{noformat} | |
+ |ssn |(x) |{noformat:nopanel=true}String{noformat} |National Insurance \\ Social Security Number. |
+        {anchor:IdentifierModelAnchor}
+        h3. Identifier
+        ||Field Name||Required||Type||Description||
+         |namespace |(x) |{noformat:nopanel=true}String{noformat} |Namespace for this identifier. |
+ |id |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:LeaveClaimModelAnchor}
+        h3. LeaveClaim
+        ||Field Name||Required||Type||Description||
+         |when |(x) |{noformat:nopanel=true}LeaveClaim_when{noformat} | |
+ |reason |(x) |{noformat:nopanel=true}String{noformat} |The reason for the leave claim |
+        {anchor:LeaveClaimWhenModelAnchor}
+        h3. LeaveClaimWhen
+        ||Field Name||Required||Type||Description||
+         |from |(x) |{noformat:nopanel=true}date{noformat} |1st day (inclusive) of leave claim |
+ |to |(x) |{noformat:nopanel=true}date{noformat} |Last day (inclusive) of leave claim |
+        {anchor:PersonModelAnchor}
+        h3. Person
+        ||Field Name||Required||Type||Description||
+         |identification |(x) |{noformat:nopanel=true}Identification{noformat} | |
+ |personalInfo |(x) |{noformat:nopanel=true}PersonalInfo{noformat} | |
+ |employmentDetails |(x) |{noformat:nopanel=true}EmploymentDetails{noformat} | |
+ |workLocations |(x) |{noformat:nopanel=true}WorkLocations{noformat} | |
+ |postings |(x) |{noformat:nopanel=true}array[Posting]{noformat} | |
+ |contracts |(x) |{noformat:nopanel=true}array[Contract]{noformat} | |
+ |skills |(x) |{noformat:nopanel=true}array[Skill]{noformat} | |
+ |specialties |(x) |{noformat:nopanel=true}array[Specialty]{noformat} | |
+ |attributes |(x) |{noformat:nopanel=true}array[Attribute]{noformat} | |
+ |visas |(x) |{noformat:nopanel=true}array[Visa]{noformat} | |
+ |workingRestrictions |(x) |{noformat:nopanel=true}array[WorkingRestriction]{noformat} | |
+ |availabilities |(x) |{noformat:nopanel=true}Availabilities{noformat} | |
+ |personalPattern |(x) |{noformat:nopanel=true}PersonalPattern{noformat} | |
+        {anchor:PersonalInfoModelAnchor}
+        h3. PersonalInfo
+        ||Field Name||Required||Type||Description||
+         |maidenName |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maritalStatus |(x) |{noformat:nopanel=true}String{noformat} | |
+ |additionalID |(x) |{noformat:nopanel=true}String{noformat} | |
+ |placeOfBirth |(x) |{noformat:nopanel=true}String{noformat} | |
+ |nationality |(x) |{noformat:nopanel=true}String{noformat} | |
+ |ethnicOrigin |(x) |{noformat:nopanel=true}String{noformat} | |
+ |visaRequired |(x) |{noformat:nopanel=true}String{noformat} | |
+ |disabledNo |(x) |{noformat:nopanel=true}String{noformat} | |
+ |disability |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:PersonalPatternModelAnchor}
+        h3. PersonalPattern
+        ||Field Name||Required||Type||Description||
+         |duty |(x) |{noformat:nopanel=true}array[PersonalPattern_duty]{noformat} | |
+ |unavailability |(x) |{noformat:nopanel=true}array[PersonalPattern_unavailability]{noformat} | |
+        {anchor:PersonalPatternDutyModelAnchor}
+        h3. PersonalPatternDuty
+        ||Field Name||Required||Type||Description||
+         |shiftGroup |(x) |{noformat:nopanel=true}String{noformat} | |
+ |shift |(x) |{noformat:nopanel=true}String{noformat} | |
+ |rosterLocation |(x) |{noformat:nopanel=true}String{noformat} | |
+ |team |(x) |{noformat:nopanel=true}String{noformat} | |
+ |activityCategory |(x) |{noformat:nopanel=true}String{noformat} | |
+ |activityBenchmark |(x) |{noformat:nopanel=true}String{noformat} | |
+ |activityType |(x) |{noformat:nopanel=true}String{noformat} | |
+ |activityProfile |(x) |{noformat:nopanel=true}String{noformat} | |
+ |work |(x) |{noformat:nopanel=true}String{noformat} | |
+ |start |(x) |{noformat:nopanel=true}String{noformat} | |
+ |end |(x) |{noformat:nopanel=true}String{noformat} | |
+ |monthlyReccurrance |(x) |{noformat:nopanel=true}Boolean{noformat} | |
+        {anchor:PersonalPatternUnavailabilityModelAnchor}
+        h3. PersonalPatternUnavailability
+        ||Field Name||Required||Type||Description||
+         |unavailabilityGroup |(x) |{noformat:nopanel=true}String{noformat} | |
+ |unavailabilityReason |(/) |{noformat:nopanel=true}String{noformat} | |
+ |work |(x) |{noformat:nopanel=true}String{noformat} | |
+ |start |(/) |{noformat:nopanel=true}String{noformat} | |
+ |end |(/) |{noformat:nopanel=true}String{noformat} | |
+ |externalUnavailabilityIdentifier |(/) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:PostingModelAnchor}
+        h3. Posting
+        ||Field Name||Required||Type||Description||
+         |unit |(/) |{noformat:nopanel=true}String{noformat} | |
+ |post |(x) |{noformat:nopanel=true}String{noformat} | |
+ |postingType |(x) |{noformat:nopanel=true}String{noformat} | |
+ |assignmentNo |(/) |{noformat:nopanel=true}String{noformat} | |
+ |team |(x) |{noformat:nopanel=true}String{noformat} | |
+ |isPrimary |(/) |{noformat:nopanel=true}Boolean{noformat} | |
+        {anchor:SkillModelAnchor}
+        h3. Skill
+        ||Field Name||Required||Type||Description||
+         |skillGroup |(x) |{noformat:nopanel=true}String{noformat} | |
+ |cluster |(x) |{noformat:nopanel=true}String{noformat} | |
+ |skill |(x) |{noformat:nopanel=true}String{noformat} | |
+ |validity |(/) |{noformat:nopanel=true}DateSpan{noformat} | |
+ |dateGained |(x) |{noformat:nopanel=true}date{noformat} | |
+ |obtainedFromReason |(x) |{noformat:nopanel=true}String{noformat} | |
+ |certificateNumber |(x) |{noformat:nopanel=true}String{noformat} | |
+ |notes |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:SpecialtyModelAnchor}
+        h3. Specialty
+        ||Field Name||Required||Type||Description||
+         |tempStaffSpeciality |(x) |{noformat:nopanel=true}String{noformat} | |
+ |validity |(/) |{noformat:nopanel=true}DateSpan{noformat} | |
+ |notes |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:TimeSpanModelAnchor}
+        h3. TimeSpan
+        ||Field Name||Required||Type||Description||
+         |from |(x) |{noformat:nopanel=true}String{noformat} |Time from, 24hr format |
+ |to |(x) |{noformat:nopanel=true}String{noformat} |Time from, 24hr format |
+        {anchor:VisaModelAnchor}
+        h3. Visa
+        ||Field Name||Required||Type||Description||
+         |number |(x) |{noformat:nopanel=true}String{noformat} | |
+ |country |(x) |{noformat:nopanel=true}String{noformat} | |
+ |issuingOffice |(x) |{noformat:nopanel=true}String{noformat} | |
+ |type |(x) |{noformat:nopanel=true}String{noformat} | |
+ |entries |(x) |{noformat:nopanel=true}String{noformat} | |
+ |validity |(/) |{noformat:nopanel=true}DateSpan{noformat} | |
+        {anchor:WorkLocationsModelAnchor}
+        h3. WorkLocations
+        ||Field Name||Required||Type||Description||
+         |homeTrust |(/) |{noformat:nopanel=true}String{noformat} |The identifier for the home trust for this worker |
+ |workingTrusts |(x) |{noformat:nopanel=true}array[String]{noformat} |Identifiers for the trusts that the worker may work in (in addition to their home trust) |
+        {anchor:WorkerPerformanceEventModelAnchor}
+        h3. WorkerPerformanceEvent
+        ||Field Name||Required||Type||Description||
+         |worker |(x) |{noformat:nopanel=true}WorkerPerformanceEvent_worker{noformat} | |
+ |dutyDetails |(x) |{noformat:nopanel=true}WorkerPerformanceEvent_dutyDetails{noformat} | |
+ |evaluation |(x) |{noformat:nopanel=true}WorkerPerformanceEvent_evaluation{noformat} | |
+        {anchor:WorkerPerformanceEventDutyDetailsModelAnchor}
+        h3. WorkerPerformanceEventDutyDetails
+        ||Field Name||Required||Type||Description||
+         |dutyId |(x) |{noformat:nopanel=true}String{noformat} |ID of the duty within the allocate system |
+ |from |(x) |{noformat:nopanel=true}Date{noformat} |When the duty started |
+ |to |(x) |{noformat:nopanel=true}Date{noformat} |When the duty ended |
+        {anchor:WorkerPerformanceEventEvaluationModelAnchor}
+        h3. WorkerPerformanceEventEvaluation
+        ||Field Name||Required||Type||Description||
+         |evaluator |(x) |{noformat:nopanel=true}WorkerPerformanceEvent_evaluation_evaluator{noformat} | |
+ |score |(x) |{noformat:nopanel=true}BigDecimal{noformat} |Score out of 10 |
+ |comment |(x) |{noformat:nopanel=true}String{noformat} |Free text comment |
+ |quesions |(x) |{noformat:nopanel=true}array[WorkerPerformanceEvent_evaluation_quesions]{noformat} |List of questions and answers froman evaluator |
+        {anchor:WorkerPerformanceEventEvaluationEvaluatorModelAnchor}
+        h3. WorkerPerformanceEventEvaluationEvaluator
+        ||Field Name||Required||Type||Description||
+         |name |(x) |{noformat:nopanel=true}String{noformat} | |
+ |identities |(x) |{noformat:nopanel=true}array[Identifier]{noformat} | |
+        {anchor:WorkerPerformanceEventEvaluationQuesionsModelAnchor}
+        h3. WorkerPerformanceEventEvaluationQuesions
+        ||Field Name||Required||Type||Description||
+         |question |(x) |{noformat:nopanel=true}String{noformat} | |
+ |answer |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:WorkerPerformanceEventWorkerModelAnchor}
+        h3. WorkerPerformanceEventWorker
+        ||Field Name||Required||Type||Description||
+         |name |(x) |{noformat:nopanel=true}String{noformat} |Simple name for the worker |
+ |identities |(x) |{noformat:nopanel=true}array[Identifier]{noformat} |Collection of identifiers of the worker. There may be several unique identifiers for a worker within HealthSuite, and identifiers used for interactions with 3rd party systems (I.E: their identifiers).  |
+        {anchor:WorkerRegistrationResponseModelAnchor}
+        h3. WorkerRegistrationResponse
+        ||Field Name||Required||Type||Description||
+         |personId |(/) |{noformat:nopanel=true}String{noformat} |ASWid of the person |
+        {anchor:WorkingRestrictionModelAnchor}
+        h3. WorkingRestriction
+        ||Field Name||Required||Type||Description||
+         |title |(/) |{noformat:nopanel=true}String{noformat} | |
+ |validity |(/) |{noformat:nopanel=true}DateSpan{noformat} | |
+ |hoursOfWork |(/) |{noformat:nopanel=true}WorkingRestriction_hoursOfWork{noformat} | |
+ |defaultLeaveHours |(/) |{noformat:nopanel=true}WorkingRestriction_defaultLeaveHours{noformat} | |
+ |restrictions |(/) |{noformat:nopanel=true}WorkingRestriction_restrictions{noformat} | |
+        {anchor:WorkingRestrictionDefaultLeaveHoursModelAnchor}
+        h3. WorkingRestrictionDefaultLeaveHours
+        ||Field Name||Required||Type||Description||
+         |useWorkingDay |(x) |{noformat:nopanel=true}String{noformat} | |
+ |mondayTime |(x) |{noformat:nopanel=true}String{noformat} | |
+ |tuesdayTime |(x) |{noformat:nopanel=true}String{noformat} | |
+ |wednesdayTime |(x) |{noformat:nopanel=true}String{noformat} | |
+ |fridayTime |(x) |{noformat:nopanel=true}String{noformat} | |
+ |saturdayTime |(x) |{noformat:nopanel=true}String{noformat} | |
+ |sundayTime |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:WorkingRestrictionHoursOfWorkModelAnchor}
+        h3. WorkingRestrictionHoursOfWork
+        ||Field Name||Required||Type||Description||
+         |mon |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |tue |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |wed |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |thu |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |fri |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |sat |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |sun |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+        {anchor:WorkingRestrictionRestrictionsModelAnchor}
+        h3. WorkingRestrictionRestrictions
+        ||Field Name||Required||Type||Description||
+         |effectiveFrom |(x) |{noformat:nopanel=true}String{noformat} | |
+ |daysPerWeek |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxDaysPerWeek |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxShiftsPerWeek |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxConsecutiveDays |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxConsecutiveDaysRequested |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxWorkTimePerDay |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxDurationPerShift |(x) |{noformat:nopanel=true}String{noformat} | |
+ |additionalHoursPerWeek |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxOvertimePerDay |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxOvertimePerWeek |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxOvertimePerCalendarMonth |(x) |{noformat:nopanel=true}String{noformat} | |
+ |wtdDayStart |(x) |{noformat:nopanel=true}String{noformat} | |
+ |wtdWeekDayStart |(x) |{noformat:nopanel=true}String{noformat} | |
+ |wtdWeekTimeStart |(x) |{noformat:nopanel=true}String{noformat} | |
+ |minBreakBetweenShifts |(x) |{noformat:nopanel=true}BigDecimal{noformat} | |
+ |notes |(x) |{noformat:nopanel=true}String{noformat} | |

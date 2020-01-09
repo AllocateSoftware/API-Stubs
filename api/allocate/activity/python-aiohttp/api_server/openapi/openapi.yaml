@@ -1,0 +1,606 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: support@allocatesoftware.com
+    name: API support
+    url: http://www.allocatesoftware.com/
+  description: |2
+
+        ## API for querying worker activity.
+
+        This is an early availabilty API, and is subject to change.
+  title: Activity API
+  version: 0.0.1
+  x-logo:
+    url: http://www.allocatesoftware.com/wp-content/uploads/sites/31/2017/08/Allocate_logo_digital_Horizontal_RGB_retina.png
+    backgroundColor: '#FFFFc0'
+    altText: Allocate Software
+servers:
+- url: http://healthsuite.allocatesoftware.com/api/v1
+security:
+- jwt: []
+tags:
+- name: Activity
+paths:
+  /activities:
+    get:
+      description: Provide hours and assignment details for workers
+      operationId: get_activities
+      parameters:
+      - description: The code for the customer (trust) for which the activities should
+          be returned
+        example: ASPH
+        explode: true
+        in: query
+        name: customerCode
+        required: true
+        schema:
+          type: string
+        style: form
+      - description: Format for the output. TBD, but may be used to control the scope
+          of information returned.
+        example: short
+        explode: true
+        in: query
+        name: format
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/HoursAssignment'
+                type: array
+          description: The worker has been registered successfully
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: One or more errors have occurred when attempting to process
+            the provided data
+        403:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Forbidden - you do not have the necessary permissions to undertake
+            this action
+      x-openapi-router-controller: api_server.controllers.default_controller
+components:
+  schemas:
+    AsyncResponse:
+      description: "Where an API may respond with an asynchronous 'Accepted' (HTTP\
+        \ 202) response, it will return an AsyncResponse object. The eventual\n  \
+        \              response will be returned by way of an async event, containing\
+        \ the corresponding correlation ID header returned below.\n              \
+        \  \n                The location of the correlation ID will depend upon the\
+        \ eventing transport in use - though typically it will be included as a message\
+        \ header (rather than a payload).\n            "
+      properties:
+        id:
+          description: Correlation Identifier
+          example: 8FE4E2F3-7351-4385-B0C6-1154A440F956
+          type: string
+      required:
+      - id
+      type: object
+    DateSpan:
+      example:
+        from: 2000-01-23T04:56:07.000+00:00
+        to: 2000-01-23T04:56:07.000+00:00
+      properties:
+        from:
+          description: When the span starts
+          format: date-time
+          type: string
+        to:
+          description: When the span ends
+          format: date-time
+          type: string
+      required:
+      - from
+      type: object
+    TimeSpan:
+      description: Represents a span of time, implicitly covering a maximum of 24hrs
+      example:
+        from: 01:00
+        to: 08:30
+      properties:
+        from:
+          description: Time from, 24hr format
+          example: 01:00
+          pattern: ^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$
+          type: string
+        to:
+          description: Time from, 24hr format
+          example: 08:30
+          pattern: ^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$
+          type: string
+      required:
+      - from
+      type: object
+    ErrorResponse:
+      description: An Error has occurred in processing your request
+      properties:
+        id:
+          description: Optional identifier for this reponse (for matching with logging)
+          type: string
+        code:
+          description: Optional error code identifying this particular error
+          type: string
+        description:
+          description: Optional error code identifying this particular error
+          type: string
+        items:
+          description: List of child errors
+          items:
+            $ref: '#/components/schemas/ErrorResponse'
+          type: array
+      required:
+      - description
+      type: object
+    Grade:
+      example:
+        externalReference: externalReference
+        shortName: Band 5 RN
+        longName: Band 5 RN
+      properties:
+        longName:
+          example: Band 5 RN
+          type: string
+        shortName:
+          example: Band 5 RN
+          type: string
+        externalReference:
+          type: string
+      type: object
+    GradeType:
+      example:
+        externalReference: externalReference
+        name: RN
+        description: Registered
+      properties:
+        name:
+          example: RN
+          type: string
+        description:
+          example: Registered
+          type: string
+        externalReference:
+          type: string
+      type: object
+    GradeTypeCategory:
+      example:
+        name: Registered
+      properties:
+        name:
+          example: Registered
+          type: string
+      type: object
+    HoursAssignment:
+      example:
+        owningUnit:
+          externalReference: externalReference
+          code: Opal Ward
+          shortName: Opal Ward
+          longName: Opal Ward
+        actual:
+          from: 2000-01-23T04:56:07.000+00:00
+          to: 2000-01-23T04:56:07.000+00:00
+        assignment:
+          fromRequest: true
+          method: autoroster
+        shift:
+          name: early
+          type: day
+        contractedTime: 450
+        payState: requested
+        requirement:
+          grade:
+            externalReference: externalReference
+            shortName: Band 5 RN
+            longName: Band 5 RN
+          gradeType:
+            externalReference: externalReference
+            name: RN
+            description: Registered
+          gradeTypeCategory:
+            name: Registered
+        posting:
+          assignmentNumber: assignmentNumber
+        costCentre:
+          code: code
+          name: name
+          description: description
+        dutyHasWarnings: true
+        when: 2000-01-23
+        workTime: 450
+        resourcingUnit:
+          externalReference: externalReference
+          code: Opal Ward
+          shortName: Opal Ward
+          longName: Opal Ward
+        additionalDutyReason: additionalDutyReason
+        employeeType:
+          externalReference: externalReference
+          name: Bank Only
+          description: description
+        cancellation:
+          reason:
+            externalReference: externalReference
+            name: Unknown / Other
+            description: Unknown Duty Cancel Reason
+        post:
+          grade:
+            externalReference: externalReference
+            shortName: Band 5 RN
+            longName: Band 5 RN
+          title: NHSp Bank Contract - Band 5 RN
+        person:
+          surname: Smith
+          mobileNumber: mobileNumber
+          grade:
+            externalReference: externalReference
+            shortName: Band 5 RN
+            longName: Band 5 RN
+          gradeType:
+            externalReference: externalReference
+            name: RN
+            description: Registered
+          WTE: 0.9125
+          gradeTypeCategory:
+            name: Registered
+          staffNumber: staffNumber
+          forenames: Fred
+        duty:
+          when:
+            from: 01:00
+            to: 08:30
+        location:
+          type: type
+          longName: longName
+        id: 123523
+        fulfillment:
+          type: local
+          category: mandatory
+          status: vacant
+        inCharge: true
+      properties:
+        id:
+          description: Identifier for the hours assignment
+          example: 123523
+          format: int32
+          type: integer
+        when:
+          description: Date assignment begins on
+          format: date
+          type: string
+        actual:
+          $ref: '#/components/schemas/DateSpan'
+        workTime:
+          description: Number of minutes worked in assignment
+          example: 450
+          format: int32
+          type: integer
+        contractedTime:
+          description: Number of minutes that count towards the person’s contracted
+            hours
+          example: 450
+          format: int32
+          type: integer
+        payState:
+          description: |
+            Details where the duty is in it’s lifecycle.
+            *   Requested = (Requested Bank Duty)
+            *   Accepted = (Roster Approved)
+            *   Approved = (Finalised)
+            *   Submitted = (PAID)
+            *   Paid
+            *   Unlocked = (Was once Finalised state.)
+            *   Relocked = (Finalised given that it was once un-finalised for some reason)
+          enum:
+          - requested
+          - accepted
+          - approved
+          - submitted
+          - paid
+          - unlocked
+          - relocked
+          type: string
+        employeeType:
+          $ref: '#/components/schemas/HoursAssignment_employeeType'
+        person:
+          $ref: '#/components/schemas/HoursAssignment_person'
+        assignment:
+          $ref: '#/components/schemas/HoursAssignment_assignment'
+        post:
+          $ref: '#/components/schemas/HoursAssignment_post'
+        posting:
+          $ref: '#/components/schemas/HoursAssignment_posting'
+        cancellation:
+          $ref: '#/components/schemas/HoursAssignment_cancellation'
+        inCharge:
+          description: Was the employee in charge?
+          type: boolean
+        shift:
+          $ref: '#/components/schemas/HoursAssignment_shift'
+        duty:
+          $ref: '#/components/schemas/HoursAssignment_duty'
+        fulfillment:
+          $ref: '#/components/schemas/HoursAssignment_fulfillment'
+        costCentre:
+          $ref: '#/components/schemas/HoursAssignment_costCentre'
+        owningUnit:
+          $ref: '#/components/schemas/HoursAssignment_owningUnit'
+        resourcingUnit:
+          $ref: '#/components/schemas/HoursAssignment_owningUnit'
+        requirement:
+          $ref: '#/components/schemas/HoursAssignment_requirement'
+        location:
+          $ref: '#/components/schemas/HoursAssignment_location'
+        additionalDutyReason:
+          type: string
+        dutyHasWarnings:
+          type: boolean
+      required:
+      - id
+      type: object
+    HoursAssignment_employeeType:
+      example:
+        externalReference: externalReference
+        name: Bank Only
+        description: description
+      properties:
+        name:
+          description: 'e.g: Employee, Bank, Agency'
+          example: Bank Only
+          type: string
+        description:
+          type: string
+        externalReference:
+          type: string
+    HoursAssignment_person:
+      example:
+        surname: Smith
+        mobileNumber: mobileNumber
+        grade:
+          externalReference: externalReference
+          shortName: Band 5 RN
+          longName: Band 5 RN
+        gradeType:
+          externalReference: externalReference
+          name: RN
+          description: Registered
+        WTE: 0.9125
+        gradeTypeCategory:
+          name: Registered
+        staffNumber: staffNumber
+        forenames: Fred
+      properties:
+        staffNumber:
+          type: string
+        forenames:
+          description: List of forenames for the person
+          example: Fred
+          type: string
+        surname:
+          description: Surname for the person
+          example: Smith
+          type: string
+        mobileNumber:
+          type: string
+        grade:
+          $ref: '#/components/schemas/Grade'
+        gradeType:
+          $ref: '#/components/schemas/GradeType'
+        gradeTypeCategory:
+          $ref: '#/components/schemas/GradeTypeCategory'
+        WTE:
+          description: |
+            Whole time Equivalent – this is the person’s contracted hours divided by the person’s default grade type value for WTE (if the grade type has no value then use grade type category if neither have a value use system default setting).
+            e.g. 37.5 / (2250/60) = 1.00
+            NOTE if the grade type default wte is not set this will not be returned
+          example: 0.9125
+          type: number
+    HoursAssignment_assignment:
+      example:
+        fromRequest: true
+        method: autoroster
+      properties:
+        method:
+          description: |
+            How duty was assigned.
+            *   Unspecified
+            *   AutoRoster
+            *   ManualManagerAssignment
+            *   EmployeeWebTimesheet
+            *   ExternalAssignment e.g. from BankStaff
+            *   EmployeeRequest
+          enum:
+          - unspecified
+          - autoroster
+          - manualManagerAssignment
+          - employeeWebTimesheet
+          - externalAssignment
+          - employeeRequest
+          example: autoroster
+          type: string
+        fromRequest:
+          description: Did the employee request this assignment? Yes/No
+          type: boolean
+    HoursAssignment_post:
+      example:
+        grade:
+          externalReference: externalReference
+          shortName: Band 5 RN
+          longName: Band 5 RN
+        title: NHSp Bank Contract - Band 5 RN
+      properties:
+        title:
+          example: NHSp Bank Contract - Band 5 RN
+          type: string
+        grade:
+          $ref: '#/components/schemas/Grade'
+    HoursAssignment_posting:
+      example:
+        assignmentNumber: assignmentNumber
+      properties:
+        assignmentNumber:
+          type: string
+    HoursAssignment_cancellation_reason:
+      example:
+        externalReference: externalReference
+        name: Unknown / Other
+        description: Unknown Duty Cancel Reason
+      properties:
+        name:
+          example: Unknown / Other
+          type: string
+        description:
+          example: Unknown Duty Cancel Reason
+          type: string
+        externalReference:
+          type: string
+    HoursAssignment_cancellation:
+      example:
+        reason:
+          externalReference: externalReference
+          name: Unknown / Other
+          description: Unknown Duty Cancel Reason
+      properties:
+        reason:
+          $ref: '#/components/schemas/HoursAssignment_cancellation_reason'
+    HoursAssignment_shift:
+      example:
+        name: early
+        type: day
+      properties:
+        type:
+          description: "\nStandard HealthRoster enumerations:\n*   Day\n*   Combined\n\
+            *   Night\n*   OnCall\n*   SleepIn\n*   StandBy\n*   Rest\n*   None\n\
+            *   ADO\n*   Evening\n*   Other\n*   PrivatePractice\n                "
+          enum:
+          - day
+          - combined
+          - night
+          - onCall
+          - sleepIn
+          - standBy
+          - rest
+          - none
+          - ADO
+          - evening
+          - other
+          - PrivatePractice
+          example: day
+          type: string
+        name:
+          example: early
+          type: string
+    HoursAssignment_duty:
+      example:
+        when:
+          from: 01:00
+          to: 08:30
+      properties:
+        when:
+          $ref: '#/components/schemas/TimeSpan'
+    HoursAssignment_fulfillment:
+      example:
+        type: local
+        category: mandatory
+        status: vacant
+      properties:
+        type:
+          enum:
+          - local
+          - bank
+          - agency
+          example: local
+          type: string
+        status:
+          enum:
+          - vacant
+          - filled
+          - partial
+          example: vacant
+          type: string
+        category:
+          enum:
+          - mandatory
+          - optional
+          - additional
+          - stub
+          example: mandatory
+          type: string
+    HoursAssignment_costCentre:
+      example:
+        code: code
+        name: name
+        description: description
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+    HoursAssignment_owningUnit:
+      example:
+        externalReference: externalReference
+        code: Opal Ward
+        shortName: Opal Ward
+        longName: Opal Ward
+      properties:
+        code:
+          example: Opal Ward
+          type: string
+        shortName:
+          example: Opal Ward
+          type: string
+        longName:
+          example: Opal Ward
+          type: string
+        externalReference:
+          type: string
+    HoursAssignment_requirement:
+      example:
+        grade:
+          externalReference: externalReference
+          shortName: Band 5 RN
+          longName: Band 5 RN
+        gradeType:
+          externalReference: externalReference
+          name: RN
+          description: Registered
+        gradeTypeCategory:
+          name: Registered
+      properties:
+        grade:
+          $ref: '#/components/schemas/Grade'
+        gradeType:
+          $ref: '#/components/schemas/GradeType'
+        gradeTypeCategory:
+          $ref: '#/components/schemas/GradeTypeCategory'
+    HoursAssignment_location:
+      example:
+        type: type
+        longName: longName
+      properties:
+        type:
+          type: string
+        longName:
+          type: string
+  securitySchemes:
+    jwt:
+      bearerFormat: JWT
+      description: JSON Web Token previously obtained from the Allocate authentication
+        server
+      scheme: bearer
+      type: http
+      x-bearerInfoFunc: api_server.controllers.security_controller_.info_from_jwt

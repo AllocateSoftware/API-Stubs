@@ -1,0 +1,677 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: support@allocatesoftware.com
+    name: API support
+    url: http://www.allocatesoftware.com/
+  description: |
+    ## Description
+     API to be impemented by VMS systems for integration into HealthSuite business processes
+  title: VMS API
+  version: 1.0.0
+  x-logo:
+    url: http://www.allocatesoftware.com/wp-content/uploads/sites/31/2017/08/Allocate_logo_digital_Horizontal_RGB_retina.png
+    backgroundColor: '#FFFFc0'
+    altText: Allocate Software
+servers:
+- url: http://healthsuite.allocatesoftware.com/vms/api/v1
+security:
+- bearerAuth: []
+tags:
+- description: Calls to do with workers
+  name: workers
+- description: Calls to do with agencies
+  name: agencies
+- description: Calls to do with bookings
+  name: bookings
+- description: Calls for agencies to interact with 247Time in an automated fashion
+  name: agency
+paths:
+  /agencies:
+    post:
+      description: Forward a request for a duty to be filled by agency. Dependent
+        upon the rules specified within the VMS, this will cascade to the appropriate
+        agencies.
+      operationId: send_duty_to_agencies
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DutyRequest'
+        description: Duty to be sent to agency
+        required: true
+        x-body-name: body
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                description: ID of the booking request within the VMS.
+                example: BOOKINGREQUEST_ID_123
+                type: string
+          description: Duty accepted by VMS.
+        400:
+          description: Invalid input parameter
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      tags:
+      - agencies
+      x-openapi-router-controller: api_server.controllers.agencies_controller
+      x-codegen-request-body-name: body
+  /agencies/costings:
+    post:
+      description: Returns a list of agencies and their costs for the supplied duty.
+      operationId: get_costings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Duty'
+        description: Duty to be costed
+        required: true
+        x-body-name: body
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgencyCostings'
+          description: OK
+        400:
+          description: Invalid input parameter
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      tags:
+      - agencies
+      x-openapi-router-controller: api_server.controllers.agencies_controller
+      x-codegen-request-body-name: body
+  /agencies/{agencyId}:
+    post:
+      description: Immediately forward a request for a duty to be filled by a specific
+        agency. If the request also specifies a worker Identity, this will be a direct
+        booking.
+      operationId: send_duty_to_agency
+      parameters:
+      - description: ID of the agency to send the request to.
+        explode: false
+        in: path
+        name: agencyId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DutyRequest'
+        description: Duty to be sent to agency
+        required: true
+        x-body-name: body
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                description: ID of the booking request within the VMS.
+                example: BOOKINGREQUEST_ID_123
+                type: string
+          description: Duty accepted by VMS.
+        400:
+          description: Invalid input parameter
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      tags:
+      - agencies
+      x-openapi-router-controller: api_server.controllers.agencies_controller
+      x-codegen-request-body-name: body
+  /bookingRequests/{bookingRequestId}:
+    delete:
+      description: Cancel a previously requested booking. If the booking request has
+        resulted in actual bookings, these will also be cancelled.
+      operationId: cancel_booking_request
+      parameters:
+      - description: ID of the booking request to cancel.
+        explode: false
+        in: path
+        name: bookingRequestId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          description: Successfully deleted booking request
+        401:
+          description: Unauthorized
+        404:
+          description: No such booking request exists
+      tags:
+      - bookings
+      x-openapi-router-controller: api_server.controllers.bookings_controller
+  /bookingRequests/{bookingRequestId}/offers:
+    post:
+      description: Offer a worker for a booking
+      operationId: offer_worker
+      parameters:
+      - description: ID of the booking request to offer a worker for.
+        explode: false
+        in: path
+        name: bookingRequestId
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonIdentifier'
+        description: Worker to be offered
+        required: true
+        x-body-name: body
+      responses:
+        200:
+          description: Successfully offered worker
+        401:
+          description: Unauthorized
+        404:
+          description: No such booking request exists
+      tags:
+      - agency
+      x-openapi-router-controller: api_server.controllers.agency_controller
+      x-codegen-request-body-name: body
+  /bookingRequests/{bookingRequestId}/offers/{offerId}/accept:
+    put:
+      description: Accept an agency offer for a worker.
+      operationId: accept_agency_offer
+      parameters:
+      - description: ID of the booking request to accept.
+        explode: false
+        in: path
+        name: bookingRequestId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: ID of the offer to accept. Depending on the VMS, this may be
+          a unique ID, an index to locate an agency, or the agency ID itself.
+        explode: false
+        in: path
+        name: offerId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            text/plain:
+              schema:
+                description: ID of the booking within the VMS.
+                example: BOOKING_ID_123
+                type: string
+          description: Booking request confirmed by VMS.
+        401:
+          description: Unauthorized
+        404:
+          description: No such booking request exists
+      tags:
+      - bookings
+      x-openapi-router-controller: api_server.controllers.bookings_controller
+  /bookings/{bookingId}:
+    delete:
+      description: Cancel a duty booking previously accepted. This does not cancel
+        any outstanding booking requests or duty cascades.
+      operationId: cancel_booking
+      parameters:
+      - description: ID of the booking to cancel.
+        explode: false
+        in: path
+        name: bookingId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          description: Successfully deleted booking
+        401:
+          description: Unauthorized
+        404:
+          description: No such booking exists
+      tags:
+      - bookings
+      x-openapi-router-controller: api_server.controllers.bookings_controller
+    get:
+      description: Query a duty booking by id
+      operationId: get_booking
+      parameters:
+      - description: ID of the duty booking
+        explode: false
+        in: path
+        name: bookingId
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DutyRequest'
+          description: Request OK
+        400:
+          description: Invalid input parameter
+        401:
+          description: Unauthorized
+        404:
+          description: No such booking exists
+      tags:
+      - bookings
+      x-openapi-router-controller: api_server.controllers.bookings_controller
+  /workers/{id}:
+    get:
+      description: Get the details of a person (worker) from the VMS
+      operationId: get_worker
+      parameters:
+      - description: ID of the worker within the VMS.
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+          description: Request OK
+        400:
+          description: Invalid input parameter
+        401:
+          description: Unauthorized
+        404:
+          description: Trust not found
+      tags:
+      - workers
+      x-openapi-router-controller: api_server.controllers.workers_controller
+components:
+  schemas:
+    Agency:
+      properties:
+        id:
+          description: ID of the agency
+          type: string
+        name:
+          description: Name of the agency
+          type: string
+        contactTelephone:
+          description: Telephone number for agency
+          type: string
+        contactEmail:
+          description: Email address for agency
+          type: string
+      type: object
+    PersonIdentifier:
+      description: ID to specify a worker. Either an ID (relative to the receiving
+        system) or universalId (such as National Insurance Number) may be used.
+      example:
+        universalId: QQ123456C
+        id: 123e4567-e89b-12d3-a456-426655440000
+      properties:
+        id:
+          description: identifier of the person (worker) within the VMS
+          example: 123e4567-e89b-12d3-a456-426655440000
+          type: string
+        universalId:
+          description: Global identifer, such as National Insurance number (where
+            known), or other identifier or composite identifier that may be used for
+            matching purposes.
+          example: QQ123456C
+          type: string
+      type: object
+    Person:
+      description: Details of a Person in the VMS, typically a Worker.
+      example:
+        firstName: Doe
+        telephoneNumber: +223504938839
+        universalId: QQ123456C
+        surname: John
+        links:
+        - rel: rel
+          href: http://example.com/aeiou
+        - rel: rel
+          href: http://example.com/aeiou
+        id: 123e4567-e89b-12d3-a456-426655440000
+        email: john.doe@mail.com
+      properties:
+        id:
+          description: identifier of the person (worker) within the VMS
+          example: 123e4567-e89b-12d3-a456-426655440000
+          type: string
+        universalId:
+          description: Global identifer, such as National Insurance number (where
+            known), or other identifier or composite identifier that may be used for
+            matching purposes.
+          example: QQ123456C
+          type: string
+        firstName:
+          example: Doe
+          type: string
+        surname:
+          example: John
+          type: string
+        email:
+          example: john.doe@mail.com
+          type: string
+        telephoneNumber:
+          example: +223504938839
+          type: string
+        links:
+          description: Array of HATEOAS-style references that may be followed by the
+            client. This may include a 'worker.profile' URL, which will return an
+            HTML page representing the worker profile within the VMS.
+          items:
+            $ref: '#/components/schemas/Link'
+          type: array
+      type: object
+    DutyRequest:
+      example:
+        workerId: workerId
+        duty:
+          requirements:
+            specialty: Speciality
+            fallbackSpeciality: Fallback speciality
+            skill: Skill
+            fallbackSkill: Fallback skill
+          clientDeptId: TrustA.667899
+          agency: Liberty Resourcing Admin
+          subDiscipline: TrustA.1323
+          grade: TrustA.77889
+          fallbackGrade: TrustA.9989
+          where:
+            name: name
+            id: id
+          id: ABD.1210
+          uniqueNumber: 112233
+          when:
+            date: 2018-07-29T00:00:00.000+0000
+            breakDuration: 30
+            startTime: 12:40
+            endTime: 01:25
+          vacancyReason: TrustA.12
+          poNumber: 0
+      properties:
+        workerId:
+          description: Where the caller wishes to direct-book a particular worker
+            into the duty, their identifier is specified here.
+          type: string
+        duty:
+          $ref: '#/components/schemas/Duty'
+      required:
+      - duty
+    Duty:
+      example:
+        requirements:
+          specialty: Speciality
+          fallbackSpeciality: Fallback speciality
+          skill: Skill
+          fallbackSkill: Fallback skill
+        clientDeptId: TrustA.667899
+        agency: Liberty Resourcing Admin
+        subDiscipline: TrustA.1323
+        grade: TrustA.77889
+        fallbackGrade: TrustA.9989
+        where:
+          name: name
+          id: id
+        id: ABD.1210
+        uniqueNumber: 112233
+        when:
+          date: 2018-07-29T00:00:00.000+0000
+          breakDuration: 30
+          startTime: 12:40
+          endTime: 01:25
+        vacancyReason: TrustA.12
+        poNumber: 0
+      properties:
+        id:
+          description: ID of the duty (from the source system)
+          example: ABD.1210
+          format: CustomerCode.DutyIdentifier
+          type: string
+        when:
+          $ref: '#/components/schemas/DutyTiming'
+        where:
+          $ref: '#/components/schemas/DutyLocation'
+        requirements:
+          $ref: '#/components/schemas/DutyRequirements'
+        clientDeptId:
+          description: BankStaff ward trust identifier
+          example: TrustA.667899
+          format: trustCode.wardId
+          type: string
+        subDiscipline:
+          description: Staff group trust identifier
+          example: TrustA.1323
+          format: trustCode.staffGroupId
+          type: string
+        grade:
+          description: Grade trust identifier of the request
+          example: TrustA.77889
+          format: trustCode.gradeId
+          type: string
+        fallbackGrade:
+          example: TrustA.9989
+          format: trustCode.gradeId
+          type: string
+        vacancyReason:
+          example: TrustA.12
+          format: trustCode.vacancyReasonId
+          type: string
+        poNumber:
+          description: Need to understand if needed from Trust/Agency
+          type: integer
+        uniqueNumber:
+          description: BRN / Unique number
+          example: 112233
+          type: integer
+        agency:
+          description: Supplying agency for the duty
+          example: Liberty Resourcing Admin
+          type: string
+    DutyRequirements:
+      example:
+        specialty: Speciality
+        fallbackSpeciality: Fallback speciality
+        skill: Skill
+        fallbackSkill: Fallback skill
+      properties:
+        skill:
+          description: Text description
+          example: Skill
+          type: string
+        specialty:
+          description: Text description
+          example: Speciality
+          type: string
+        fallbackSkill:
+          description: Text description
+          example: Fallback skill
+          type: string
+        fallbackSpeciality:
+          description: Text description
+          example: Fallback speciality
+          type: string
+    DutyLocation:
+      example:
+        name: name
+        id: id
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        parentLocation:
+          $ref: '#/components/schemas/DutyLocation'
+      required:
+      - id
+      - name
+    DutyTiming:
+      example:
+        date: 2018-07-29T00:00:00.000+0000
+        breakDuration: 30
+        startTime: 12:40
+        endTime: 01:25
+      properties:
+        date:
+          description: Date of the duty (yyyy-mm-dd)
+          example: 2018-07-29
+          format: date
+          type: string
+        startTime:
+          description: Start time of the shift
+          example: 12:40
+          type: string
+        endTime:
+          description: End time of the shift
+          example: 01:25
+          type: string
+        breakDuration:
+          description: Duration of break in minutes
+          example: 30
+          type: integer
+      required:
+      - date
+      - endTime
+      - startTime
+    AgencyCostings:
+      example:
+        dutyId: dutyId
+        results:
+        - cost: 125
+          agencyId: agencyId
+          agencyName: agencyName
+        - cost: 125
+          agencyId: agencyId
+          agencyName: agencyName
+      properties:
+        dutyId:
+          description: The ID of the incoming duty.
+          type: string
+        results:
+          items:
+            $ref: '#/components/schemas/AgencyCosting'
+          type: array
+    AgencyCosting:
+      example:
+        cost: 125
+        agencyId: agencyId
+        agencyName: agencyName
+      properties:
+        agencyId:
+          type: string
+        agencyName:
+          type: string
+        cost:
+          example: 125
+          type: number
+    WorkerOffer:
+      properties:
+        id:
+          description: Unique identifier for this offer.
+          type: string
+        bookingRequestId:
+          description: The underlying booking request for this offer.
+          type: string
+        worker:
+          $ref: '#/components/schemas/Person'
+        agency:
+          $ref: '#/components/schemas/Agency'
+        qualificationStatus:
+          description: |
+            Qualification Status:
+             * `qualified` - Worker has passed all trust-defined checks, and may be considered valid to book.
+             * `unqualified` - Worker has not passed some, or all of the trust-defined checks. These should be performed before progressing to booking the worker.
+          enum:
+          - qualified
+          - unqualified
+          format: enum
+          type: string
+      required:
+      - agency
+      - qualificationStatus
+      - worker
+    Link:
+      example:
+        rel: rel
+        href: http://example.com/aeiou
+      properties:
+        rel:
+          description: identifier for the type of link
+          type: string
+        href:
+          description: URL to resolve this link
+          format: url
+          type: string
+    WorkerOfferedEvent:
+      properties:
+        objectType:
+          type: string
+        bookingRequestId:
+          description: The ID of the booking request
+          type: string
+        agency:
+          $ref: '#/components/schemas/Agency'
+      required:
+      - objectType
+      type: object
+    BookingConfirmedEvent:
+      properties:
+        bookingRequestId:
+          type: string
+        bookingId:
+          type: string
+        agencyId:
+          type: string
+        cost:
+          example: 123.45
+          type: number
+      required:
+      - agencyId
+      - bookingId
+      - bookingRequestId
+      type: object
+    BookingCancelledEvent:
+      properties:
+        bookingRequestId:
+          type: string
+        bookingId:
+          type: string
+        agencyId:
+          type: string
+        cost:
+          example: 123.45
+          type: number
+      required:
+      - agencyId
+      - bookingId
+      - bookingRequestId
+      type: object
+  securitySchemes:
+    bearerAuth:
+      bearerFormat: jwt
+      scheme: bearer
+      type: http
+      x-bearerInfoFunc: api_server.controllers.security_controller_.info_from_bearerAuth

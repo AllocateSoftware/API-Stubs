@@ -1,0 +1,1331 @@
+openapi: 3.0.2
+info:
+  contact:
+    email: support@allocatesoftware.com
+    name: API support
+    url: http://www.allocatesoftware.com/
+  description: |
+    ## Workers and events
+  title: Workers
+  version: 1.0.0
+  x-logo:
+    url: http://www.allocatesoftware.com/wp-content/uploads/sites/31/2017/08/Allocate_logo_digital_Horizontal_RGB_retina.png
+    backgroundColor: '#FFFFc0'
+    altText: Allocate Software
+servers:
+- url: http://healthsuite.allocatesoftware.com/api/worker/v1
+tags:
+- name: Workers
+- name: Annual Leave Claims
+- name: Worker Data
+paths:
+  /workers:
+    post:
+      description: Provide worker details for inclusion into the Allocate ecosystem.
+        The platform will accept the worker information, and respond either synchronously
+        or asynchronously with the allocate worker identifier. This may entail an
+        on-boarding process, so the final response may require human interaction before
+        it can be completed.
+      operationId: registerWorker
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+        description: Worker information
+        required: true
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkerRegistrationResponse'
+          description: The worker has been registered successfully
+        400:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: One or more errors have occurred when attempting to process
+            the provided data
+        202:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncResponse'
+          description: The worker data has been accepted, and will be processed in
+            due course.
+      tags:
+      - Workers
+      - Worker Data
+  /worker/{id}/leave:
+    post:
+      description: Submit an leave (vacation) claim for a worker
+      operationId: submitAnnualLeaveClaim
+      parameters:
+      - description: ID of the worker
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LeaveClaim'
+        description: Leave claim for a worker
+        required: true
+      responses:
+        202:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncResponse'
+          description: The worker data has been accepted, and will be processed in
+            due course.
+      tags:
+      - Workers
+      - Annual Leave Claims
+components:
+  schemas:
+    ContactDetailsUpdatedEvent:
+      properties:
+        personId:
+          description: ASWid of the person
+          type: string
+        contactInformation:
+          additionalProperties:
+            $ref: '#/components/schemas/ContactInformation'
+          type: object
+      required:
+      - contactInformation
+      - personId
+      type: object
+    ContactLogEvent:
+      description: Denote a contact with a worker
+      properties:
+        personId:
+          description: ASWid of the person
+          type: string
+        contactLogInformation:
+          additionalProperties:
+            $ref: '#/components/schemas/ContactLogInformation'
+          type: object
+      required:
+      - contactLogInformation
+      - personId
+      type: object
+    WorkerPerformanceEvent:
+      properties:
+        worker:
+          $ref: '#/components/schemas/WorkerPerformanceEvent_worker'
+        dutyDetails:
+          $ref: '#/components/schemas/WorkerPerformanceEvent_dutyDetails'
+        evaluation:
+          $ref: '#/components/schemas/WorkerPerformanceEvent_evaluation'
+      type: object
+    AsyncResponse:
+      example:
+        id: id
+      properties:
+        id:
+          description: Correlation Identifier so a future AsyncData object can be
+            related to the inbound call.
+          type: string
+      required:
+      - id
+      type: object
+    ErrorResponse:
+      properties:
+        id:
+          description: Optional identifier for this reponse (for correlation with
+            logging)
+          type: string
+        code:
+          description: Optional error code identifying this particular error
+          type: string
+        description:
+          description: Description of this error.
+          type: string
+        items:
+          description: List of child errors
+          items:
+            $ref: '#/components/schemas/ErrorResponse'
+          type: array
+      required:
+      - description
+      type: object
+    WorkerRegistrationResponse:
+      example:
+        personId: personId
+      properties:
+        personId:
+          description: ASWid of the person
+          type: string
+      required:
+      - personId
+      type: object
+    LeaveClaim:
+      example:
+        reason: annualLeave
+        when:
+          from: 2000-01-23
+          to: 2000-01-23
+      properties:
+        when:
+          $ref: '#/components/schemas/LeaveClaim_when'
+        reason:
+          description: The reason for the leave claim
+          enum:
+          - annualLeave
+          type: string
+    ContactLogInformation:
+      properties:
+        type:
+          enum:
+          - telephone
+          - email
+          - IM
+          - faceToFace
+          type: string
+        when:
+          format: date-time
+          type: string
+        who:
+          additionalProperties:
+            $ref: '#/components/schemas/Identifier'
+          type: object
+        details:
+          $ref: '#/components/schemas/ContactLogInformation_details'
+      required:
+      - type
+      type: object
+    ContactInformation:
+      properties:
+        type:
+          enum:
+          - email
+          - telephone
+          - mobile
+          type: string
+        value:
+          type: string
+      type: object
+    Identifier:
+      properties:
+        namespace:
+          description: Namespace for this identifier.
+          example: NHSP
+          type: string
+        id:
+          example: ABCD1234
+          type: string
+      type: object
+    WorkLocations:
+      example:
+        homeTrust: homeTrust
+        workingTrusts:
+        - workingTrusts
+        - workingTrusts
+      properties:
+        homeTrust:
+          description: The identifier for the home trust for this worker
+          type: string
+        workingTrusts:
+          description: Identifiers for the trusts that the worker may work in (in
+            addition to their home trust)
+          items:
+            type: string
+          type: array
+      required:
+      - homeTrust
+      type: object
+    Person:
+      example:
+        personalInfo:
+          additionalID: additionalID
+          placeOfBirth: placeOfBirth
+          nationality: nationality
+          visaRequired: visaRequired
+          disability: disability
+          maidenName: maidenName
+          ethnicOrigin: ethnicOrigin
+          disabledNo: disabledNo
+          maritalStatus: maritalStatus
+        workLocations:
+          homeTrust: homeTrust
+          workingTrusts:
+          - workingTrusts
+          - workingTrusts
+        visas:
+        - number: number
+          country: country
+          entries: entries
+          issuingOffice: issuingOffice
+          validity:
+            from: 2000-01-23
+            to: 2000-01-23
+          type: type
+        - number: number
+          country: country
+          entries: entries
+          issuingOffice: issuingOffice
+          validity:
+            from: 2000-01-23
+            to: 2000-01-23
+          type: type
+        availabilities:
+          Availability:
+          - date: 2000-01-23
+            availabilityType: availabilityType
+            notes: notes
+            numberOfOccurrences: 1.4658129805029452
+            start: start
+            end: end
+          - date: 2000-01-23
+            availabilityType: availabilityType
+            notes: notes
+            numberOfOccurrences: 1.4658129805029452
+            start: start
+            end: end
+          NoBank:
+          - notes: notes
+            start: start
+            numberOfOccurances: 5.962133916683182
+          - notes: notes
+            start: start
+            numberOfOccurances: 5.962133916683182
+        employmentDetails:
+          employeeType: employeeType
+          dateJoinedNHS: 2000-01-23
+          hireDetails: hireDetails
+          agencies: agencies
+          employmentStatus: employmentStatus
+          prevEmployer: prevEmployer
+          alAccrualPlan: alAccrualPlan
+        personalPattern:
+          duty:
+          - activityCategory: activityCategory
+            monthlyReccurrance: true
+            activityBenchmark: activityBenchmark
+            work: work
+            shift: shift
+            start: start
+            end: end
+            team: team
+            activityType: activityType
+            rosterLocation: rosterLocation
+            shiftGroup: shiftGroup
+            activityProfile: activityProfile
+          - activityCategory: activityCategory
+            monthlyReccurrance: true
+            activityBenchmark: activityBenchmark
+            work: work
+            shift: shift
+            start: start
+            end: end
+            team: team
+            activityType: activityType
+            rosterLocation: rosterLocation
+            shiftGroup: shiftGroup
+            activityProfile: activityProfile
+          unavailability:
+          - unavailabilityGroup: unavailabilityGroup
+            unavailabilityReason: unavailabilityReason
+            work: work
+            start: start
+            externalUnavailabilityIdentifier: externalUnavailabilityIdentifier
+            end: end
+          - unavailabilityGroup: unavailabilityGroup
+            unavailabilityReason: unavailabilityReason
+            work: work
+            start: start
+            externalUnavailabilityIdentifier: externalUnavailabilityIdentifier
+            end: end
+        contracts:
+        - wtdOptOut: true
+          salaryAmount: 0.8008281904610115
+          staffGroup: staffGroup
+          contractType: contractType
+          salaryFrequency: salaryFrequency
+          grade: grade
+          contract: contract
+          contractedTime: contractedTime
+          defaultUnavailabilityHours: defaultUnavailabilityHours
+          payscale: payscale
+        - wtdOptOut: true
+          salaryAmount: 0.8008281904610115
+          staffGroup: staffGroup
+          contractType: contractType
+          salaryFrequency: salaryFrequency
+          grade: grade
+          contract: contract
+          contractedTime: contractedTime
+          defaultUnavailabilityHours: defaultUnavailabilityHours
+          payscale: payscale
+        skills:
+        - skillGroup: skillGroup
+          dateGained: 2000-01-23
+          cluster: cluster
+          notes: notes
+          obtainedFromReason: obtainedFromReason
+          certificateNumber: certificateNumber
+          skill: skill
+          validity:
+            from: 2000-01-23
+            to: 2000-01-23
+        - skillGroup: skillGroup
+          dateGained: 2000-01-23
+          cluster: cluster
+          notes: notes
+          obtainedFromReason: obtainedFromReason
+          certificateNumber: certificateNumber
+          skill: skill
+          validity:
+            from: 2000-01-23
+            to: 2000-01-23
+        specialties:
+        - notes: notes
+          validity:
+            from: 2000-01-23
+            to: 2000-01-23
+          tempStaffSpeciality: tempStaffSpeciality
+        - notes: notes
+          validity:
+            from: 2000-01-23
+            to: 2000-01-23
+          tempStaffSpeciality: tempStaffSpeciality
+        identification:
+          middleInitials: middleInitials
+          gender: male
+          surname: surname
+          knownAs: knownAs
+          dateOfBirth: 2000-01-23
+          staffNumber: staffNumber
+          title: title
+          forenames: forenames
+          ssn: ssn
+        workingRestrictions:
+        - hoursOfWork:
+            thu:
+              from: 07:00
+              to: 17:30
+            tue:
+              from: 07:00
+              to: 17:30
+            wed:
+              from: 07:00
+              to: 17:30
+            sat:
+              from: 07:00
+              to: 17:30
+            fri:
+              from: 07:00
+              to: 17:30
+            mon:
+              from: 07:00
+              to: 17:30
+            sun:
+              from: 07:00
+              to: 17:30
+          restrictions:
+            maxConsecutiveDaysRequested: maxConsecutiveDaysRequested
+            maxOvertimePerWeek: maxOvertimePerWeek
+            minBreakBetweenShifts: 6.027456183070403
+            notes: notes
+            wtdWeekTimeStart: wtdWeekTimeStart
+            additionalHoursPerWeek: additionalHoursPerWeek
+            maxConsecutiveDays: maxConsecutiveDays
+            maxOvertimePerDay: maxOvertimePerDay
+            wtdWeekDayStart: wtdWeekDayStart
+            maxShiftsPerWeek: maxShiftsPerWeek
+            wtdDayStart: wtdDayStart
+            maxDurationPerShift: maxDurationPerShift
+            maxOvertimePerCalendarMonth: maxOvertimePerCalendarMonth
+            effectiveFrom: effectiveFrom
+            maxWorkTimePerDay: maxWorkTimePerDay
+            daysPerWeek: daysPerWeek
+            maxDaysPerWeek: maxDaysPerWeek
+          validity:
+            from: 2000-01-23
+            to: 2000-01-23
+          title: title
+          defaultLeaveHours:
+            fridayTime: fridayTime
+            useWorkingDay: useWorkingDay
+            tuesdayTime: tuesdayTime
+            mondayTime: mondayTime
+            sundayTime: sundayTime
+            saturdayTime: saturdayTime
+            wednesdayTime: wednesdayTime
+        - hoursOfWork:
+            thu:
+              from: 07:00
+              to: 17:30
+            tue:
+              from: 07:00
+              to: 17:30
+            wed:
+              from: 07:00
+              to: 17:30
+            sat:
+              from: 07:00
+              to: 17:30
+            fri:
+              from: 07:00
+              to: 17:30
+            mon:
+              from: 07:00
+              to: 17:30
+            sun:
+              from: 07:00
+              to: 17:30
+          restrictions:
+            maxConsecutiveDaysRequested: maxConsecutiveDaysRequested
+            maxOvertimePerWeek: maxOvertimePerWeek
+            minBreakBetweenShifts: 6.027456183070403
+            notes: notes
+            wtdWeekTimeStart: wtdWeekTimeStart
+            additionalHoursPerWeek: additionalHoursPerWeek
+            maxConsecutiveDays: maxConsecutiveDays
+            maxOvertimePerDay: maxOvertimePerDay
+            wtdWeekDayStart: wtdWeekDayStart
+            maxShiftsPerWeek: maxShiftsPerWeek
+            wtdDayStart: wtdDayStart
+            maxDurationPerShift: maxDurationPerShift
+            maxOvertimePerCalendarMonth: maxOvertimePerCalendarMonth
+            effectiveFrom: effectiveFrom
+            maxWorkTimePerDay: maxWorkTimePerDay
+            daysPerWeek: daysPerWeek
+            maxDaysPerWeek: maxDaysPerWeek
+          validity:
+            from: 2000-01-23
+            to: 2000-01-23
+          title: title
+          defaultLeaveHours:
+            fridayTime: fridayTime
+            useWorkingDay: useWorkingDay
+            tuesdayTime: tuesdayTime
+            mondayTime: mondayTime
+            sundayTime: sundayTime
+            saturdayTime: saturdayTime
+            wednesdayTime: wednesdayTime
+        postings:
+        - unit: unit
+          post: post
+          isPrimary: true
+          assignmentNo: assignmentNo
+          team: team
+          postingType: postingType
+        - unit: unit
+          post: post
+          isPrimary: true
+          assignmentNo: assignmentNo
+          team: team
+          postingType: postingType
+        attributes:
+        - name: name
+          validity:
+            from: 2000-01-23
+            to: 2000-01-23
+          value: value
+        - name: name
+          validity:
+            from: 2000-01-23
+            to: 2000-01-23
+          value: value
+      properties:
+        identification:
+          $ref: '#/components/schemas/Identification'
+        personalInfo:
+          $ref: '#/components/schemas/PersonalInfo'
+        employmentDetails:
+          $ref: '#/components/schemas/EmploymentDetails'
+        workLocations:
+          $ref: '#/components/schemas/WorkLocations'
+        postings:
+          items:
+            $ref: '#/components/schemas/Posting'
+          type: array
+        contracts:
+          items:
+            $ref: '#/components/schemas/Contract'
+          type: array
+        skills:
+          items:
+            $ref: '#/components/schemas/Skill'
+          type: array
+        specialties:
+          items:
+            $ref: '#/components/schemas/Specialty'
+          type: array
+        attributes:
+          items:
+            $ref: '#/components/schemas/Attribute'
+          type: array
+        visas:
+          items:
+            $ref: '#/components/schemas/Visa'
+          type: array
+        workingRestrictions:
+          items:
+            $ref: '#/components/schemas/WorkingRestriction'
+          type: array
+        availabilities:
+          $ref: '#/components/schemas/Availabilities'
+        personalPattern:
+          $ref: '#/components/schemas/PersonalPattern'
+      type: object
+    Identification:
+      example:
+        middleInitials: middleInitials
+        gender: male
+        surname: surname
+        knownAs: knownAs
+        dateOfBirth: 2000-01-23
+        staffNumber: staffNumber
+        title: title
+        forenames: forenames
+        ssn: ssn
+      properties:
+        staffNumber:
+          description: Unique and unchanging staff number to use as the constant reference
+            for a Person
+          type: string
+        title:
+          description: This value is subject to mapping in the Gateway. If unavailable,
+            provide a constant value e.g. UNKNOWN, which can be mapped to an empty
+            value in HealthRoster Optima
+          type: string
+        forenames:
+          type: string
+        surname:
+          type: string
+        middleInitials:
+          type: string
+        knownAs:
+          type: string
+        gender:
+          enum:
+          - male
+          - female
+          - other
+          type: string
+        dateOfBirth:
+          format: date
+          type: string
+        ssn:
+          description: National Insurance \ Social Security Number.
+          type: string
+      required:
+      - dateOfBirth
+      - forenames
+      - staffNumber
+      - surname
+      type: object
+    DateSpan:
+      example:
+        from: 2000-01-23
+        to: 2000-01-23
+      properties:
+        from:
+          description: When the span starts
+          format: date
+          type: string
+        to:
+          description: When the span ends
+          format: date
+          type: string
+      type: object
+    TimeSpan:
+      example:
+        from: 07:00
+        to: 17:30
+      properties:
+        from:
+          description: Time from, 24hr format
+          example: 07:00
+          pattern: ^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$
+          type: string
+        to:
+          description: Time from, 24hr format
+          example: 17:30
+          pattern: ^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$
+          type: string
+      type: object
+    PersonalInfo:
+      example:
+        additionalID: additionalID
+        placeOfBirth: placeOfBirth
+        nationality: nationality
+        visaRequired: visaRequired
+        disability: disability
+        maidenName: maidenName
+        ethnicOrigin: ethnicOrigin
+        disabledNo: disabledNo
+        maritalStatus: maritalStatus
+      properties:
+        maidenName:
+          type: string
+        maritalStatus:
+          type: string
+        additionalID:
+          type: string
+        placeOfBirth:
+          type: string
+        nationality:
+          type: string
+        ethnicOrigin:
+          type: string
+        visaRequired:
+          type: string
+        disabledNo:
+          type: string
+        disability:
+          type: string
+      type: object
+    EmploymentDetails:
+      example:
+        employeeType: employeeType
+        dateJoinedNHS: 2000-01-23
+        hireDetails: hireDetails
+        agencies: agencies
+        employmentStatus: employmentStatus
+        prevEmployer: prevEmployer
+        alAccrualPlan: alAccrualPlan
+      properties:
+        employmentStatus:
+          type: string
+        employeeType:
+          type: string
+        hireDetails:
+          type: string
+        dateJoinedNHS:
+          format: date
+          type: string
+        alAccrualPlan:
+          type: string
+        prevEmployer:
+          type: string
+        agencies:
+          type: string
+      required:
+      - hireDetails
+      type: object
+    Posting:
+      example:
+        unit: unit
+        post: post
+        isPrimary: true
+        assignmentNo: assignmentNo
+        team: team
+        postingType: postingType
+      properties:
+        unit:
+          type: string
+        post:
+          type: string
+        postingType:
+          type: string
+        assignmentNo:
+          type: string
+        team:
+          type: string
+        isPrimary:
+          type: boolean
+      required:
+      - assignmentNo
+      - isPrimary
+      - unit
+      type: object
+    Contract:
+      example:
+        wtdOptOut: true
+        salaryAmount: 0.8008281904610115
+        staffGroup: staffGroup
+        contractType: contractType
+        salaryFrequency: salaryFrequency
+        grade: grade
+        contract: contract
+        contractedTime: contractedTime
+        defaultUnavailabilityHours: defaultUnavailabilityHours
+        payscale: payscale
+      properties:
+        staffGroup:
+          type: string
+        grade:
+          type: string
+        contract:
+          type: string
+        payscale:
+          type: string
+        contractType:
+          type: string
+        contractedTime:
+          type: string
+        defaultUnavailabilityHours:
+          type: string
+        wtdOptOut:
+          type: boolean
+        salaryFrequency:
+          type: string
+        salaryAmount:
+          type: number
+      required:
+      - contract
+      - contractedTime
+      - grade
+      type: object
+    Skill:
+      example:
+        skillGroup: skillGroup
+        dateGained: 2000-01-23
+        cluster: cluster
+        notes: notes
+        obtainedFromReason: obtainedFromReason
+        certificateNumber: certificateNumber
+        skill: skill
+        validity:
+          from: 2000-01-23
+          to: 2000-01-23
+      properties:
+        skillGroup:
+          type: string
+        cluster:
+          type: string
+        skill:
+          type: string
+        validity:
+          $ref: '#/components/schemas/DateSpan'
+        dateGained:
+          format: date
+          type: string
+        obtainedFromReason:
+          type: string
+        certificateNumber:
+          type: string
+        notes:
+          type: string
+      required:
+      - validity
+      type: object
+    Specialty:
+      example:
+        notes: notes
+        validity:
+          from: 2000-01-23
+          to: 2000-01-23
+        tempStaffSpeciality: tempStaffSpeciality
+      properties:
+        tempStaffSpeciality:
+          type: string
+        validity:
+          $ref: '#/components/schemas/DateSpan'
+        notes:
+          type: string
+      required:
+      - validity
+      type: object
+    Attribute:
+      example:
+        name: name
+        validity:
+          from: 2000-01-23
+          to: 2000-01-23
+        value: value
+      properties:
+        name:
+          type: string
+        validity:
+          $ref: '#/components/schemas/DateSpan'
+        value:
+          type: string
+      required:
+      - name
+      - validity
+      - value
+      type: object
+    Visa:
+      example:
+        number: number
+        country: country
+        entries: entries
+        issuingOffice: issuingOffice
+        validity:
+          from: 2000-01-23
+          to: 2000-01-23
+        type: type
+      properties:
+        number:
+          type: string
+        country:
+          type: string
+        issuingOffice:
+          type: string
+        type:
+          type: string
+        entries:
+          type: string
+        validity:
+          $ref: '#/components/schemas/DateSpan'
+      required:
+      - validity
+      type: object
+    WorkingRestriction:
+      example:
+        hoursOfWork:
+          thu:
+            from: 07:00
+            to: 17:30
+          tue:
+            from: 07:00
+            to: 17:30
+          wed:
+            from: 07:00
+            to: 17:30
+          sat:
+            from: 07:00
+            to: 17:30
+          fri:
+            from: 07:00
+            to: 17:30
+          mon:
+            from: 07:00
+            to: 17:30
+          sun:
+            from: 07:00
+            to: 17:30
+        restrictions:
+          maxConsecutiveDaysRequested: maxConsecutiveDaysRequested
+          maxOvertimePerWeek: maxOvertimePerWeek
+          minBreakBetweenShifts: 6.027456183070403
+          notes: notes
+          wtdWeekTimeStart: wtdWeekTimeStart
+          additionalHoursPerWeek: additionalHoursPerWeek
+          maxConsecutiveDays: maxConsecutiveDays
+          maxOvertimePerDay: maxOvertimePerDay
+          wtdWeekDayStart: wtdWeekDayStart
+          maxShiftsPerWeek: maxShiftsPerWeek
+          wtdDayStart: wtdDayStart
+          maxDurationPerShift: maxDurationPerShift
+          maxOvertimePerCalendarMonth: maxOvertimePerCalendarMonth
+          effectiveFrom: effectiveFrom
+          maxWorkTimePerDay: maxWorkTimePerDay
+          daysPerWeek: daysPerWeek
+          maxDaysPerWeek: maxDaysPerWeek
+        validity:
+          from: 2000-01-23
+          to: 2000-01-23
+        title: title
+        defaultLeaveHours:
+          fridayTime: fridayTime
+          useWorkingDay: useWorkingDay
+          tuesdayTime: tuesdayTime
+          mondayTime: mondayTime
+          sundayTime: sundayTime
+          saturdayTime: saturdayTime
+          wednesdayTime: wednesdayTime
+      properties:
+        title:
+          type: string
+        validity:
+          $ref: '#/components/schemas/DateSpan'
+        hoursOfWork:
+          $ref: '#/components/schemas/WorkingRestriction_hoursOfWork'
+        defaultLeaveHours:
+          $ref: '#/components/schemas/WorkingRestriction_defaultLeaveHours'
+        restrictions:
+          $ref: '#/components/schemas/WorkingRestriction_restrictions'
+      required:
+      - defaultLeaveHours
+      - hoursOfWork
+      - restrictions
+      - title
+      - validity
+      type: object
+    Availabilities:
+      example:
+        Availability:
+        - date: 2000-01-23
+          availabilityType: availabilityType
+          notes: notes
+          numberOfOccurrences: 1.4658129805029452
+          start: start
+          end: end
+        - date: 2000-01-23
+          availabilityType: availabilityType
+          notes: notes
+          numberOfOccurrences: 1.4658129805029452
+          start: start
+          end: end
+        NoBank:
+        - notes: notes
+          start: start
+          numberOfOccurances: 5.962133916683182
+        - notes: notes
+          start: start
+          numberOfOccurances: 5.962133916683182
+      properties:
+        Availability:
+          items:
+            $ref: '#/components/schemas/Availabilities_Availability'
+          type: array
+        NoBank:
+          items:
+            $ref: '#/components/schemas/Availabilities_NoBank'
+          type: array
+      required:
+      - Availability
+      - NoBank
+      type: object
+    PersonalPattern:
+      example:
+        duty:
+        - activityCategory: activityCategory
+          monthlyReccurrance: true
+          activityBenchmark: activityBenchmark
+          work: work
+          shift: shift
+          start: start
+          end: end
+          team: team
+          activityType: activityType
+          rosterLocation: rosterLocation
+          shiftGroup: shiftGroup
+          activityProfile: activityProfile
+        - activityCategory: activityCategory
+          monthlyReccurrance: true
+          activityBenchmark: activityBenchmark
+          work: work
+          shift: shift
+          start: start
+          end: end
+          team: team
+          activityType: activityType
+          rosterLocation: rosterLocation
+          shiftGroup: shiftGroup
+          activityProfile: activityProfile
+        unavailability:
+        - unavailabilityGroup: unavailabilityGroup
+          unavailabilityReason: unavailabilityReason
+          work: work
+          start: start
+          externalUnavailabilityIdentifier: externalUnavailabilityIdentifier
+          end: end
+        - unavailabilityGroup: unavailabilityGroup
+          unavailabilityReason: unavailabilityReason
+          work: work
+          start: start
+          externalUnavailabilityIdentifier: externalUnavailabilityIdentifier
+          end: end
+      properties:
+        duty:
+          items:
+            $ref: '#/components/schemas/PersonalPattern_duty'
+          type: array
+        unavailability:
+          items:
+            $ref: '#/components/schemas/PersonalPattern_unavailability'
+          type: array
+      required:
+      - Duty
+      - Unavailability
+      type: object
+    WorkerPerformanceEvent_worker:
+      properties:
+        name:
+          description: Simple name for the worker
+          example: Fred Bloggs
+          type: string
+        identities:
+          description: |
+            Collection of identifiers of the worker. There may be several unique
+            identifiers for a worker within HealthSuite, and identifiers used for
+            interactions with 3rd party systems (I.E: their identifiers).
+          items:
+            $ref: '#/components/schemas/Identifier'
+          type: array
+    WorkerPerformanceEvent_dutyDetails:
+      properties:
+        dutyId:
+          description: ID of the duty within the allocate system
+          type: string
+        from:
+          description: When the duty started
+          format: date-time
+          type: string
+        to:
+          description: When the duty ended
+          format: date-time
+          type: string
+    WorkerPerformanceEvent_evaluation_evaluator:
+      properties:
+        name:
+          type: string
+        identities:
+          items:
+            $ref: '#/components/schemas/Identifier'
+          type: array
+    WorkerPerformanceEvent_evaluation_quesions:
+      properties:
+        question:
+          type: string
+        answer:
+          type: string
+    WorkerPerformanceEvent_evaluation:
+      properties:
+        evaluator:
+          $ref: '#/components/schemas/WorkerPerformanceEvent_evaluation_evaluator'
+        score:
+          description: Score out of 10
+          maximum: 10
+          minimum: 0
+          type: number
+        comment:
+          description: Free text comment
+          type: string
+        quesions:
+          description: List of questions and answers froman evaluator
+          items:
+            $ref: '#/components/schemas/WorkerPerformanceEvent_evaluation_quesions'
+          type: array
+    LeaveClaim_when:
+      example:
+        from: 2000-01-23
+        to: 2000-01-23
+      properties:
+        from:
+          description: 1st day (inclusive) of leave claim
+          format: date
+          type: string
+        to:
+          description: Last day (inclusive) of leave claim
+          format: date
+          type: string
+    ContactLogInformation_details:
+      properties:
+        successful:
+          description: |
+            Was this contact successful? (e.g: Call was answered)
+          type: boolean
+        notes:
+          description: Notes on the contact
+          type: string
+    WorkingRestriction_hoursOfWork:
+      example:
+        thu:
+          from: 07:00
+          to: 17:30
+        tue:
+          from: 07:00
+          to: 17:30
+        wed:
+          from: 07:00
+          to: 17:30
+        sat:
+          from: 07:00
+          to: 17:30
+        fri:
+          from: 07:00
+          to: 17:30
+        mon:
+          from: 07:00
+          to: 17:30
+        sun:
+          from: 07:00
+          to: 17:30
+      properties:
+        mon:
+          $ref: '#/components/schemas/TimeSpan'
+        tue:
+          $ref: '#/components/schemas/TimeSpan'
+        wed:
+          $ref: '#/components/schemas/TimeSpan'
+        thu:
+          $ref: '#/components/schemas/TimeSpan'
+        fri:
+          $ref: '#/components/schemas/TimeSpan'
+        sat:
+          $ref: '#/components/schemas/TimeSpan'
+        sun:
+          $ref: '#/components/schemas/TimeSpan'
+    WorkingRestriction_defaultLeaveHours:
+      example:
+        fridayTime: fridayTime
+        useWorkingDay: useWorkingDay
+        tuesdayTime: tuesdayTime
+        mondayTime: mondayTime
+        sundayTime: sundayTime
+        saturdayTime: saturdayTime
+        wednesdayTime: wednesdayTime
+      properties:
+        useWorkingDay:
+          type: string
+        mondayTime:
+          type: string
+        tuesdayTime:
+          type: string
+        wednesdayTime:
+          type: string
+        fridayTime:
+          type: string
+        saturdayTime:
+          type: string
+        sundayTime:
+          type: string
+    WorkingRestriction_restrictions:
+      example:
+        maxConsecutiveDaysRequested: maxConsecutiveDaysRequested
+        maxOvertimePerWeek: maxOvertimePerWeek
+        minBreakBetweenShifts: 6.027456183070403
+        notes: notes
+        wtdWeekTimeStart: wtdWeekTimeStart
+        additionalHoursPerWeek: additionalHoursPerWeek
+        maxConsecutiveDays: maxConsecutiveDays
+        maxOvertimePerDay: maxOvertimePerDay
+        wtdWeekDayStart: wtdWeekDayStart
+        maxShiftsPerWeek: maxShiftsPerWeek
+        wtdDayStart: wtdDayStart
+        maxDurationPerShift: maxDurationPerShift
+        maxOvertimePerCalendarMonth: maxOvertimePerCalendarMonth
+        effectiveFrom: effectiveFrom
+        maxWorkTimePerDay: maxWorkTimePerDay
+        daysPerWeek: daysPerWeek
+        maxDaysPerWeek: maxDaysPerWeek
+      properties:
+        effectiveFrom:
+          type: string
+        daysPerWeek:
+          type: string
+        maxDaysPerWeek:
+          type: string
+        maxShiftsPerWeek:
+          type: string
+        maxConsecutiveDays:
+          type: string
+        maxConsecutiveDaysRequested:
+          type: string
+        maxWorkTimePerDay:
+          type: string
+        maxDurationPerShift:
+          type: string
+        additionalHoursPerWeek:
+          type: string
+        maxOvertimePerDay:
+          type: string
+        maxOvertimePerWeek:
+          type: string
+        maxOvertimePerCalendarMonth:
+          type: string
+        wtdDayStart:
+          type: string
+        wtdWeekDayStart:
+          type: string
+        wtdWeekTimeStart:
+          type: string
+        minBreakBetweenShifts:
+          type: number
+        notes:
+          type: string
+    Availabilities_Availability:
+      example:
+        date: 2000-01-23
+        availabilityType: availabilityType
+        notes: notes
+        numberOfOccurrences: 1.4658129805029452
+        start: start
+        end: end
+      properties:
+        date:
+          format: date
+          type: string
+        availabilityType:
+          type: string
+        start:
+          type: string
+        end:
+          type: string
+        numberOfOccurrences:
+          type: number
+        notes:
+          type: string
+    Availabilities_NoBank:
+      example:
+        notes: notes
+        start: start
+        numberOfOccurances: 5.962133916683182
+      properties:
+        start:
+          type: string
+        numberOfOccurances:
+          type: number
+        notes:
+          type: string
+    PersonalPattern_duty:
+      example:
+        activityCategory: activityCategory
+        monthlyReccurrance: true
+        activityBenchmark: activityBenchmark
+        work: work
+        shift: shift
+        start: start
+        end: end
+        team: team
+        activityType: activityType
+        rosterLocation: rosterLocation
+        shiftGroup: shiftGroup
+        activityProfile: activityProfile
+      properties:
+        shiftGroup:
+          type: string
+        shift:
+          type: string
+        rosterLocation:
+          type: string
+        team:
+          type: string
+        activityCategory:
+          type: string
+        activityBenchmark:
+          type: string
+        activityType:
+          type: string
+        activityProfile:
+          type: string
+        work:
+          type: string
+        start:
+          type: string
+        end:
+          type: string
+        monthlyReccurrance:
+          type: boolean
+    PersonalPattern_unavailability:
+      example:
+        unavailabilityGroup: unavailabilityGroup
+        unavailabilityReason: unavailabilityReason
+        work: work
+        start: start
+        externalUnavailabilityIdentifier: externalUnavailabilityIdentifier
+        end: end
+      properties:
+        unavailabilityGroup:
+          type: string
+        unavailabilityReason:
+          type: string
+        work:
+          type: string
+        start:
+          type: string
+        end:
+          type: string
+        externalUnavailabilityIdentifier:
+          type: string
+      required:
+      - end
+      - externalUnavailabilityIdentifier
+      - start
+      - unavailabilityReason

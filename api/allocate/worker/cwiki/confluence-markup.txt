@@ -1,0 +1,470 @@
+h1. Worker API and Events
+
+     ## API and events for providing workers. 
+
+*Version:* 1.0.0
+
+----
+
+{expand:Table of Contents - Click to expand}
+{toc:printable=true|style=square|minLevel=2|maxLevel=3|type=list|outline=false|include=.*}
+{expand}
+
+h2. Endpoints
+
+
+h3. getWorker
+{panel:title=getWorker|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Retrieve worker details from the Allocate ecosystem using the Allocate Worker id. The Allocate Worker id will be issued when registering a worker.  
+
+	|| HttpMethod | {status:colour=Yellow|title=get|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/workers/{id}{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The ID of the worker |(/) |null |  |
+
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | Worker successfully found |
+    	|| Response Type | Person |
+    	|| Response Model | [Person Model|#PersonModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Worker successfully found",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Person"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=404|subtle=false} |
+    	|| Message | The worker was not found |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The worker was not found"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=403|subtle=false} |
+    	|| Message | Forbidden - you do not have the necessary permissions to undertake this action |
+    	|| Response Type | ErrorResponse |
+    	|| Response Model | [ErrorResponse Model|#ErrorResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Forbidden - you do not have the necessary permissions to undertake this action",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ErrorResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. registerWorker
+{panel:title=registerWorker|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* Provide worker details for inclusion into the Allocate ecosystem.  The platform will accept the worker information, and respond either synchronously or asynchronously with the allocate worker identifier.  This may entail an on-boarding process, so the final response may require human interaction before it can be completed.  Where there is a source system in common, such as HealthSuite and a Bank system both using ESR as a source of worker data, a person record containing an ESR trust-relative Staff Number is likely to be sufficient. 
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/workers{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |person |Worker information |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | The worker has been registered successfully |
+    	|| Response Type | WorkerRegistrationResponse |
+    	|| Response Model | [WorkerRegistrationResponse Model|#WorkerRegistrationResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The worker has been registered successfully",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/WorkerRegistrationResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | One or more errors have occurred when attempting to process the provided data |
+    	|| Response Type | ErrorResponse |
+    	|| Response Model | [ErrorResponse Model|#ErrorResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "One or more errors have occurred when attempting to process the provided data",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ErrorResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=403|subtle=false} |
+    	|| Message | Forbidden - you do not have the necessary permissions to undertake this action |
+    	|| Response Type | ErrorResponse |
+    	|| Response Model | [ErrorResponse Model|#ErrorResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Forbidden - you do not have the necessary permissions to undertake this action",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ErrorResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The worker data has been accepted, and will be processed in due course. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The worker data has been accepted, and will be processed in due course.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+
+h3. onboardWorkerToTrust
+{panel:title=onboardWorkerToTrust|borderStyle=solid|borderColor=#003b6f|titleBGColor=#003b6f|titleColor=#a6b8c7|bgColor=#ffffff}
+    
+    *Description:* On-board a worker to a particular trust. In scenarios where worker data is being provided by a 3rd party Human Resources (or equivalent) system, it may be necessary to &#39;on-board&#39; that worker into a particular trust so that they may be selected. Note that in external bank scenarios this is not required, since the trust on-boarding request is implicit within the worker offer.  
+
+	|| HttpMethod | {status:colour=Yellow|title=post|subtle=false} |
+    || Protocol | {noformat:nopanel=true}http{noformat} |
+    || Path | {noformat:nopanel=true}/workers/{id}/onboardToTrust{noformat} |
+    || Base Path | {noformat:nopanel=true}http://healthsuite.allocatesoftware.com/api/v1{noformat} |
+    || Produces | {noformat:nopanel=true}application/json{noformat} |
+----
+h4. Parameters
+h5. Path Parameters
+        ||Name||Description||Required||Default||Pattern||
+        |id |The Allocate Worker ID |(/) |null |  |
+
+
+h5. Body Parameter
+        ||Name||Description||Required||Default||Pattern||
+        |inlineObject | |(/) | |  |
+
+
+
+----
+h4. Responses
+
+    	|| Status Code | {status:colour=Green|title=200|subtle=false} |
+    	|| Message | The worker has been on-boarded successfully |
+    	|| Response Type |  |
+    	|| Response Model | [ Model|#ModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The worker has been on-boarded successfully"
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=400|subtle=false} |
+    	|| Message | One or more errors have occurred when attempting to process the provided data |
+    	|| Response Type | ErrorResponse |
+    	|| Response Model | [ErrorResponse Model|#ErrorResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "One or more errors have occurred when attempting to process the provided data",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ErrorResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=403|subtle=false} |
+    	|| Message | Forbidden - you do not have the necessary permissions to undertake this action |
+    	|| Response Type | ErrorResponse |
+    	|| Response Model | [ErrorResponse Model|#ErrorResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "Forbidden - you do not have the necessary permissions to undertake this action",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/ErrorResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+
+    	|| Status Code | {status:colour=Green|title=202|subtle=false} |
+    	|| Message | The request has been accepted, and will be processed in due course. |
+    	|| Response Type | AsyncResponse |
+    	|| Response Model | [AsyncResponse Model|#AsyncResponseModelAnchor|Jump to model] |
+    	|| Response Schema | {code:collapse=true}{
+  "description" : "The request has been accepted, and will be processed in due course.",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/AsyncResponse"
+      }
+    }
+  }
+}{code} |
+    	
+
+{panel}
+
+
+{anchor:models}
+h2. Models
+
+        {anchor:AsyncResponseModelAnchor}
+        h3. AsyncResponse
+        ||Field Name||Required||Type||Description||
+         |id |(/) |{noformat:nopanel=true}String{noformat} |Correlation Identifier |
+        {anchor:AttributeModelAnchor}
+        h3. Attribute
+        ||Field Name||Required||Type||Description||
+         |validity |(/) |{noformat:nopanel=true}DateSpan{noformat} | |
+ |name |(/) |{noformat:nopanel=true}String{noformat} | |
+ |value |(/) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:AvailabilitiesModelAnchor}
+        h3. Availabilities
+        ||Field Name||Required||Type||Description||
+         |Availability |(/) |{noformat:nopanel=true}array[Object]{noformat} | |
+ |NoBank |(/) |{noformat:nopanel=true}array[Object]{noformat} | |
+        {anchor:ContractModelAnchor}
+        h3. Contract
+        ||Field Name||Required||Type||Description||
+         |staffGroup |(x) |{noformat:nopanel=true}String{noformat} | |
+ |grade |(/) |{noformat:nopanel=true}String{noformat} | |
+ |contract |(/) |{noformat:nopanel=true}String{noformat} | |
+ |payscale |(x) |{noformat:nopanel=true}String{noformat} | |
+ |contractType |(x) |{noformat:nopanel=true}String{noformat} | |
+ |contractedTime |(/) |{noformat:nopanel=true}String{noformat} | |
+ |defaultUnavailabilityHours |(x) |{noformat:nopanel=true}String{noformat} | |
+ |wtdOptOut |(x) |{noformat:nopanel=true}Boolean{noformat} | |
+ |salaryFrequency |(x) |{noformat:nopanel=true}String{noformat} | |
+ |salaryAmount |(x) |{noformat:nopanel=true}BigDecimal{noformat} | |
+        {anchor:DateSpanModelAnchor}
+        h3. DateSpan
+        ||Field Name||Required||Type||Description||
+         |from |(/) |{noformat:nopanel=true}Date{noformat} |When the span starts |
+ |to |(x) |{noformat:nopanel=true}Date{noformat} |When the span ends |
+        {anchor:EmploymentDetailsModelAnchor}
+        h3. EmploymentDetails
+        ||Field Name||Required||Type||Description||
+         |employmentStatus |(x) |{noformat:nopanel=true}String{noformat} | |
+ |employeeType |(x) |{noformat:nopanel=true}String{noformat} | |
+ |hireDetails |(/) |{noformat:nopanel=true}String{noformat} | |
+ |dateJoinedNHS |(x) |{noformat:nopanel=true}String{noformat} | |
+ |alAccrualPlan |(x) |{noformat:nopanel=true}String{noformat} | |
+ |prevEmployer |(x) |{noformat:nopanel=true}String{noformat} | |
+ |agencies |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:ErrorResponseModelAnchor}
+        h3. ErrorResponse
+        ||Field Name||Required||Type||Description||
+         |id |(x) |{noformat:nopanel=true}String{noformat} |Optional identifier for this reponse (for matching with logging) |
+ |code |(x) |{noformat:nopanel=true}String{noformat} |Optional error code identifying this particular error |
+ |description |(/) |{noformat:nopanel=true}String{noformat} |Optional error code identifying this particular error |
+ |items |(x) |{noformat:nopanel=true}array[ErrorResponse]{noformat} |List of child errors |
+        {anchor:IdentificationModelAnchor}
+        h3. Identification
+        ||Field Name||Required||Type||Description||
+         |title |(x) |{noformat:nopanel=true}String{noformat} | |
+ |forenames |(/) |{noformat:nopanel=true}array[Object]{noformat} |List of forenames for the person |
+ |surname |(/) |{noformat:nopanel=true}String{noformat} |Surname for the person |
+ |middleInitials |(x) |{noformat:nopanel=true}String{noformat} |Any middle initials |
+ |knownAs |(x) |{noformat:nopanel=true}String{noformat} |Any preferred name |
+ |gender |(x) |{noformat:nopanel=true}String{noformat} |Gender if known |
+ |dateOfBirth |(/) |{noformat:nopanel=true}date{noformat} | |
+        {anchor:IdentifierModelAnchor}
+        h3. Identifier
+        ||Field Name||Required||Type||Description||
+         |namespace |(/) |{noformat:nopanel=true}String{noformat} |Namespace for this identifier. |
+ |id |(/) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:InlineObjectModelAnchor}
+        h3. InlineObject
+        ||Field Name||Required||Type||Description||
+         |trustCode |(x) |{noformat:nopanel=true}String{noformat} |The code for the trust that the worker should be on-boarded to |
+ |engagementRoute |(x) |{noformat:nopanel=true}String{noformat} |The &#39;engagement route&#39; of the worker, such as substantive, bank, agency |
+        {anchor:PersonModelAnchor}
+        h3. Person
+        ||Field Name||Required||Type||Description||
+         |ids |(x) |{noformat:nopanel=true}array[Identifier]{noformat} | Array of identifiers. This should contain as much information as possible in on-boarding in order to facilitate automatic matching where possible. Possible namespaces include - ESR:&lt;trustId&gt;:StaffNumber - The staff number (Where ESR is the system of record, and &lt;trustId&gt; is the Allocate Identifier for the trust) - NI  - the UK National Insurance number - SSN - Social Security   |
+ |identification |(x) |{noformat:nopanel=true}Identification{noformat} | |
+ |personalInfo |(x) |{noformat:nopanel=true}PersonalInfo{noformat} | |
+ |employmentDetails |(x) |{noformat:nopanel=true}EmploymentDetails{noformat} | |
+ |workLocations |(x) |{noformat:nopanel=true}WorkLocations{noformat} | |
+ |postings |(x) |{noformat:nopanel=true}array[Posting]{noformat} | |
+ |contracts |(x) |{noformat:nopanel=true}array[Contract]{noformat} | |
+ |skills |(x) |{noformat:nopanel=true}array[Skill]{noformat} | |
+ |specialties |(x) |{noformat:nopanel=true}array[Specialty]{noformat} | |
+ |attributes |(x) |{noformat:nopanel=true}array[Attribute]{noformat} | |
+ |visas |(x) |{noformat:nopanel=true}array[Visa]{noformat} | |
+ |workingRestrictions |(x) |{noformat:nopanel=true}array[WorkingRestriction]{noformat} | |
+ |availabilities |(x) |{noformat:nopanel=true}Availabilities{noformat} | |
+ |personalPattern |(x) |{noformat:nopanel=true}PersonalPattern{noformat} | |
+        {anchor:PersonalInfoModelAnchor}
+        h3. PersonalInfo
+        ||Field Name||Required||Type||Description||
+         |maidenName |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maritalStatus |(x) |{noformat:nopanel=true}String{noformat} | |
+ |additionalID |(x) |{noformat:nopanel=true}String{noformat} | |
+ |placeOfBirth |(x) |{noformat:nopanel=true}String{noformat} | |
+ |nationality |(x) |{noformat:nopanel=true}String{noformat} | |
+ |ethnicOrigin |(x) |{noformat:nopanel=true}String{noformat} | |
+ |visaRequired |(x) |{noformat:nopanel=true}String{noformat} | |
+ |disabledNo |(x) |{noformat:nopanel=true}String{noformat} | |
+ |disability |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:PersonalPatternModelAnchor}
+        h3. PersonalPattern
+        ||Field Name||Required||Type||Description||
+         |duty |(x) |{noformat:nopanel=true}array[Object]{noformat} | |
+ |unavailability |(x) |{noformat:nopanel=true}array[Object]{noformat} | |
+        {anchor:PostingModelAnchor}
+        h3. Posting
+        ||Field Name||Required||Type||Description||
+         |unit |(/) |{noformat:nopanel=true}String{noformat} | |
+ |post |(x) |{noformat:nopanel=true}String{noformat} | |
+ |postingType |(x) |{noformat:nopanel=true}String{noformat} | |
+ |assignmentNumber |(/) |{noformat:nopanel=true}String{noformat} | |
+ |team |(x) |{noformat:nopanel=true}String{noformat} | |
+ |isPrimary |(/) |{noformat:nopanel=true}Boolean{noformat} | |
+        {anchor:SkillModelAnchor}
+        h3. Skill
+        ||Field Name||Required||Type||Description||
+         |skillGroup |(x) |{noformat:nopanel=true}String{noformat} | |
+ |cluster |(x) |{noformat:nopanel=true}String{noformat} | |
+ |skill |(x) |{noformat:nopanel=true}String{noformat} | |
+ |validity |(/) |{noformat:nopanel=true}DateSpan{noformat} | |
+ |dateGained |(x) |{noformat:nopanel=true}String{noformat} | |
+ |obtainedFromReason |(x) |{noformat:nopanel=true}String{noformat} | |
+ |certificateNumber |(x) |{noformat:nopanel=true}String{noformat} | |
+ |notes |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:SpecialtyModelAnchor}
+        h3. Specialty
+        ||Field Name||Required||Type||Description||
+         |tempStaffSpeciality |(x) |{noformat:nopanel=true}String{noformat} | |
+ |validity |(/) |{noformat:nopanel=true}DateSpan{noformat} | |
+ |notes |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:TimeSpanModelAnchor}
+        h3. TimeSpan
+        ||Field Name||Required||Type||Description||
+         |from |(/) |{noformat:nopanel=true}String{noformat} |Time from, 24hr format |
+ |to |(x) |{noformat:nopanel=true}String{noformat} |Time from, 24hr format |
+        {anchor:VisaModelAnchor}
+        h3. Visa
+        ||Field Name||Required||Type||Description||
+         |number |(x) |{noformat:nopanel=true}String{noformat} | |
+ |country |(x) |{noformat:nopanel=true}String{noformat} | |
+ |issuingOffice |(x) |{noformat:nopanel=true}String{noformat} | |
+ |type |(x) |{noformat:nopanel=true}String{noformat} | |
+ |entries |(x) |{noformat:nopanel=true}String{noformat} | |
+ |validity |(/) |{noformat:nopanel=true}DateSpan{noformat} | |
+        {anchor:WorkLocationsModelAnchor}
+        h3. WorkLocations
+        ||Field Name||Required||Type||Description||
+         |homeTrust |(/) |{noformat:nopanel=true}String{noformat} |The identifier for the home trust for this worker |
+ |workingTrusts |(x) |{noformat:nopanel=true}array[Object]{noformat} |Identifiers for the trusts that the worker may work in (in addition to their home trust) |
+        {anchor:WorkerRegistrationResponseModelAnchor}
+        h3. WorkerRegistrationResponse
+        ||Field Name||Required||Type||Description||
+         |workerId |(/) |{noformat:nopanel=true}String{noformat} |Allocate Worker ID of the person |
+        {anchor:WorkingRestrictionModelAnchor}
+        h3. WorkingRestriction
+        ||Field Name||Required||Type||Description||
+         |title |(/) |{noformat:nopanel=true}String{noformat} | |
+ |validity |(/) |{noformat:nopanel=true}DateSpan{noformat} | |
+ |hoursOfWork |(/) |{noformat:nopanel=true}WorkingRestriction_hoursOfWork{noformat} | |
+ |defaultLeaveHours |(/) |{noformat:nopanel=true}WorkingRestriction_defaultLeaveHours{noformat} | |
+ |restrictions |(/) |{noformat:nopanel=true}WorkingRestriction_restrictions{noformat} | |
+        {anchor:WorkingRestrictionDefaultLeaveHoursModelAnchor}
+        h3. WorkingRestrictionDefaultLeaveHours
+        ||Field Name||Required||Type||Description||
+         |useWorkingDay |(x) |{noformat:nopanel=true}String{noformat} | |
+ |mondayTime |(x) |{noformat:nopanel=true}String{noformat} | |
+ |tuesdayTime |(x) |{noformat:nopanel=true}String{noformat} | |
+ |wednesdayTime |(x) |{noformat:nopanel=true}String{noformat} | |
+ |fridayTime |(x) |{noformat:nopanel=true}String{noformat} | |
+ |saturdayTime |(x) |{noformat:nopanel=true}String{noformat} | |
+ |sundayTime |(x) |{noformat:nopanel=true}String{noformat} | |
+        {anchor:WorkingRestrictionHoursOfWorkModelAnchor}
+        h3. WorkingRestrictionHoursOfWork
+        ||Field Name||Required||Type||Description||
+         |mon |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |tue |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |wed |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |thu |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |fri |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |sat |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+ |sun |(x) |{noformat:nopanel=true}TimeSpan{noformat} | |
+        {anchor:WorkingRestrictionRestrictionsModelAnchor}
+        h3. WorkingRestrictionRestrictions
+        ||Field Name||Required||Type||Description||
+         |effectiveFrom |(x) |{noformat:nopanel=true}String{noformat} | |
+ |daysPerWeek |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxDaysPerWeek |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxShiftsPerWeek |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxConsecutiveDays |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxConsecutiveDaysRequested |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxWorkTimePerDay |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxDurationPerShift |(x) |{noformat:nopanel=true}String{noformat} | |
+ |additionalHoursPerWeek |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxOvertimePerDay |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxOvertimePerWeek |(x) |{noformat:nopanel=true}String{noformat} | |
+ |maxOvertimePerCalendarMonth |(x) |{noformat:nopanel=true}String{noformat} | |
+ |wtdDayStart |(x) |{noformat:nopanel=true}String{noformat} | |
+ |wtdWeekDayStart |(x) |{noformat:nopanel=true}String{noformat} | |
+ |wtdWeekTimeStart |(x) |{noformat:nopanel=true}String{noformat} | |
+ |minBreakBetweenShifts |(x) |{noformat:nopanel=true}BigDecimal{noformat} | |
+ |notes |(x) |{noformat:nopanel=true}String{noformat} | |
